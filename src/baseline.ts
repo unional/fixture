@@ -59,9 +59,7 @@ export const baseline = Object.assign(
       }
     }))
   }, {
-    skip(basePathOrOptions: string | Partial<BaselineOptions>, handler: BaselineHandler): Promise<void> | void {
-      return
-    }
+    skip(basePathOrOptions: string | Partial<BaselineOptions>, handler: BaselineHandler): Promise<void> | void { }
   })
 
 const defaultOptions = {
