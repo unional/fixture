@@ -4,26 +4,78 @@ import mkdirp from 'mkdirp'
 import path from 'path'
 import { unpartial } from 'unpartial'
 
+import { createCopyToBaselineFunction, copyToBaseline } from './copyToBaseline'
 import { NoCaseFound } from './errors'
 import { createMatchFunction, match } from './match'
-import { createCopyToBaselineFunction, copyToBaseline } from './copyToBaseline'
+
 export interface BaselineOptions {
+  /**
+   * Path to the fixture root.
+   */
   basePath: string
+  /**
+   * Name of the cases folder.
+   * Defaults to 'cases'.
+   */
   casesFolder: string
+  /**
+   * Name of the results folder.
+   * Defaults to 'results'.
+   */
   resultsFolder: string
+  /**
+   * Name of the baselines folder.
+   * Defaults to 'baselines'.
+   */
   baselinesFolder: string
+  /**
+   * Filter cases to run.
+   */
   filter?: string | RegExp
 }
 export interface BaselineHandlerContext {
+  /**
+   * Name of the case.
+   * This is the name of the file or the folder.
+   */
   caseName: string,
+  /**
+   * Folder containing the case.
+   * If the case is a file, this is the 'cases' folder.
+   * If the case is a folder, this is the case folder.
+   */
   caseFolder: string,
+  /**
+   * Folder containing the baseline.
+   * This is mostly for reference purpose.
+   * You don't normally need to use this.
+   *
+   * If the case is a file, this is the 'baselines' folder.
+   * If the case is a folder, this is the baseline folder.
+   */
   baselineFolder: string,
+  /**
+   * Folder containing the result.
+   * Use this to write your output file(s).
+   * If the case is a file, this is the 'results' folder.
+   * If the case is a folder, this is the result folder.
+   */
   resultFolder: string,
+  /**
+   * Assert the result and baseline matches.
+   */
   match: match,
+  /**
+   * Helper function to copy the result to baseline.
+   */
   copyToBaseline: copyToBaseline
 }
+
 export type BaselineHandler = (context: BaselineHandlerContext) => Promise<void> | void
 
+/**
+ * Iterates files/folders for `cases|results|baselines` testing.
+ */
 export const baseline = Object.assign(
   function baseline(basePathOrOptions: string | Partial<BaselineOptions>, handler: BaselineHandler) {
     const options = getOptions(basePathOrOptions)

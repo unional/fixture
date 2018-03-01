@@ -11,8 +11,52 @@
 
 Provides fixture for tests.
 
+## Usage
+
 ```ts
-import { fixture } from '@unional/fixture'
+import { baseline } from '@unional/fixture'
+
+// basic usage
+baseline('fixtures', (context) => {
+  // `test()` comes from your favorite test runner.
+  // e.g. `ava`, `jest`, `mocha`
+  test(context.caseName, async () => {
+    // use caseFolder + caseName to get input file
+    fs.readFileSync(path.join(context.caseFolder, caseName), 'utf-8')
+
+    // use resultFolder to write output file
+    fs.writeFileSync(path.join(context.resultFolder, 'output.txt', '<some data>'))
+
+    // match compares file(s) in result folder and baseline folder
+    await context.match('output.txt')
+    // can use wildcard
+    await context.match('*.txt')
+    // compare the whole folder (and subfolders)
+    // this is useful if you organize each case in its own folder
+    await context.match()
+
+    // if you are happy with the change,
+    // use this to copy the artifacts from result folder to baseline folder
+    await context.copyToBaseline('*.txt')
+  })
+
+  // advance usage
+  baseline({
+    basePath: 'fixtures',
+    // default: 'cases'
+    casesFolder: 'scenarios',
+    // default: 'results'
+    resultsFolder: 'actuals',
+    // default: 'baselines'
+    baselinesFolder: 'expects',
+    // filter for specific cases
+    // can use wildcards or RegExp
+    filter: '*.pass'
+  }, (context) => {
+    ...
+  })
+})
+
 ```
 
 ## Contribute

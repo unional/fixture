@@ -1,9 +1,9 @@
 import dirCompare from 'dir-compare'
 import fs from 'fs'
 import path from 'path'
+import { Tersify } from 'tersify'
 
 import { MissingFile, MismatchFile, Mismatch, MissingDirectory } from './errors'
-import { Tersify } from 'tersify';
 
 export type match = (caseName?: string) => Promise<any>
 
