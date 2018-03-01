@@ -9,10 +9,10 @@
   ],
   "scripts": {
     "build": "npm run build-es2015",
-    "build-es2015": "tsc -p tsconfig.build.json",
+    "build-es2015": "tsc -p tsconfig.base.json",
     "clean": "rimraf dist dist-es2015",
     "coverage": "jest --coverage",
-    "dependency-check": "dependency-check . --unused --no-dev && dependency-check . --missing --no-dev",
+    "dependency-check": "dependency-check . --unused --no-dev -i tersify && dependency-check . --missing --no-dev",
     "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
     "prepublishOnly": "npm run clean && npm run build",
     "test": "tsc && jest",
@@ -68,10 +68,7 @@
   },
   "dependencies": {
     "cp-file": "^5.0.0",
-    "diff": "^3.4.0",
-    "difflet": "^1.0.1",
     "dir-compare": "^1.4.0",
-    "fast-diff": "^1.1.2",
     "glob": "^7.1.2",
     "matcher": "^1.1.0",
     "mkdirp": "^0.5.1",
