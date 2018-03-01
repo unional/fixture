@@ -51,6 +51,7 @@ export const baseline = Object.assign(
       if (isDir) {
         const context = createContextForDirectory(caseName, casesFolder, baselinesFolder, resultsFolder)
         ensureFolderExist(context.resultFolder)
+        ensureFolderExist(context.baselineFolder)
         return handler(context)
       }
       else {
