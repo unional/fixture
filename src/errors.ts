@@ -39,7 +39,7 @@ export class MismatchFile {
         else if (part.removed)
           return chalk.red(`- ${value}`)
         else
-          return value
+          return `  ${value}`
       }).join('')
   }
 }
