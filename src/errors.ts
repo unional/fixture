@@ -33,14 +33,14 @@ export class MismatchFile {
   private formatLinesDiff() {
     return jsdiff.diffLines(this.actual, this.expected)
       .map(function (part) {
-        const value = part.value.replace(/(\r\n|\n|\r)/gm, '')
+        const value = part.value
         if (part.added)
           return chalk.green(`+ ${value}`)
         else if (part.removed)
           return chalk.red(`- ${value}`)
         else
           return value
-      }).join('\n')
+      }).join('')
   }
 }
 
