@@ -31,15 +31,15 @@ export class MismatchFile {
       }).join('')
   }
   private formatLinesDiff() {
-    return jsdiff.diffLines(this.actual, this.expected)
+    return jsdiff.diffLines(this.actual, this.expected, { newlineIsToken: true })
       .map(function (part) {
         const value = part.value
         if (part.added)
-          return chalk.green(`+ ${value}`)
+          return chalk.green(`+ ${value}\n`)
         else if (part.removed)
-          return chalk.red(`- ${value}`)
+          return chalk.red(`- ${value}\n`)
         else
-          return `  ${value}`
+          return value.split('\n').map(v => v ? `  ${v}` : v).join('\n')
       }).join('')
   }
 }
@@ -60,7 +60,7 @@ export class MissingDirectory {
 
 export class Mismatch extends Error {
   constructor(public mismatches: Tersify[]) {
-    super(`Mismatch detected:\n${mismatches.map(m => m.tersify()).join('\n')}`)
+    super(`Mismatch detected: \n${mismatches.map(m => m.tersify()).join('\n')} `)
 
     Object.setPrototypeOf(this, new.target.prototype)
   }
