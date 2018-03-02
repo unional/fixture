@@ -71,7 +71,7 @@
     "diff": "^3.4.0",
     "dir-compare": "^1.4.0",
     "glob": "^7.1.2",
-    "matcher": "^1.1.0",
+    "minimatch": "^3.0.4",
     "mkdirp": "^0.5.1",
     "tersify": "^1.2.2",
     "unpartial": "^0.4.1"

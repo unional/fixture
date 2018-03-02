@@ -1,5 +1,5 @@
 import fs from 'fs'
-import matcher from 'matcher'
+import minimatch from 'minimatch'
 import mkdirp from 'mkdirp'
 import path from 'path'
 import { unpartial } from 'unpartial'
@@ -129,7 +129,7 @@ function getShouldIncludePredicate(filter: string | RegExp | undefined) {
   if (filter instanceof RegExp)
     return (path) => filter.test(path)
   if (typeof filter === 'string')
-    return (path) => matcher.isMatch(path, filter)
+    return (path) => minimatch(path, filter)
   return (_path) => true
 }
 
