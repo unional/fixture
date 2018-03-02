@@ -35,9 +35,9 @@ export class MismatchFile {
       .map(function (part) {
         const value = part.value
         if (part.added)
-          return chalk.green(`+ ${value}\n`)
+          return chalk.green(`+ ${value.replace(/\n/, '\n+ ')}\n`)
         else if (part.removed)
-          return chalk.red(`- ${value}\n`)
+          return chalk.red(`- ${value.replace(/\n/, '\n- ')}\n`)
         else
           return value.split('\n').map(v => v ? `  ${v}` : v).join('\n')
       }).join('')
