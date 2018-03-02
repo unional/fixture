@@ -84,6 +84,18 @@ test('filter cases using wildcards', async () => {
   o.end()
 })
 
+test('filter with negate keeps others', async () => {
+  const o = new AssertOrder()
+  await baseline({
+    basePath: 'fixtures/file-cases',
+    filter: '!file1.txt'
+  }, ({ caseName }) => {
+    assert.equal(caseName, 'file2.txt')
+    o.once(1)
+  })
+  o.end()
+})
+
 test(`'results' folder is created for file cases`, () => {
   ensureFolderNotExist('fixtures/no-file-results/results')
 
