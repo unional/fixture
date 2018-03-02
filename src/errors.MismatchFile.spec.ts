@@ -7,7 +7,7 @@ test('single line file will diff by words', () => {
   assert.equal(actual.indexOf('+'), -1)
 })
 
-test('multiline file will diff by words', () => {
+test('multiline file will diff by lines', () => {
   const actual = (new MismatchFile('a', 'beep\nboop', 'b', 'beep\nboob blah')).tersify()
   assert(actual.indexOf('+') > 0)
 })
