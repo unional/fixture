@@ -24,7 +24,8 @@ script:
 
 after_success:
   - ./scripts/run-on-node-version.sh 9 "npm install -g coveralls codecov"
-  - ./scripts/run-on-node-version.sh 9 "npm run semantic-release"
+  - npm install -g travis-deploy-once@4
+  - travis-deploy-once "npm run semantic-release"
   - ./scripts/run-on-node-version.sh 9 "cat ./coverage/lcov.info | coveralls"
   - ./scripts/run-on-node-version.sh 9 "codecov"
 
