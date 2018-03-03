@@ -2,6 +2,7 @@ import fs from 'fs'
 import minimatch from 'minimatch'
 import mkdirp from 'mkdirp'
 import path from 'path'
+import rimraf from 'rimraf'
 import { unpartial } from 'unpartial'
 
 import { createCopyToBaselineFunction, copyToBaseline } from './copyToBaseline'
@@ -102,7 +103,7 @@ export const baseline = Object.assign(
       const isDir = isDirectory(casePath)
       if (isDir) {
         const context = createContextForDirectory(caseName, casesFolder, baselinesFolder, resultsFolder)
-        ensureFolderExist(context.resultFolder)
+        ensureFolderEmpty(context.resultFolder)
         ensureFolderExist(context.baselineFolder)
         return handler(context)
       }
@@ -144,6 +145,12 @@ function isDirectory(subject) {
 function ensureFolderExist(folder: string) {
   if (!fs.existsSync(folder))
     mkdirp.sync(folder)
+}
+
+function ensureFolderEmpty(folder: string) {
+  if (fs.existsSync(folder))
+    rimraf.sync(folder)
+  mkdirp.sync(folder)
 }
 
 function createContextForDirectory(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string): BaselineHandlerContext {

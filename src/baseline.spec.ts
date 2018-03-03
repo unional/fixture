@@ -1,6 +1,7 @@
 import assert from 'assert'
 import { AssertOrder, assertron } from 'assertron'
 import fs from 'fs'
+import mkdirp from 'mkdirp'
 import path from 'path'
 import rimraf from 'rimraf'
 
@@ -263,6 +264,16 @@ test(`Provided copyToBaseline() saves result to baseline for dir case`, async ()
   })
 
   assert(fs.existsSync('fixtures/save-dir/baselines/case-1/file1.txt'))
+})
+
+test('Result folder is empty when handler is called for dir case', () => {
+  mkdirp.sync('fixtures/dirty-result-folder/results/case-1')
+  fs.writeFileSync('fixtures/dirty-result-folder/results/case-1/dirty.txt', 'dirty')
+
+  return baseline('fixtures/dirty-result-folder', ({ caseName }) => {
+    const actual = fs.readdirSync('fixtures/dirty-result-folder/results/case-1/')
+    assert(actual.length === 0)
+  })
 })
 
 function ensureFolderNotExist(folder: string) {
