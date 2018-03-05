@@ -71,7 +71,7 @@ export interface BaselineHandlerContext {
   copyToBaseline: copyToBaseline
 }
 
-export type BaselineHandler = (context: BaselineHandlerContext) => Promise<void> | void
+export type BaselineHandler = (context: BaselineHandlerContext) => void
 
 /**
  * Iterates files/folders for `cases|results|baselines` testing.
@@ -97,7 +97,7 @@ export const baseline = Object.assign(
     ensureFolderExist(resultsFolder)
     ensureFolderExist(baselinesFolder)
 
-    return Promise.all(cases.map(caseName => {
+    cases.forEach(caseName => {
       const casePath = path.join(casesFolder, caseName)
       const isDir = isFolder(casePath)
       if (isDir) {
@@ -109,7 +109,7 @@ export const baseline = Object.assign(
         const context = createContextForFile(caseName, casesFolder, baselinesFolder, resultsFolder, options)
         return handler(context)
       }
-    }))
+    })
   }, {
     skip(basePathOrOptions: string | Partial<BaselineOptions>, handler: BaselineHandler): Promise<void> | void { }
   })
