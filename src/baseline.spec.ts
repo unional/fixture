@@ -184,7 +184,7 @@ test('provided match() rejects with files in folder not match by content', () =>
   })
 })
 
-test.only('provided match() rejects when missing baseline folder', () => {
+test('provided match() rejects when missing baseline folder', () => {
   ensureFolderNotExist('fixtures/dir-miss-baseline-folder/baselines/case-1')
 
   return assertron.throws(new Promise(a => {
