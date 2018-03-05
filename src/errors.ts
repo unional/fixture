@@ -1,6 +1,9 @@
-import chalk from 'chalk'
 import * as jsdiff from 'diff'
 import { Tersify } from 'tersify'
+
+import { DiffFormatOptions, createDiff, formatDiff } from './diff'
+
+export * from './MismatchFile'
 
 export class NoCaseFound extends Error {
   constructor(public dir: string) {
@@ -10,51 +13,29 @@ export class NoCaseFound extends Error {
   }
 }
 
-export class MismatchFile {
-  constructor(public actualPath: string, public actual: string, public expectedPath: string, public expected: string) { }
+export class MissingResultFile {
+  diff: jsdiff.IDiffResult[]
+  formattedDiff: string
+  constructor(public filePath: string, baseline: string, options: DiffFormatOptions) {
+    const diff = createDiff('', baseline)
+    this.diff = diff.diff
+    this.formattedDiff = formatDiff(diff, options)
+  }
   tersify() {
-    const formattedDiff = this.formatDiff()
-    return `File '${this.actualPath}' does not match with '${this.expectedPath}'.\n\n${formattedDiff}`
-  }
-  private formatDiff() {
-    return this.actual.indexOf('\n') === -1 && this.expected.indexOf('\n') === -1 ? this.formatWordsDiff() : this.formatLinesDiff()
-  }
-  private formatWordsDiff() {
-    return jsdiff.diffWords(this.actual, this.expected)
-      .map(function (part) {
-        if (part.added)
-          return chalk.green(part.value)
-        else if (part.removed)
-          return chalk.red(part.value)
-        else
-          return part.value
-      }).join('')
-  }
-  private formatLinesDiff() {
-    return jsdiff.diffLines(this.actual, this.expected, { newlineIsToken: true })
-      .map(function (part) {
-        const value = part.value
-        if (part.added)
-          return chalk.green(`+ ${value.replace(/\n/, '\n+ ')}\n`)
-        else if (part.removed)
-          return chalk.red(`- ${value.replace(/\n/, '\n- ')}\n`)
-        else
-          return value.split('\n').map(v => v ? `  ${v}` : v).join('\n')
-      }).join('')
+    return `Missing result file '${this.filePath}'.\n\n${this.formattedDiff}`
   }
 }
 
-export class MissingFile {
-  constructor(public filePath: string) { }
-  tersify() {
-    return `Missing file '${this.filePath}'`
+export class ExtraResultFile {
+  diff: jsdiff.IDiffResult[]
+  formattedDiff: string
+  constructor(public filePath: string, result: string, options: DiffFormatOptions) {
+    const diff = createDiff(result, '')
+    this.diff = diff.diff
+    this.formattedDiff = formatDiff(diff, options)
   }
-}
-
-export class MissingDirectory {
-  constructor(public dirPath: string) { }
   tersify() {
-    return `Missing directory '${this.dirPath}'`
+    return `Extra result file '${this.filePath}'.\n\n${this.formattedDiff}`
   }
 }
 

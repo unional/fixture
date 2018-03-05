@@ -1,0 +1,6 @@
+ 57:         sang: current
+ 58:         without: true
+[31m 59: -       parts: false[39m
+[32m     +       parts: true[39m
+ 60:         medicine: tube
+ 61:         explore: false

@@ -72,6 +72,7 @@
     "glob": "^7.1.2",
     "minimatch": "^3.0.4",
     "mkdirp": "^0.5.1",
+    "pad-left": "^2.1.0",
     "rimraf": "^2.6.2",
     "tersify": "^1.2.2",
     "unpartial": "^0.4.1"

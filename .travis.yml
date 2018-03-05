@@ -8,6 +8,8 @@ node_js:
   - '9'
   - '8'
   - '6'
+env:
+  - FORCE_COLOR: 1
 branches:
   only:
     - master
