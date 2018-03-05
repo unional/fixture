@@ -1,7 +1,7 @@
 {
   "name": "@unional/fixture",
   "description": "Provides fixture to tests",
-  "version": "1.2.1",
+  "version": "v0.0.0-development",
   "main": "dist-es2015/index.js",
   "typings": "dist-es2015/index.d.ts",
   "files": [
