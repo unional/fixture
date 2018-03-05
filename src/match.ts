@@ -47,7 +47,8 @@ export function createMatchFunction(baselineFolder: string, resultFolder: string
           throw new Mismatch(mismatches)
       }, async err => {
         if (err.code === 'ENOENT') {
-          if (err.path === path.resolve(baselinePath))
+          if ((path.isAbsolute(err.path) && err.path === path.resolve(baselinePath)) ||
+            err.path === baselinePath)
             throw await getMissingBaselineMismatch(baselinePath, resultPath, options)
           else
             throw await getMissingResultMismatch(resultPath, baselinePath, options)
