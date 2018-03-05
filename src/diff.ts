@@ -61,7 +61,10 @@ function formatManyLinesDiff(diff: jsdiff.IDiffResult[], totalLineCount: number,
     if (part.removed) {
       return chalk.red(`${padLeft(part.count, padding)}: - ${part.value}`)
     }
-    return `${padLeft(part.count, padding)}:   ${part.value}`
+    if (part.count)
+      return `${padLeft(part.count, padding)}:   ${part.value}`
+    else
+      return `${padLeft('', padding)}  ${part.value}`
   }).join('\n')
 }
 
@@ -106,10 +109,15 @@ function getTrimmedLineDiffs(diff: jsdiff.IDiffResult[], numOfAmbientLines: numb
     }
   })
   const trimmedLines: jsdiff.IDiffResult[] = []
-
+  let lastCount: number
   allLines.forEach(line => {
-    if (line.count === undefined || inRange(anchors, numOfAmbientLines, line.count))
+    if (line.count === undefined || inRange(anchors, numOfAmbientLines, line.count)) {
+      if (line.count && lastCount && lastCount !== line.count - 1)
+        trimmedLines.push({ value: chalk.cyan('......') })
       trimmedLines.push(line)
+      if (line.count)
+        lastCount = line.count
+    }
   })
   return trimmedLines
 }
