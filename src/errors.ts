@@ -1,46 +1,12 @@
-import chalk from 'chalk'
-import * as jsdiff from 'diff'
 import { Tersify } from 'tersify'
+
+export * from './MismatchFile'
 
 export class NoCaseFound extends Error {
   constructor(public dir: string) {
     super(`No test cases found in '${dir}'`)
 
     Object.setPrototypeOf(this, new.target.prototype)
-  }
-}
-
-export class MismatchFile {
-  constructor(public actualPath: string, public actual: string, public expectedPath: string, public expected: string) { }
-  tersify() {
-    const formattedDiff = this.formatDiff()
-    return `File '${this.actualPath}' does not match with '${this.expectedPath}'.\n\n${formattedDiff}`
-  }
-  private formatDiff() {
-    return this.actual.indexOf('\n') === -1 && this.expected.indexOf('\n') === -1 ? this.formatWordsDiff() : this.formatLinesDiff()
-  }
-  private formatWordsDiff() {
-    return jsdiff.diffWords(this.actual, this.expected)
-      .map(function (part) {
-        if (part.added)
-          return chalk.green(part.value)
-        else if (part.removed)
-          return chalk.red(part.value)
-        else
-          return part.value
-      }).join('')
-  }
-  private formatLinesDiff() {
-    return jsdiff.diffLines(this.actual, this.expected, { newlineIsToken: true })
-      .map(function (part) {
-        const value = part.value
-        if (part.added)
-          return chalk.green(`+ ${value.replace(/\n/, '\n+ ')}\n`)
-        else if (part.removed)
-          return chalk.red(`- ${value.replace(/\n/, '\n- ')}\n`)
-        else
-          return value.split('\n').map(v => v ? `  ${v}` : v).join('\n')
-      }).join('')
   }
 }
 

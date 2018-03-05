@@ -1,0 +1,6 @@
+ 4:   without: true
+ 5:   parts: false
+[32m    + added:[39m
+[32m    +   part: foo[39m
+ 6:   medicine: tube
+ 7:   explore: false

@@ -1,6 +1,7 @@
 {
   "extends": "tslint-config-unional/semi-standard",
   "rules": {
-    "no-empty": false
+    "no-empty": false,
+    "trailing-comma": false
   }
 }

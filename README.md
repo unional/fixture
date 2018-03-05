@@ -51,7 +51,13 @@ baseline('fixtures', (context) => {
     baselinesFolder: 'expects',
     // filter for specific cases
     // can use wildcards or RegExp
-    filter: '*.pass'
+    filter: '*.pass',
+    // If the file has more lines than this threshold,
+    // then the file will be diff with line numbers,
+    // and the unchanged lines will be trimmed off.
+    largeFileThreshold: 100,
+    // Controls how many unchanged lines will be shown around the changes.
+    largeFileAmbientLines: 5
   }, (context) => {
     ...
   })

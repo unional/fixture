@@ -1,15 +1,14 @@
 import fs from 'fs'
 import minimatch from 'minimatch'
-import mkdirp from 'mkdirp'
 import path from 'path'
-import rimraf from 'rimraf'
 import { unpartial } from 'unpartial'
 
 import { createCopyToBaselineFunction, copyToBaseline } from './copyToBaseline'
-import { NoCaseFound } from './errors'
+import { NoCaseFound, MismatchFileOptions } from './errors'
+import { isHidden, isFolder, ensureFolderEmpty, ensureFolderExist } from './fsUtils'
 import { createMatchFunction, match } from './match'
 
-export interface BaselineOptions {
+export interface BaselineOptions extends MismatchFileOptions {
   /**
    * Path to the fixture root.
    */
@@ -100,15 +99,14 @@ export const baseline = Object.assign(
 
     return Promise.all(cases.map(caseName => {
       const casePath = path.join(casesFolder, caseName)
-      const isDir = isDirectory(casePath)
+      const isDir = isFolder(casePath)
       if (isDir) {
-        const context = createContextForDirectory(caseName, casesFolder, baselinesFolder, resultsFolder)
+        const context = createContextForDirectory(caseName, casesFolder, baselinesFolder, resultsFolder, options)
         ensureFolderEmpty(context.resultFolder)
-        ensureFolderExist(context.baselineFolder)
         return handler(context)
       }
       else {
-        const context = createContextForFile(caseName, casesFolder, baselinesFolder, resultsFolder)
+        const context = createContextForFile(caseName, casesFolder, baselinesFolder, resultsFolder, options)
         return handler(context)
       }
     }))
@@ -119,7 +117,9 @@ export const baseline = Object.assign(
 const defaultOptions = {
   casesFolder: 'cases',
   resultsFolder: 'results',
-  baselinesFolder: 'baselines'
+  baselinesFolder: 'baselines',
+  largeFileThreshold: 100,
+  largeFileAmbientLines: 5
 } as BaselineOptions
 
 function getOptions(givenOptions: string | Partial<BaselineOptions>) {
@@ -134,30 +134,11 @@ function getShouldIncludePredicate(filter: string | RegExp | undefined) {
   return (_path) => true
 }
 
-function isHidden(subject) {
-  return (/(^|\/)\.[^\/\.]/g).test(subject)
-}
-
-function isDirectory(subject) {
-  return fs.lstatSync(path.resolve(subject)).isDirectory()
-}
-
-function ensureFolderExist(folder: string) {
-  if (!fs.existsSync(folder))
-    mkdirp.sync(folder)
-}
-
-function ensureFolderEmpty(folder: string) {
-  if (fs.existsSync(folder))
-    rimraf.sync(folder)
-  mkdirp.sync(folder)
-}
-
-function createContextForDirectory(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string): BaselineHandlerContext {
+function createContextForDirectory(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: MismatchFileOptions): BaselineHandlerContext {
   const caseFolder = path.join(casesFolder, caseName)
   const baselineFolder = path.join(baselinesFolder, caseName)
   const resultFolder = path.join(resultsFolder, caseName)
-  const match = createMatchFunction(baselineFolder, resultFolder)
+  const match = createMatchFunction(baselineFolder, resultFolder, options)
   const copyToBaseline = createCopyToBaselineFunction(baselineFolder, resultFolder)
   return {
     caseName,
@@ -169,11 +150,11 @@ function createContextForDirectory(caseName: string, casesFolder: string, baseli
   }
 }
 
-function createContextForFile(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string): BaselineHandlerContext {
+function createContextForFile(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: MismatchFileOptions): BaselineHandlerContext {
   const caseFolder = casesFolder
   const baselineFolder = baselinesFolder
   const resultFolder = resultsFolder
-  const match = createMatchFunction(baselineFolder, resultFolder)
+  const match = createMatchFunction(baselineFolder, resultFolder, options)
   const copyToBaseline = createCopyToBaselineFunction(baselineFolder, resultFolder)
   return {
     caseName,
