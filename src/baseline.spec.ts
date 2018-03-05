@@ -5,7 +5,7 @@ import mkdirp from 'mkdirp'
 import path from 'path'
 import rimraf from 'rimraf'
 
-import { baseline, NoCaseFound, Mismatch, MismatchFile, MissingFile, MissingDirectory } from '.'
+import { baseline, NoCaseFound, Mismatch, MismatchFile, ExtraResultFile, MissingResultFile } from '.'
 import { ensureFolderExist } from './fsUtils'
 
 test('load from not exist folder throws NoCaseFound', () => {
@@ -192,19 +192,17 @@ test('provided match() rejects when missing baseline folder', () => {
       a(match())
     })
   }), err => {
-    if (!(err instanceof Mismatch) || err.mismatches.length !== 2)
+    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
       return false
     const m1 = err.mismatches[0]
-    const m2 = err.mismatches[1]
-    return m1 instanceof MissingDirectory &&
-      m1.dirPath === 'fixtures/dir-miss-baseline-folder/baselines/case-1' &&
-      m2 instanceof MismatchFile &&
-      m2.diff.length === 1 &&
-      m2.diff[0].added === true
+    return m1 instanceof ExtraResultFile &&
+      m1.filePath === 'fixtures/dir-miss-baseline-folder/results/case-1/output.txt' &&
+      m1.diff.length === 1 &&
+      m1.diff[0].added === true
   })
 })
 
-test('provided match() rejects when missing baseline folder with sub-folder', () => {
+test('provided match() rejects when missing baseline folder and sub-folder', () => {
   ensureFolderNotExist('fixtures/dir-miss-baseline-folder-deep/baselines/case-1')
   return assertron.throws(new Promise(a => {
     baseline('fixtures/dir-miss-baseline-folder-deep', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
@@ -213,15 +211,13 @@ test('provided match() rejects when missing baseline folder with sub-folder', ()
       a(match())
     })
   }), err => {
-    if (!(err instanceof Mismatch) || err.mismatches.length !== 2)
+    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
       return false
     const m1 = err.mismatches[0]
-    const m2 = err.mismatches[1]
-    return m1 instanceof MissingDirectory &&
-      m1.dirPath === 'fixtures/dir-miss-baseline-folder-deep/baselines/case-1' &&
-      m2 instanceof MismatchFile &&
-      (m2.diff.length === 1) &&
-      m2.diff[0].added === true
+    return m1 instanceof ExtraResultFile &&
+      m1.filePath === 'fixtures/dir-miss-baseline-folder-deep/results/case-1/sub-folder/output.txt' &&
+      m1.diff.length === 1 &&
+      m1.diff[0].added === true
   })
 })
 
@@ -234,16 +230,35 @@ test('provided match() rejects when missing baseline file', () => {
       a(match('result.txt'))
     })
   }), err => {
-    if (!(err instanceof Mismatch) || err.mismatches.length !== 2)
+    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
       return false
 
     const m1 = err.mismatches[0]
-    const m2 = err.mismatches[1]
-    return m1 instanceof MissingFile &&
-      m1.filePath === 'fixtures/dir-miss-baseline-file/baselines/case-1/result.txt' &&
-      m2 instanceof MismatchFile &&
-      m2.diff.length === 1 &&
-      m2.diff[0].added === true
+    return m1 instanceof ExtraResultFile &&
+      m1.filePath === 'fixtures/dir-miss-baseline-file/results/case-1/result.txt' &&
+      m1.diff.length === 1 &&
+      m1.diff[0].added === true
+  })
+})
+
+test('provided match() rejects when missing baseline folder with sub-folder', () => {
+  ensureFolderExist('fixtures/dir-miss-baseline-folder-no-sub/baselines/case-1')
+
+  ensureFolderNotExist('fixtures/dir-miss-baseline-folder-no-sub/baselines/case-1/sub-folder')
+  return assertron.throws(new Promise(a => {
+    baseline('fixtures/dir-miss-baseline-folder-no-sub', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+      ensureFolderExist('fixtures/dir-miss-baseline-folder-no-sub/results/case-1/sub-folder')
+      fs.writeFileSync(path.join(resultFolder, 'sub-folder/output.txt'), 'actual line 1\nactual line 2')
+      a(match())
+    })
+  }), err => {
+    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
+      return false
+    const m1 = err.mismatches[0]
+    return m1 instanceof ExtraResultFile &&
+      m1.filePath === 'fixtures/dir-miss-baseline-folder-no-sub/results/case-1/sub-folder/output.txt' &&
+      m1.diff.length === 1 &&
+      m1.diff[0].added === true
   })
 })
 
@@ -253,16 +268,14 @@ test('provided match() rejects when missing result file', () => {
       a(match('output.txt'))
     })
   }), err => {
-    if (!(err instanceof Mismatch) || err.mismatches.length !== 2)
+    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
       return false
 
     const m1 = err.mismatches[0]
-    const m2 = err.mismatches[1]
-    return m1 instanceof MissingFile &&
+    return m1 instanceof MissingResultFile &&
       m1.filePath === 'fixtures/dir-miss-result-file/results/case-1/output.txt' &&
-      m2 instanceof MismatchFile &&
-      m2.diff.length === 1 &&
-      m2.diff[0].removed === true
+      m1.diff.length === 1 &&
+      m1.diff[0].removed === true
   })
 })
 
@@ -272,15 +285,14 @@ test('provided match() rejects when missing result file in subfolder', () => {
       a(match())
     })
   }), err => {
-    if (!(err instanceof Mismatch) || err.mismatches.length !== 2)
+    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
       return false
 
-    const d = err.mismatches[0]
-    const f = err.mismatches[1]
-    return d instanceof MissingDirectory &&
-      d.dirPath === 'fixtures/dir-miss-result-file-deep/results/case-1/sub-folder' &&
-      f instanceof MissingFile &&
-      f.filePath === 'fixtures/dir-miss-result-file-deep/results/case-1/sub-folder/file1.txt'
+    const m1 = err.mismatches[0]
+    return m1 instanceof MissingResultFile &&
+      m1.filePath === 'fixtures/dir-miss-result-file-deep/results/case-1/sub-folder/file1.txt' &&
+      m1.diff.length === 1 &&
+      m1.diff[0].removed === true
   })
 })
 

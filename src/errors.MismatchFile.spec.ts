@@ -20,7 +20,7 @@ baseline({
     const source = fs.readFileSync(path.join(c.caseFolder, 'source.yaml'), 'utf-8')
     const target = fs.readFileSync(path.join(c.caseFolder, 'target.yaml'), 'utf-8')
 
-    const mismatch = new MismatchFile('source.yaml', source, 'target.yaml', target, { largeFileThreshold: 5, largeFileAmbientLines: 2 })
+    const mismatch = new MismatchFile('target.yaml', target, 'source.yaml', source, { largeFileThreshold: 5, largeFileAmbientLines: 2 })
 
     fs.writeFileSync(path.join(c.resultFolder, 'result.yaml'), mismatch.formattedDiff)
     // console.info(c.caseName)

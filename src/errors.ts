@@ -1,4 +1,7 @@
+import * as jsdiff from 'diff'
 import { Tersify } from 'tersify'
+
+import { DiffFormatOptions, createDiff, formatDiff } from './diff'
 
 export * from './MismatchFile'
 
@@ -10,17 +13,29 @@ export class NoCaseFound extends Error {
   }
 }
 
-export class MissingFile {
-  constructor(public filePath: string) { }
+export class MissingResultFile {
+  diff: jsdiff.IDiffResult[]
+  formattedDiff: string
+  constructor(public filePath: string, baseline: string, options: DiffFormatOptions) {
+    const diff = createDiff('', baseline)
+    this.diff = diff.diff
+    this.formattedDiff = formatDiff(diff, options)
+  }
   tersify() {
-    return `Missing file '${this.filePath}'`
+    return `Missing result file '${this.filePath}'.\n\n${this.formattedDiff}`
   }
 }
 
-export class MissingDirectory {
-  constructor(public dirPath: string) { }
+export class ExtraResultFile {
+  diff: jsdiff.IDiffResult[]
+  formattedDiff: string
+  constructor(public filePath: string, result: string, options: DiffFormatOptions) {
+    const diff = createDiff(result, '')
+    this.diff = diff.diff
+    this.formattedDiff = formatDiff(diff, options)
+  }
   tersify() {
-    return `Missing directory '${this.dirPath}'`
+    return `Extra result file '${this.filePath}'.\n\n${this.formattedDiff}`
   }
 }
 

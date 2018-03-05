@@ -4,11 +4,12 @@ import path from 'path'
 import { unpartial } from 'unpartial'
 
 import { createCopyToBaselineFunction, copyToBaseline } from './copyToBaseline'
-import { NoCaseFound, MismatchFileOptions } from './errors'
+import { DiffFormatOptions } from './diff'
+import { NoCaseFound } from './errors'
 import { isHidden, isFolder, ensureFolderEmpty, ensureFolderExist } from './fsUtils'
 import { createMatchFunction, match } from './match'
 
-export interface BaselineOptions extends MismatchFileOptions {
+export interface BaselineOptions extends DiffFormatOptions {
   /**
    * Path to the fixture root.
    */
@@ -134,7 +135,7 @@ function getShouldIncludePredicate(filter: string | RegExp | undefined) {
   return (_path) => true
 }
 
-function createContextForDirectory(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: MismatchFileOptions): BaselineHandlerContext {
+function createContextForDirectory(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: DiffFormatOptions): BaselineHandlerContext {
   const caseFolder = path.join(casesFolder, caseName)
   const baselineFolder = path.join(baselinesFolder, caseName)
   const resultFolder = path.join(resultsFolder, caseName)
@@ -150,7 +151,7 @@ function createContextForDirectory(caseName: string, casesFolder: string, baseli
   }
 }
 
-function createContextForFile(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: MismatchFileOptions): BaselineHandlerContext {
+function createContextForFile(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: DiffFormatOptions): BaselineHandlerContext {
   const caseFolder = casesFolder
   const baselineFolder = baselinesFolder
   const resultFolder = resultsFolder
