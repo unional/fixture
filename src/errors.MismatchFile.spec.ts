@@ -1,7 +1,10 @@
+import chalk from 'chalk'
 import fs from 'fs'
 import path from 'path'
 
 import { MismatchFile, baseline } from '.'
+
+chalk.enabled = true
 
 const cases = {
   'single-line': 'single line file will diff by words',
