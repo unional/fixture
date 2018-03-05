@@ -47,10 +47,10 @@ export function createMatchFunction(baselineFolder: string, resultFolder: string
           throw new Mismatch(mismatches)
       }, async err => {
         if (err.code === 'ENOENT') {
-          if (err.path === baselinePath)
-            throw await getMissingBaselineMismatch(err.path, resultPath, options)
+          if (err.path === path.resolve(baselinePath))
+            throw await getMissingBaselineMismatch(baselinePath, resultPath, options)
           else
-            throw await getMissingResultMismatch(err.path, baselinePath, options)
+            throw await getMissingResultMismatch(resultPath, baselinePath, options)
         }
         // istanbul ignore next
         throw err
