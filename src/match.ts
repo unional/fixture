@@ -39,8 +39,6 @@ export function createMatchFunction(baselineFolder: string, resultFolder: string
             const file1 = fs.readFileSync(filename1, 'utf-8')
             const file2 = fs.readFileSync(filename2, 'utf-8')
             if (file1 !== file2) {
-              console.info('file1', { file1 })
-              console.info('file2', { file2 })
               mismatches.push(new MismatchFile(filename2, file2, filename1, file1, options))
             }
           }
