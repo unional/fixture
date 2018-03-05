@@ -111,8 +111,8 @@ function getTrimmedLineDiffs(diff: jsdiff.IDiffResult[], numOfAmbientLines: numb
   const trimmedLines: jsdiff.IDiffResult[] = []
   let lastCount: number
   allLines.forEach(line => {
-    if (line.count === undefined || inRange(anchors, numOfAmbientLines, line.count)) {
-      if (line.count && lastCount && lastCount !== line.count - 1)
+    if (inRange(anchors, numOfAmbientLines, line)) {
+      if (line.count && !line.removed && lastCount && lastCount !== line.count - 1)
         trimmedLines.push({ value: chalk.cyan('......') })
       trimmedLines.push(line)
       if (line.count)
@@ -122,6 +122,7 @@ function getTrimmedLineDiffs(diff: jsdiff.IDiffResult[], numOfAmbientLines: numb
   return trimmedLines
 }
 
-function inRange(anchors: number[], range: number, lineNumber: number) {
-  return anchors.some(a => lineNumber > a - range && lineNumber <= a + range)
+function inRange(anchors: number[], range: number, line: jsdiff.IDiffResult) {
+  if (line.count === undefined || line.added || line.removed) return true
+  return anchors.some(a => line.count! > a - range && line.count! <= a + range)
 }
