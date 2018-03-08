@@ -59,7 +59,7 @@
     "jest": "^22.4.2",
     "path-equal": "^1.0.0",
     "power-assert": "^1.4.4",
-    "semantic-release": "^12.4.1",
+    "semantic-release": "^15.0.0",
     "ts-jest": "^22.4.1",
     "tslint": "^5.9.1",
     "tslint-config-unional": "^0.9.1",
