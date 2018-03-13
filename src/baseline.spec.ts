@@ -61,44 +61,6 @@ test('invoke callback for each folder', () => {
   pathsEqual(baselineFolders, ['fixtures/dir-cases/baselines/case1', 'fixtures/dir-cases/baselines/case2'])
 })
 
-test('filter cases using RegExp', () => {
-  const o = new AssertOrder()
-  baseline({
-    basePath: 'fixtures/file-cases',
-    filter: /file1/
-  }, ({ caseName }) => {
-    assert.equal(caseName, 'file1.txt')
-    o.once(1)
-  })
-
-  o.end()
-})
-
-test('filter cases using wildcards', () => {
-  const o = new AssertOrder()
-  baseline({
-    basePath: 'fixtures/file-cases',
-    filter: '*1.*'
-  }, ({ caseName }) => {
-    assert.equal(caseName, 'file1.txt')
-    o.once(1)
-  })
-
-  o.end()
-})
-
-test('filter with negate keeps others', () => {
-  const o = new AssertOrder()
-  baseline({
-    basePath: 'fixtures/file-cases',
-    filter: '!file1.txt'
-  }, ({ caseName }) => {
-    assert.equal(caseName, 'file2.txt')
-    o.once(1)
-  })
-  o.end()
-})
-
 test(`'results' folder is created for file cases`, () => {
   ensureFolderNotExist('fixtures/no-file-results/results')
 
