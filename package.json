@@ -49,9 +49,10 @@
   },
   "devDependencies": {
     "@types/glob": "^5.0.35",
-    "@types/jest": "^22.1.4",
-    "@types/node": "^9.4.6",
+    "@types/jest": "^22.2.0",
+    "@types/node": "^9.4.7",
     "assertron": "^4.1.0",
+    "aurelia-logging-memory": "^0.3.0",
     "dependency-check": "^3.1.0",
     "eslint": "^4.18.2",
     "eslint-plugin-unional": "^1.0.0",
@@ -67,6 +68,8 @@
   },
   "dependencies": {
     "@types/diff": "^3.2.2",
+    "@unional/logging": "^0.4.0",
+    "aurelia-logging-color": "^0.5.15",
     "chalk": "^2.3.2",
     "cp-file": "^5.0.0",
     "diff": "^3.5.0",

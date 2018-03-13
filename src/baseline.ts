@@ -8,6 +8,7 @@ import { DiffFormatOptions } from './diff'
 import { NoCaseFound } from './errors'
 import { isHidden, isFolder, ensureFolderEmpty, ensureFolderExist } from './fsUtils'
 import { createMatchFunction, match } from './match'
+import { log } from './log'
 
 export interface BaselineOptions extends DiffFormatOptions {
   /**
@@ -32,7 +33,9 @@ export interface BaselineOptions extends DiffFormatOptions {
   /**
    * Filter cases to run.
    */
-  filter?: string | RegExp
+  filter?: string | RegExp,
+
+  suppressFilterWarning?: boolean
 }
 export interface BaselineHandlerContext {
   /**
@@ -91,7 +94,15 @@ export const baseline = Object.assign(
 
     const shouldInclude = getShouldIncludePredicate(options.filter)
 
-    let cases = fs.readdirSync(casesFolder).filter(path => !isHidden(path) && shouldInclude(path))
+    let cases = fs.readdirSync(casesFolder).filter(path => {
+      if (isHidden(path)) return false
+
+      if (shouldInclude(path)) return true
+
+      if (!options.suppressFilterWarning)
+        log.warn(`case '${path}' in '${options.basePath}' is filtered and not executed`)
+      return false
+    })
 
     if (cases.length === 0) throw new NoCaseFound(casesFolder)
 
