@@ -81,7 +81,7 @@ test('suppressFilterWarning option will skip log filtered case', () => {
   baseline({
     basePath: 'fixtures/file-cases',
     filter: '!file1.txt',
-    suppressFilterWarning: true
+    suppressFilterWarnings: true
   }, ({ caseName }) => {
     assert.equal(caseName, 'file2.txt')
     o.once(1)

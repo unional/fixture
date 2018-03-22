@@ -7,7 +7,7 @@ import { createCopyToBaselineFunction, copyToBaseline } from './copyToBaseline'
 import { DiffFormatOptions } from './diff'
 import { NoCaseFound } from './errors'
 import { isHidden, isFolder, ensureFolderEmpty, ensureFolderExist } from './fsUtils'
-import { createMatchFunction, match } from './match'
+import { createMatchFunction, match, createMatchFunctionForFile } from './match'
 import { log } from './log'
 
 export interface BaselineOptions extends DiffFormatOptions {
@@ -35,7 +35,7 @@ export interface BaselineOptions extends DiffFormatOptions {
    */
   filter?: string | RegExp,
 
-  suppressFilterWarning?: boolean
+  suppressFilterWarnings?: boolean
 }
 export interface BaselineHandlerContext {
   /**
@@ -99,7 +99,7 @@ export const baseline = Object.assign(
 
       if (shouldInclude(path)) return true
 
-      if (!options.suppressFilterWarning)
+      if (!options.suppressFilterWarnings)
         log.warn(`case '${path}' in '${options.basePath}' is filtered and not executed`)
       return false
     })
@@ -166,7 +166,7 @@ function createContextForFile(caseName: string, casesFolder: string, baselinesFo
   const caseFolder = casesFolder
   const baselineFolder = baselinesFolder
   const resultFolder = resultsFolder
-  const match = createMatchFunction(baselineFolder, resultFolder, options)
+  const match = createMatchFunctionForFile(baselineFolder, resultFolder, caseName, options)
   const copyToBaseline = createCopyToBaselineFunction(baselineFolder, resultFolder)
   return {
     caseName,
