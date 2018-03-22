@@ -27,13 +27,15 @@ baseline('fixtures', (context) => {
     // use resultFolder to write output file
     fs.writeFileSync(path.join(context.resultFolder, 'output.txt', '<some data>'))
 
-    // match compares file(s) in result folder and baseline folder
-    await context.match('output.txt')
-    // can use wildcard
-    await context.match('*.txt')
-    // compare the whole folder (and subfolders)
-    // this is useful if you organize each case in its own folder
+    // compare result and baseline:
+    // If test case is a file,
+    //   the file with the same namd in the result and baseline folder will be compared.
+    // If test case is a folder,
+    //   the whole folder and its subfolder in the result and baseline folder will be compared.
     await context.match()
+
+    // match compares specific file in result folder and baseline folder
+    await context.match('output.txt')
 
     // if you are happy with the change,
     // use this to copy the artifacts from result folder to baseline folder
@@ -52,6 +54,9 @@ baseline('fixtures', (context) => {
     // filter for specific cases
     // can use wildcards or RegExp
     filter: '*.pass',
+    // By default warning messages will be displayed when some test cases are filtered.
+    // Use this to suppress those warnings.
+    suppressFilterWarnings: true
     // If the file has more lines than this threshold,
     // then the file will be diff with line numbers,
     // and the unchanged lines will be trimmed off.

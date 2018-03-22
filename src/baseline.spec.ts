@@ -27,23 +27,6 @@ test('load from empty folder throws NoCaseFound', () => {
   }), err => err instanceof NoCaseFound && pathEqual(err.dir, 'fixtures/empty/cases'))
 })
 
-test('invoke callback for each file', () => {
-  const caseNames: string[] = []
-  const caseFolders: string[] = []
-  const resultFolders: string[] = []
-  const baselineFolders: string[] = []
-  baseline('fixtures/file-cases', ({ caseName, caseFolder, resultFolder, baselineFolder }) => {
-    caseNames.push(caseName)
-    caseFolders.push(caseFolder)
-    resultFolders.push(resultFolder)
-    baselineFolders.push(baselineFolder)
-  })
-  assert.deepEqual(caseNames, ['file1.txt', 'file2.txt'])
-  pathsEqual(caseFolders, ['fixtures/file-cases/cases', 'fixtures/file-cases/cases'])
-  pathsEqual(resultFolders, ['fixtures/file-cases/results', 'fixtures/file-cases/results'])
-  pathsEqual(baselineFolders, ['fixtures/file-cases/baselines', 'fixtures/file-cases/baselines'])
-})
-
 test('invoke callback for each folder', () => {
   const caseNames: string[] = []
   const caseFolders: string[] = []
@@ -59,14 +42,6 @@ test('invoke callback for each folder', () => {
   pathsEqual(caseFolders, ['fixtures/dir-cases/cases/case1', 'fixtures/dir-cases/cases/case2'])
   pathsEqual(resultFolders, ['fixtures/dir-cases/results/case1', 'fixtures/dir-cases/results/case2'])
   pathsEqual(baselineFolders, ['fixtures/dir-cases/baselines/case1', 'fixtures/dir-cases/baselines/case2'])
-})
-
-test(`'results' folder is created for file cases`, () => {
-  ensureFolderNotExist('fixtures/no-file-results/results')
-
-  baseline('fixtures/no-file-results', ({ caseName }) => {
-    assert(fs.existsSync('fixtures/no-file-results/results'))
-  })
 })
 
 test(`'results/<case>' folder is created for dir cases`, () => {
@@ -88,33 +63,6 @@ test(`'baselines' folder is created for file cases`, () => {
 test('fixture.skip() will do nothing', () => {
   baseline.skip('fixtures/not-exists', () => {
     throw new Error('should not reach')
-  })
-})
-
-test('provided match(file) compares the file in results and baselines', () => {
-  baseline('fixtures/file-match-case', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
-    fs.writeFileSync(path.join(resultFolder, caseName), 'expected')
-    assert.doesNotThrow(() => match(caseName))
-  })
-})
-
-test('provided match(file) compares the file in results and baselines and throw', () => {
-  return assertron.throws(new Promise(a => {
-    baseline('fixtures/file-not-match-case', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
-      fs.writeFileSync(path.join(resultFolder, caseName), 'actual')
-      a(match(caseName))
-    })
-  }), err => {
-    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
-      return false
-
-    const mismatch = err.mismatches[0]
-
-    return mismatch instanceof MismatchFile &&
-      pathEqual(mismatch.actualPath, 'fixtures/file-not-match-case/results/file1.txt') &&
-      mismatch.actual === 'actual' &&
-      pathEqual(mismatch.expectedPath, 'fixtures/file-not-match-case/baselines/file1.txt') &&
-      mismatch.expected === 'expected'
   })
 })
 
@@ -143,6 +91,17 @@ test('provided match() rejects with files in folder not match by content', () =>
       mismatch.actual === 'actual' &&
       pathEqual(mismatch.expectedPath, 'fixtures/dir-not-match-case/baselines/case-1/case-1') &&
       mismatch.expected === 'expected'
+  })
+})
+
+// TODO: Support Wildcard matching
+test.skip('provided match() pass with matching files in folder', () => {
+  baseline('fixtures/dir-match-wildcard', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+    const context = fs.readFileSync(path.join(caseFolder, 'input.txt'), 'utf-8')
+    fs.writeFileSync(path.join(resultFolder, 'f1.txt'), context)
+    fs.writeFileSync(path.join(resultFolder, 'f2.txt'), context)
+    fs.writeFileSync(path.join(resultFolder, 'other.js'), 'should not match')
+    return match('*.txt')
   })
 })
 
