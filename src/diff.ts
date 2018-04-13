@@ -49,7 +49,11 @@ function formatLinesDiff(diff: jsdiff.IDiffResult[], options: DiffFormatOptions)
     if (part.removed) return p
     return p + part.count!
   }, 0)
-  return lineCount > options.largeFileThreshold ? formatManyLinesDiff(diff, lineCount, options.largeFileAmbientLines) : formatFewLinesDiff(diff)
+  const lines = lineCount > options.largeFileThreshold ? formatManyLinesDiff(diff, lineCount, options.largeFileAmbientLines) : formatFewLinesDiff(diff)
+  return prependLegend(lines)
+}
+function prependLegend(lines: string) {
+  return `${chalk.red('- expected')}\n${chalk.green('+ received')}\n${lines}`
 }
 function formatManyLinesDiff(diff: jsdiff.IDiffResult[], totalLineCount: number, numOfAmbientLines: number) {
   let padding = String(totalLineCount).length

@@ -1,3 +1,5 @@
+[31m- expected[39m
+[32m+ received[39m
 [32m    + added:[39m
 [32m    +   part: foo[39m
  1:   melted: nearest

@@ -1,3 +1,5 @@
+[31m- expected[39m
+[32m+ received[39m
 3:   sang: current
 4:   without: true
 [31m5: - parts: false[39m

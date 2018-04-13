@@ -1,3 +1,5 @@
+[31m- expected[39m
+[32m+ received[39m
   a
     b
 [31m-     c[39m

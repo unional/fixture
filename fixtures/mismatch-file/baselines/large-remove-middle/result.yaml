@@ -1,3 +1,5 @@
+[31m- expected[39m
+[32m+ received[39m
 4:   without: true
 5:   parts: false
 [31m6: - medicine: tube[39m

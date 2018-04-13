@@ -1,3 +1,5 @@
+[31m- expected[39m
+[32m+ received[39m
 6:   medicine: tube
 7:   explore: false
 [31m8: - character: course[39m
