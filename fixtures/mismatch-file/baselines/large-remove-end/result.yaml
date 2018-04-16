@@ -1,6 +1,6 @@
-[31m- expected[39m
-[32m+ received[39m
+[32m- Baseline[39m
+[31m+ Result[39m
 6:   medicine: tube
 7:   explore: false
-[31m8: - character: course[39m
-[31m9: - evidence: 1714087644.518929[39m
+[32m8: - character: course[39m
+[32m9: - evidence: 1714087644.518929[39m

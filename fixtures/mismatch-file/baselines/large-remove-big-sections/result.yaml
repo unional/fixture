@@ -1,19 +1,19 @@
-[31m- expected[39m
-[32m+ received[39m
+[32m- Baseline[39m
+[31m+ Result[39m
  7:       political:
  8:         - probably
-[31m 9: -       -[39m
-[31m10: -         settle:[39m
-[31m11: -           giving: 1678192668[39m
-[31m12: -           earth: -570007275[39m
-[31m13: -           caught: false[39m
-[31m14: -           when: -866271467[39m
-[31m15: -           transportation: false[39m
-[31m16: -           firm: describe[39m
-[31m17: -           main: ranch[39m
-[31m18: -           pattern: driver[39m
-[31m19: -       - false[39m
-[31m20: -       - doctor[39m
-[31m21: -       - tail[39m
+[32m 9: -       -[39m
+[32m10: -         settle:[39m
+[32m11: -           giving: 1678192668[39m
+[32m12: -           earth: -570007275[39m
+[32m13: -           caught: false[39m
+[32m14: -           when: -866271467[39m
+[32m15: -           transportation: false[39m
+[32m16: -           firm: describe[39m
+[32m17: -           main: ranch[39m
+[32m18: -           pattern: driver[39m
+[32m19: -       - false[39m
+[32m20: -       - doctor[39m
+[32m21: -       - tail[39m
 22:         - aid
 23:         - using
