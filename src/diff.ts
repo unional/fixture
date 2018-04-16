@@ -36,9 +36,9 @@ export function formatDiff(diff: { singleLine: boolean, diff: jsdiff.IDiffResult
 function formatWordsDiff(diff: jsdiff.IDiffResult[]) {
   return diff.map(function (part) {
     if (part.added)
-      return chalk.green(part.value)
-    else if (part.removed)
       return chalk.red(part.value)
+    else if (part.removed)
+      return chalk.green(part.value)
     else
       return part.value
   }).join('')
@@ -53,17 +53,17 @@ function formatLinesDiff(diff: jsdiff.IDiffResult[], options: DiffFormatOptions)
   return prependLegend(lines)
 }
 function prependLegend(lines: string) {
-  return `${chalk.red('- expected')}\n${chalk.green('+ received')}\n${lines}`
+  return `${chalk.green('- Baseline')}\n${chalk.red('+ Result')}\n${lines}`
 }
 function formatManyLinesDiff(diff: jsdiff.IDiffResult[], totalLineCount: number, numOfAmbientLines: number) {
   let padding = String(totalLineCount).length
   let diffLines = getTrimmedLineDiffs(diff, numOfAmbientLines)
   return diffLines.map(part => {
     if (part.added) {
-      return chalk.green(`${padLeft('', padding)}  + ${part.value}`)
+      return chalk.red(`${padLeft('', padding)}  + ${part.value}`)
     }
     if (part.removed) {
-      return chalk.red(`${padLeft(part.count, padding)}: - ${part.value}`)
+      return chalk.green(`${padLeft(part.count, padding)}: - ${part.value}`)
     }
     if (part.count)
       return `${padLeft(part.count, padding)}:   ${part.value}`
@@ -76,10 +76,10 @@ function formatFewLinesDiff(diff: jsdiff.IDiffResult[]) {
   return diff.map(function (part) {
     const lines = getLines(part.value)
     if (part.added) {
-      return chalk.green(lines.map(l => `+ ${l}`).join('\n'))
+      return chalk.red(lines.map(l => `+ ${l}`).join('\n'))
     }
     if (part.removed) {
-      return chalk.red(lines.map(l => `- ${l}`).join('\n'))
+      return chalk.green(lines.map(l => `- ${l}`).join('\n'))
     }
     return lines.map(l => `  ${l}`).join('\n')
   }).join('\n')

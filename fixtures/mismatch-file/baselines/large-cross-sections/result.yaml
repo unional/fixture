@@ -1,14 +1,14 @@
-[31m- expected[39m
-[32m+ received[39m
+[32m- Baseline[39m
+[31m+ Result[39m
 11:             giving: 1678192668
 12:             earth: -570007275
-[31m13: -           caught: false[39m
-[32m    +           caught: true[39m
+[32m13: -           caught: false[39m
+[31m    +           caught: true[39m
 14:             when: -866271467
 15:             transportation: false
 16:             firm: describe
 17:             main: ranch
-[31m18: -           pattern: driver[39m
-[32m    +           pattern: factory[39m
+[32m18: -           pattern: driver[39m
+[31m    +           pattern: factory[39m
 19:         - false
 20:         - doctor

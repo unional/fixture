@@ -1,5 +1,5 @@
-[31m- expected[39m
-[32m+ received[39m
+[32m- Baseline[39m
+[31m+ Result[39m
   beep
-[31m- boop[39m
-[32m+ boob blah[39m
+[32m- boop[39m
+[31m+ boob blah[39m
