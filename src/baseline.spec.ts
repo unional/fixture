@@ -184,7 +184,7 @@ test('provided match() rejects when missing baseline folder with sub-folder', ()
   })
 })
 
-test('provided match() rejects when missing result file', () => {
+test('provided match() rejectts when missing result file', () => {
   return assertron.throws(new Promise(a => {
     baseline('fixtures/dir-miss-result-file', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
       a(match('output.txt'))
@@ -283,3 +283,18 @@ function ensureFolderNotExist(folder: string) {
 function pathsEqual(actuals: string[], expects: string[]) {
   actuals.forEach((a, i) => assertron.pathEqual(a, expects[i]))
 }
+
+test('default diff display threshold is 200', () => {
+  return assertron.throws(new Promise(a => {
+    baseline('fixtures/diff-display-threshold', ({ caseName, caseFolder, resultFolder, match }) => {
+      const content = fs.readFileSync(path.join(caseFolder, caseName), 'utf-8')
+      fs.writeFileSync(path.join(resultFolder, caseName), content)
+      a(match())
+    })
+  }), err => {
+    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
+      return false
+
+    return err.message.indexOf('more lines') > 0
+  })
+})

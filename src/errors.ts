@@ -40,7 +40,7 @@ export class ExtraResultFile {
 }
 
 export class Mismatch extends Error {
-  constructor(public mismatches: Tersify[]) {
+  constructor(public mismatches: Array<Tersify>) {
     super(`Mismatch detected: \n${mismatches.map(m => m.tersify()).join('\n')} `)
 
     Object.setPrototypeOf(this, new.target.prototype)

@@ -8,7 +8,6 @@ export class MismatchFile {
   constructor(public actualPath: string, public actual: string, public expectedPath: string, public expected: string, options: DiffFormatOptions) {
     const diff = createDiff(actual, expected)
     this.diff = diff.diff
-
     this.formattedDiff = formatDiff(diff, options)
   }
   tersify() {
