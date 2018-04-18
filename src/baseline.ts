@@ -34,8 +34,11 @@ export interface BaselineOptions extends DiffFormatOptions {
    * Filter cases to run.
    */
   filter?: string | RegExp,
-
-  suppressFilterWarnings?: boolean
+  /**
+   * By default warning messages will be displayed when some test cases are filtered.
+   * Use this to suppress those warnings.
+   */
+  suppressFilterWarnings?: boolean,
 }
 export interface BaselineHandlerContext {
   /**
@@ -131,7 +134,8 @@ const defaultOptions = {
   resultsFolder: 'results',
   baselinesFolder: 'baselines',
   largeFileThreshold: 100,
-  largeFileAmbientLines: 5
+  largeFileAmbientLines: 5,
+  diffDisplayThreshold: 150
 } as BaselineOptions
 
 function getOptions(givenOptions: string | Partial<BaselineOptions>) {

@@ -62,7 +62,13 @@ baseline('fixtures', (context) => {
     // and the unchanged lines will be trimmed off.
     largeFileThreshold: 100,
     // Controls how many unchanged lines will be shown around the changes.
-    largeFileAmbientLines: 5
+    largeFileAmbientLines: 5,
+    /**
+     * Maximum number of diff lines to show.
+     * If there are more diff lines,
+     * the remaining will be timmed and show a summary instead.
+     */
+    diffDisplayThreshold: 150
   }, (context) => {
     ...
   })
