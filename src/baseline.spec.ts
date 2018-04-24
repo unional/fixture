@@ -265,6 +265,20 @@ test(`Provided copyToBaseline() saves result to baseline for dir case`, async ()
   assert(fs.existsSync('fixtures/save-dir/baselines/case-1/file1.txt'))
 })
 
+test(`copyToBaseline.skip() to not doing anything. This allows consumer to keep the shape of the test`, async () => {
+  ensureFolderNotExist('fixtures/no-save/results')
+  ensureFolderNotExist('fixtures/no-save/baselines')
+
+  await new Promise(a => {
+    baseline('fixtures/no-save', ({ caseName, resultFolder, copyToBaseline }) => {
+      fs.writeFileSync(path.join(resultFolder, 'file1.txt'), 'expected')
+      a(copyToBaseline.skip('*'))
+    })
+  })
+
+  assert(!fs.existsSync('fixtures/no-save/baselines/case-1/file1.txt'))
+})
+
 test('Result folder is empty when handler is called for dir case', () => {
   mkdirp.sync('fixtures/dirty-result-folder/results/case-1')
   fs.writeFileSync('fixtures/dirty-result-folder/results/case-1/dirty.txt', 'dirty')
