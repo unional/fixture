@@ -3,7 +3,7 @@ import minimatch from 'minimatch'
 import path from 'path'
 import { unpartial } from 'unpartial'
 
-import { createCopyToBaselineFunction, copyToBaseline } from './copyToBaseline'
+import { createCopyToBaselineFunction, CopyToBaseline } from './copyToBaseline'
 import { DiffFormatOptions } from './diff'
 import { NoCaseFound } from './errors'
 import { isHidden, isFolder, ensureFolderEmpty, ensureFolderExist } from './fsUtils'
@@ -75,7 +75,7 @@ export interface BaselineHandlerContext {
   /**
    * Helper function to copy the result to baseline.
    */
-  copyToBaseline: copyToBaseline
+  copyToBaseline: CopyToBaseline
 }
 
 export type BaselineHandler = (context: BaselineHandlerContext) => void
