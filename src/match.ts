@@ -7,6 +7,7 @@ import { Tersify } from 'tersify'
 import { DiffFormatOptions } from './diff'
 import { MismatchFile, Mismatch, ExtraResultFile, MissingResultFile } from './errors'
 import { isFolder } from './fsUtils'
+import { log } from './log';
 
 export type match = (caseName?: string) => Promise<any>
 
@@ -31,8 +32,10 @@ export function createMatchFunction(baselineFolder: string, resultFolder: string
 }
 
 function compare(baselinePath, resultPath, options) {
+  const time = new Date().getTime()
   return dirCompare.compare(baselinePath, resultPath)
     .then((res) => {
+      log.debug(`comparing ${baselinePath} and ${resultPath} took ${new Date().getTime() - time} (ms)`)
       let mismatches: Tersify[] = []
       res.diffSet.forEach(d => {
         if (d.type1 === 'missing') {

@@ -38,6 +38,7 @@
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
+    "setupFiles": ["<rootDir>/scripts/setup-test-env.js"],
     "testRegex": ".*.spec.ts$",
     "moduleFileExtensions": [
       "ts",
