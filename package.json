@@ -51,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@types/diff-match-patch": "^1.0.32",
     "@types/glob": "^5.0.35",
     "@types/jest": "^22.2.3",
     "@types/node": "^9.6.8",
@@ -75,7 +76,8 @@
     "aurelia-logging-color": "^0.5.15",
     "chalk": "^2.4.1",
     "cp-file": "^5.0.0",
-    "diff": "^3.5.0",
+    "diff-match-patch": "^1.0.0",
+    "diff-match-patch-line-and-word": "^0.1.2",
     "dir-compare": "^1.4.0",
     "glob": "^7.1.2",
     "minimatch": "^3.0.4",

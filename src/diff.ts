@@ -1,6 +1,6 @@
 import chalk from 'chalk'
-import * as jsdiff from 'diff'
 import padLeft from 'pad-left'
+import { DiffMatch, DiffResult } from './DiffMatch'
 
 export interface DiffFormatOptions {
   /**
@@ -24,25 +24,25 @@ export interface DiffFormatOptions {
 
 export function createDiff(actual: string, expected: string) {
   const singleLine = expected.indexOf('\n') === -1 && actual.indexOf('\n') === -1
-
+  const diff = new DiffMatch()
   return {
     singleLine,
     diff: singleLine ?
-      jsdiff.diffWords(expected, actual) :
-      jsdiff.diffLines(
+      diff.diffWords(expected, actual) :
+      diff.diffLines(
         expected && !expected.endsWith('\n') ? expected + '\n' : expected,
         actual && !actual.endsWith('\n') ? actual + '\n' : actual)
   }
 }
 
-export function formatDiff(diff: { singleLine: boolean, diff: jsdiff.IDiffResult[] }, options: DiffFormatOptions) {
+export function formatDiff(diff: { singleLine: boolean, diff: DiffResult[] }, options: DiffFormatOptions) {
   return diff.singleLine ?
     formatWordsDiff(diff.diff) :
     formatLinesDiff(diff.diff, options)
 }
 
 
-function formatWordsDiff(diff: jsdiff.IDiffResult[]) {
+function formatWordsDiff(diff: DiffResult[]) {
   return diff.map(function (part) {
     if (part.added)
       return chalk.red(part.value)
@@ -53,7 +53,7 @@ function formatWordsDiff(diff: jsdiff.IDiffResult[]) {
   }).join('')
 }
 
-function formatLinesDiff(diff: jsdiff.IDiffResult[], options: DiffFormatOptions) {
+function formatLinesDiff(diff: DiffResult[], options: DiffFormatOptions) {
   const lineCount = diff.reduce((p, part) => {
     if (part.removed) return p
     return p + part.count!
@@ -72,7 +72,7 @@ function prependLegend(lines: string[]) {
   lines.unshift(`${chalk.green('- Baseline')}`, `${chalk.red('+ Result')}`)
   return lines
 }
-function formatManyLinesDiff(diff: jsdiff.IDiffResult[], totalLineCount: number, numOfAmbientLines: number) {
+function formatManyLinesDiff(diff: DiffResult[], totalLineCount: number, numOfAmbientLines: number) {
   let padding = String(totalLineCount).length
   let diffLines = getTrimmedLineDiffs(diff, numOfAmbientLines)
   return diffLines.map(part => {
@@ -89,7 +89,7 @@ function formatManyLinesDiff(diff: jsdiff.IDiffResult[], totalLineCount: number,
   })
 }
 
-function formatFewLinesDiff(diff: jsdiff.IDiffResult[]) {
+function formatFewLinesDiff(diff: DiffResult[]) {
   return diff.map(function (part) {
     const lines = getLines(part.value)
     if (part.added) {
@@ -110,9 +110,9 @@ function getLines(value: string) {
 /**
  * Create a map on when to display the lines.
  */
-function getTrimmedLineDiffs(diff: jsdiff.IDiffResult[], numOfAmbientLines: number) {
+function getTrimmedLineDiffs(diff: DiffResult[], numOfAmbientLines: number) {
   let index = 0
-  let allLines: jsdiff.IDiffResult[] = []
+  let allLines: DiffResult[] = []
   let anchors: number[] = []
   diff.forEach(part => {
     const lines = getLines(part.value)
@@ -129,7 +129,7 @@ function getTrimmedLineDiffs(diff: jsdiff.IDiffResult[], numOfAmbientLines: numb
       allLines.push(...lines.map(value => ({ count: ++index, value })))
     }
   })
-  const trimmedLines: jsdiff.IDiffResult[] = []
+  const trimmedLines: DiffResult[] = []
   let lastCount: number
   allLines.forEach(line => {
     if (inRange(anchors, numOfAmbientLines, line)) {
@@ -143,7 +143,7 @@ function getTrimmedLineDiffs(diff: jsdiff.IDiffResult[], numOfAmbientLines: numb
   return trimmedLines
 }
 
-function inRange(anchors: number[], range: number, line: jsdiff.IDiffResult) {
+function inRange(anchors: number[], range: number, line: DiffResult) {
   if (line.count === undefined || line.added || line.removed) return true
   return anchors.some(a => line.count! > a - range && line.count! <= a + range)
 }
