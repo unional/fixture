@@ -2,6 +2,7 @@ import * as jsdiff from 'diff'
 import { Tersify } from 'tersify'
 
 import { DiffFormatOptions, createDiff, formatDiff } from './diff'
+import { log } from './log';
 
 export * from './MismatchFile'
 
@@ -30,9 +31,11 @@ export class ExtraResultFile {
   diff: jsdiff.IDiffResult[]
   formattedDiff: string
   constructor(public filePath: string, result: string, options: DiffFormatOptions) {
+    const time = new Date().getTime()
     const diff = createDiff(result, '')
     this.diff = diff.diff
     this.formattedDiff = formatDiff(diff, options)
+    log.debug(`create diff for ${filePath} took ${new Date().getTime() - time} (ms)`)
   }
   tersify() {
     return `Extra result file '${this.filePath}'.\n\n${this.formattedDiff}`

@@ -1,9 +1,8 @@
-import { getLogger, Logger, setDefaultAppender, setLevel, logLevel } from '@unional/logging'
+import { getLogger, Logger, setDefaultAppender, logLevel } from '@unional/logging'
 import { ColorAppender } from 'aurelia-logging-color'
 
-const log: Logger = getLogger('fixture')
+const log: Logger = getLogger('fixture', logLevel.warn)
 
-setLevel(logLevel.warn)
 setDefaultAppender(new ColorAppender())
 
 export { log }
