@@ -27,7 +27,7 @@ function toJsDiffResult(diff) {
       result.added = true
       break
   }
-  result.count = (diff[1].match(/\n/g) || []).length || 1
+  result.count = diff[1].match(/\n/g).length
   return result
 }
 
