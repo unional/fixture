@@ -53,7 +53,7 @@
   "devDependencies": {
     "@types/glob": "^5.0.35",
     "@types/jest": "^22.2.3",
-    "@types/node": "^9.6.8",
+    "@types/node": "^10.0.3",
     "assertron": "^4.3.1",
     "aurelia-logging-memory": "^0.3.0",
     "dependency-check": "^3.1.0",
