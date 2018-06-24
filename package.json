@@ -74,7 +74,7 @@
     "@unional/logging": "^0.5.0",
     "aurelia-logging-color": "^0.5.15",
     "chalk": "^2.4.1",
-    "cp-file": "^5.0.0",
+    "cp-file": "^6.0.0",
     "diff-match-patch": "^1.0.0",
     "diff-match-patch-line-and-word": "^0.1.2",
     "dir-compare": "^1.4.0",
