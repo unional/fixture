@@ -20,7 +20,7 @@ test('filter cases using RegExp', () => {
     basePath: 'fixtures/file-cases',
     filter: /file1/
   }, ({ caseName }) => {
-    assert.equal(caseName, 'file1.txt')
+    assert.strictEqual(caseName, 'file1.txt')
     o.once(1)
   })
 
@@ -33,7 +33,7 @@ test('filter cases using wildcards', () => {
     basePath: 'fixtures/file-cases',
     filter: '*1.*'
   }, ({ caseName }) => {
-    assert.equal(caseName, 'file1.txt')
+    assert.strictEqual(caseName, 'file1.txt')
     o.once(1)
   })
 
@@ -46,7 +46,7 @@ test('filter with negate keeps others', () => {
     basePath: 'fixtures/file-cases',
     filter: '!file1.txt'
   }, ({ caseName }) => {
-    assert.equal(caseName, 'file2.txt')
+    assert.strictEqual(caseName, 'file2.txt')
     o.once(1)
   })
   o.end()
@@ -63,11 +63,11 @@ test('log filtered case', () => {
     basePath: 'fixtures/file-cases',
     filter: '!file1.txt'
   }, ({ caseName }) => {
-    assert.equal(caseName, 'file2.txt')
+    assert.strictEqual(caseName, 'file2.txt')
     o.once(1)
   })
 
-  assert.equal(mem.logs.length, 1)
+  assert.strictEqual(mem.logs.length, 1)
   o.end()
 })
 
@@ -83,10 +83,10 @@ test('suppressFilterWarning option will skip log filtered case', () => {
     filter: '!file1.txt',
     suppressFilterWarnings: true
   }, ({ caseName }) => {
-    assert.equal(caseName, 'file2.txt')
+    assert.strictEqual(caseName, 'file2.txt')
     o.once(1)
   })
 
-  assert.equal(mem.logs.length, 0)
+  assert.strictEqual(mem.logs.length, 0)
   o.end()
 })

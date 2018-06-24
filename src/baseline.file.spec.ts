@@ -18,7 +18,7 @@ test('invoke callback for each file', () => {
     resultFolders.push(resultFolder)
     baselineFolders.push(baselineFolder)
   })
-  assert.deepEqual(caseNames, ['file1.txt', 'file2.txt'])
+  assert.deepStrictEqual(caseNames, ['file1.txt', 'file2.txt'])
   pathsEqual(caseFolders, ['fixtures/file-cases/cases', 'fixtures/file-cases/cases'])
   pathsEqual(resultFolders, ['fixtures/file-cases/results', 'fixtures/file-cases/results'])
   pathsEqual(baselineFolders, ['fixtures/file-cases/baselines', 'fixtures/file-cases/baselines'])
