@@ -38,7 +38,7 @@ test('invoke callback for each folder', () => {
     resultFolders.push(resultFolder)
     baselineFolders.push(baselineFolder)
   })
-  assert.deepEqual(caseNames, ['case1', 'case2'])
+  assert.deepStrictEqual(caseNames, ['case1', 'case2'])
   pathsEqual(caseFolders, ['fixtures/dir-cases/cases/case1', 'fixtures/dir-cases/cases/case2'])
   pathsEqual(resultFolders, ['fixtures/dir-cases/results/case1', 'fixtures/dir-cases/results/case2'])
   pathsEqual(baselineFolders, ['fixtures/dir-cases/baselines/case1', 'fixtures/dir-cases/baselines/case2'])
@@ -230,7 +230,7 @@ test('customize all folder names', () => {
     resultsFolder: 'actuals'
   }, ({ caseName }) => {
     o.once(1)
-    assert.equal(caseName, 'file1.txt')
+    assert.strictEqual(caseName, 'file1.txt')
     assert(fs.existsSync('fixtures/custom/expects'))
     assert(fs.existsSync('fixtures/custom/actuals'))
   })
