@@ -63,7 +63,7 @@
     "path-equal": "^1.1.0",
     "power-assert": "^1.6.0",
     "semantic-release": "^15.6.0",
-    "ts-jest": "^22.4.6",
+    "ts-jest": "^23.0.0",
     "tslint": "^5.10.0",
     "tslint-config-unional": "^0.9.5",
     "typescript": "^2.9.2"
