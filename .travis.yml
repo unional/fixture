@@ -7,7 +7,6 @@ notifications:
   email: false
 node_js:
   - '10'
-  - '9'
   - '8'
 env:
   - FORCE_COLOR: 1
