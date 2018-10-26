@@ -1,6 +1,6 @@
 {
   "name": "@unional/fixture",
-  "version": "v0.0.0-development",
+  "version": "0.0.0-development",
   "description": "Provides fixture to tests",
   "homepage": "https://github.com/unional/fixture",
   "bugs": {
