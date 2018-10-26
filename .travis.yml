@@ -6,9 +6,8 @@ cache:
 notifications:
   email: false
 node_js:
-  - '9'
+  - '10'
   - '8'
-  - '6'
 env:
   - FORCE_COLOR: 1
 branches:
@@ -16,21 +15,16 @@ branches:
     - master
     - /^greenkeeper.*$/
 
-before_install:
-  - ./scripts/run-on-node-version.sh 9 "npm install -g greenkeeper-lockfile@1"
-
-before_script:
-  - ./scripts/run-on-node-version.sh 9 "greenkeeper-lockfile-update"
+# before_script:
+#   - ./scripts/run-on-node-version.sh 10 "greenkeeper-lockfile-update"
 
 script:
   - npm run verify
 
-after_success:
-  - ./scripts/run-on-node-version.sh 9 "npm install -g coveralls codecov"
-  - npm install -g travis-deploy-once@4
-  - travis-deploy-once "npm run semantic-release"
-  - ./scripts/run-on-node-version.sh 9 "cat ./coverage/lcov.info | coveralls"
-  - ./scripts/run-on-node-version.sh 9 "codecov"
+# after_success:
+#   - npm install -g travis-deploy-once@4
+#   - travis-deploy-once "npx semantic-release"
+#   - ./scripts/run-on-node-version.sh 10 "npx codecov"
 
-after_script:
-  - ./scripts/run-on-node-version.sh 9 "greenkeeper-lockfile-upload"
+# after_script:
+#   - ./scripts/run-on-node-version.sh 10 "greenkeeper-lockfile-upload"

@@ -1,3 +1,5 @@
+.DS_Store
+
 # Logs
 logs
 *.log
@@ -45,3 +47,4 @@ dist
 dist-es5
 dist-es2015
 fixtures/**/results
+.progress
