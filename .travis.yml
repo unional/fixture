@@ -15,16 +15,16 @@ branches:
     - master
     - /^greenkeeper.*$/
 
-before_script:
-  - ./scripts/run-on-node-version.sh 10 "greenkeeper-lockfile-update"
+# before_script:
+#   - ./scripts/run-on-node-version.sh 10 "greenkeeper-lockfile-update"
 
 script:
   - npm run verify
 
-after_success:
-  - npm install -g travis-deploy-once@4
-  - travis-deploy-once "npx semantic-release"
-  - ./scripts/run-on-node-version.sh 10 "npx codecov"
+# after_success:
+#   - npm install -g travis-deploy-once@4
+#   - travis-deploy-once "npx semantic-release"
+#   - ./scripts/run-on-node-version.sh 10 "npx codecov"
 
-after_script:
-  - ./scripts/run-on-node-version.sh 10 "greenkeeper-lockfile-upload"
+# after_script:
+#   - ./scripts/run-on-node-version.sh 10 "greenkeeper-lockfile-upload"
