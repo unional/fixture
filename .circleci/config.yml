@@ -13,7 +13,6 @@ workflows:
               only: master
           requires:
             - node-latest
-            - node9
             - node8
 jobs:
   local-test:
