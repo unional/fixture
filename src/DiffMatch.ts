@@ -17,7 +17,7 @@ export class DiffMatch extends diff_match_patch {
   }
 }
 
-function toJsDiffResult(diff) {
+function toJsDiffResult(diff: [number, string]) {
   const result = { value: diff[1] } as DiffResult
   switch (diff[0]) {
     case -1:
@@ -27,11 +27,11 @@ function toJsDiffResult(diff) {
       result.added = true
       break
   }
-  result.count = diff[1].match(/\n/g).length
+  result.count = diff[1].match(/\n/g)!.length
   return result
 }
 
-function toJsDiffResultForWord(diff) {
+function toJsDiffResultForWord(diff: [number, string]) {
   const result = { value: diff[1] } as DiffResult
   switch (diff[0]) {
     case -1:

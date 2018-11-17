@@ -1,14 +1,13 @@
-import fs from 'fs'
-import minimatch from 'minimatch'
-import path from 'path'
-import { unpartial } from 'unpartial'
-
-import { createCopyToBaselineFunction, CopyToBaseline } from './copyToBaseline'
-import { DiffFormatOptions } from './diff'
-import { NoCaseFound } from './errors'
-import { isHidden, isFolder, ensureFolderEmpty, ensureFolderExist } from './fsUtils'
-import { createMatchFunction, match, createMatchFunctionForFile } from './match'
-import { log } from './log'
+import fs from 'fs';
+import minimatch from 'minimatch';
+import path from 'path';
+import { unpartial } from 'unpartial';
+import { CopyToBaseline, createCopyToBaselineFunction } from './copyToBaseline';
+import { DiffFormatOptions } from './diff';
+import { NoCaseFound } from './errors';
+import { ensureFolderExist, isFolder, isHidden } from './fsUtils';
+import { log } from './log';
+import { createMatchFunction, createMatchFunctionForFile, match } from './match';
 
 export interface BaselineOptions extends DiffFormatOptions {
   /**
@@ -117,7 +116,6 @@ export const baseline = Object.assign(
       const isDir = isFolder(casePath)
       if (isDir) {
         const context = createContextForDirectory(caseName, casesFolder, baselinesFolder, resultsFolder, options)
-        ensureFolderEmpty(context.resultFolder)
         return handler(context)
       }
       else {
@@ -144,16 +142,18 @@ function getOptions(givenOptions: string | Partial<BaselineOptions>) {
 
 function getShouldIncludePredicate(filter: string | RegExp | undefined) {
   if (filter instanceof RegExp)
-    return (path) => filter.test(path)
+    return (path: string) => filter.test(path)
   if (typeof filter === 'string')
-    return (path) => minimatch(path, filter)
-  return (_path) => true
+    return (path: string) => minimatch(path, filter)
+  return (path: string) => true
 }
 
 function createContextForDirectory(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: DiffFormatOptions): BaselineHandlerContext {
   const caseFolder = path.join(casesFolder, caseName)
   const baselineFolder = path.join(baselinesFolder, caseName)
   const resultFolder = path.join(resultsFolder, caseName)
+
+  ensureFolderExist(resultFolder)
   const match = createMatchFunction(baselineFolder, resultFolder, options)
   const copyToBaseline = createCopyToBaselineFunction(baselineFolder, resultFolder)
   return {

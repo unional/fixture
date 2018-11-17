@@ -16,7 +16,7 @@ baseline({
   basePath: 'fixtures/mismatch-file',
   // filter: '!large-add-end'
 }, c => {
-  test(cases[c.caseName] || c.caseName, () => {
+  test((cases as any)[c.caseName] || c.caseName, () => {
     const source = fs.readFileSync(path.join(c.caseFolder, 'source.yaml'), 'utf-8')
     const target = fs.readFileSync(path.join(c.caseFolder, 'target.yaml'), 'utf-8')
 

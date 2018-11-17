@@ -1,4 +1,4 @@
-import * as jsdiff from 'diff'
+import jsdiff from 'diff'
 import { Tersify } from 'tersify'
 
 import { DiffFormatOptions, createDiff, formatDiff } from './diff'
@@ -13,7 +13,6 @@ export class NoCaseFound extends Error {
     Object.setPrototypeOf(this, new.target.prototype)
   }
 }
-
 export class MissingResultFile {
   diff: jsdiff.IDiffResult[]
   formattedDiff: string
