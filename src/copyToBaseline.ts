@@ -1,6 +1,6 @@
-import cpFile from 'cp-file'
-import glob from 'glob'
-import path from 'path'
+import cpFile from 'cp-file';
+import glob from 'glob';
+import path from 'path';
 
 export interface CopyToBaseline {
   (wildcardOrRegExp?: string): Promise<void>,
@@ -9,11 +9,11 @@ export interface CopyToBaseline {
 export function createCopyToBaselineFunction(baselineFolder: string, resultFolder: string) {
   return Object.assign(
     function copyToBaseline(wildcardOrRegExp: string = '*') {
-      return new Promise(a => {
+      return new Promise<string[]>(a => {
         glob(wildcardOrRegExp, { cwd: resultFolder }, (_err, files) => {
           a(files)
         })
-      }).then((files: string[]) => {
+      }).then(files => {
         return Promise.all(files.map(f => cpFile(
           path.join(resultFolder, f),
           path.join(baselineFolder, f)
@@ -23,6 +23,6 @@ export function createCopyToBaselineFunction(baselineFolder: string, resultFolde
       })
     },
     {
-      skip(_) { return Promise.resolve() }
+      skip() { return Promise.resolve() }
     })
 }

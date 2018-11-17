@@ -12,19 +12,19 @@ import { ensureFolderExist } from './fsUtils'
 test('load from not exist folder throws NoCaseFound', () => {
   assert.throws(() => baseline('fixtures/not-exist', () => {
     throw new Error('should not called')
-  }), err => err instanceof NoCaseFound && pathEqual(err.dir, 'fixtures/not-exist'))
+  }), (err: Error) => err instanceof NoCaseFound && pathEqual(err.dir, 'fixtures/not-exist'))
 })
 
 test('load from folder without "cases" subfolder throws NoCaseFound', () => {
   assert.throws(() => baseline('fixtures/no-cases', () => {
     throw new Error('should not called')
-  }), err => err instanceof NoCaseFound && pathEqual(err.dir, 'fixtures/no-cases/cases'))
+  }), (err: Error) => err instanceof NoCaseFound && pathEqual(err.dir, 'fixtures/no-cases/cases'))
 })
 
 test('load from empty folder throws NoCaseFound', () => {
   assert.throws(() => baseline('fixtures/empty', () => {
     throw new Error('should not called')
-  }), err => err instanceof NoCaseFound && pathEqual(err.dir, 'fixtures/empty/cases'))
+  }), (err: Error) => err instanceof NoCaseFound && pathEqual(err.dir, 'fixtures/empty/cases'))
 })
 
 test('invoke callback for each folder', () => {
@@ -47,8 +47,8 @@ test('invoke callback for each folder', () => {
 test(`'results/<case>' folder is created for dir cases`, () => {
   ensureFolderNotExist('fixtures/no-dir-results/results')
 
-  baseline('fixtures/no-dir-results', ({ caseName }) => {
-    assert(fs.existsSync('fixtures/no-dir-results/results/case-1'))
+  baseline('fixtures/no-dir-results', ({ resultFolder }) => {
+    assert(fs.existsSync(resultFolder))
   })
 })
 
@@ -293,12 +293,13 @@ test(`copyToBaseline.skip() to not doing anything. This allows consumer to keep 
   assert(!fs.existsSync('fixtures/no-save/baselines/case-1/file1.txt'))
 })
 
-test('Result folder is empty when handler is called for dir case', () => {
+test('existing files in result folder are removed after match() call', () => {
   mkdirp.sync('fixtures/dirty-result-folder/results/case-1')
   fs.writeFileSync('fixtures/dirty-result-folder/results/case-1/dirty.txt', 'dirty')
 
-  baseline('fixtures/dirty-result-folder', ({ caseName }) => {
-    const actual = fs.readdirSync('fixtures/dirty-result-folder/results/case-1/')
+  baseline('fixtures/dirty-result-folder', async ({ resultFolder, match }) => {
+    await match()
+    const actual = fs.readdirSync(resultFolder)
     assert(actual.length === 0)
   })
 })

@@ -8,15 +8,17 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "newLine": "LF",
-    "noImplicitAny": false,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "outDir": "dist-es2015",
     "removeComments": false,
     "sourceMap": true,
-    "strictNullChecks": true,
+    "strict": true,
     "target": "es2015"
   },
+  "include": [
+    "custom-typings"
+  ],
   "files": [
     "src/index.ts"
   ]
