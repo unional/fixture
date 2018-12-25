@@ -11,6 +11,5 @@ export function isFolder(subject: string) {
 }
 
 export function ensureFolderExist(folder: string) {
-  if (!fs.existsSync(folder))
-    mkdirp.sync(folder)
+  if (!fs.existsSync(folder)) mkdirp.sync(folder)
 }

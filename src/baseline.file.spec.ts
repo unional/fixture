@@ -1,4 +1,4 @@
-import assert from 'assert'
+import t from 'assert'
 import { assertron } from 'assertron'
 import fs from 'fs'
 import path from 'path'
@@ -18,7 +18,7 @@ test('invoke callback for each file', () => {
     resultFolders.push(resultFolder)
     baselineFolders.push(baselineFolder)
   })
-  assert.deepStrictEqual(caseNames, ['file1.txt', 'file2.txt'])
+  t.deepStrictEqual(caseNames, ['file1.txt', 'file2.txt'])
   pathsEqual(caseFolders, ['fixtures/file-cases/cases', 'fixtures/file-cases/cases'])
   pathsEqual(resultFolders, ['fixtures/file-cases/results', 'fixtures/file-cases/results'])
   pathsEqual(baselineFolders, ['fixtures/file-cases/baselines', 'fixtures/file-cases/baselines'])
@@ -28,14 +28,14 @@ test(`'results' folder is created for file cases`, () => {
   ensureFolderNotExist('fixtures/no-file-results/results')
 
   baseline('fixtures/no-file-results', ({ caseName }) => {
-    assert(fs.existsSync('fixtures/no-file-results/results'))
+    t(fs.existsSync('fixtures/no-file-results/results'))
   })
 })
 
 test('provided match(file) compares the file in results and baselines', () => {
   baseline('fixtures/file-match-case', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
     fs.writeFileSync(path.join(resultFolder, 'result.txt'), 'expected')
-    assert.doesNotThrow(() => match('result.txt'))
+    t.doesNotThrow(() => match('result.txt'))
   })
 })
 
