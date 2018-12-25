@@ -30,24 +30,7 @@
     "lint": "tslint -p tsconfig.json",
     "test": "jest",
     "verify": "npm run lint && npm run build && npm run coverage && npm run dependency-check",
-    "verify-ci": "npm run lint && npm run build && jest --coverage --config jest.config.ci.json && npm run dependency-check",
     "watch": "jest --watch"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "setupFiles": [
-      "<rootDir>/scripts/setup-test-env.js"
-    ],
-    "testRegex": ".*.spec.ts$",
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    }
   },
   "dependencies": {
     "@types/diff-match-patch": "^1.0.32",
