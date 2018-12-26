@@ -116,11 +116,11 @@ export const baseline = Object.assign(
       const isDir = isFolder(casePath)
       if (isDir) {
         const context = createContextForDirectory(caseName, casesFolder, baselinesFolder, resultsFolder, options)
-        return handler(context)
+        handler(context)
       }
       else {
         const context = createContextForFile(caseName, casesFolder, baselinesFolder, resultsFolder, options)
-        return handler(context)
+        handler(context)
       }
     })
   }, {
