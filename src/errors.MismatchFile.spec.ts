@@ -13,8 +13,7 @@ const cases = {
 }
 
 baseline({
-  basePath: 'fixtures/mismatch-file',
-  // filter: '!large-add-end'
+  basePath: 'fixtures/mismatch-file'
 }, c => {
   test((cases as any)[c.caseName] || c.caseName, () => {
     const source = fs.readFileSync(path.join(c.caseFolder, 'source.yaml'), 'utf-8')
@@ -23,8 +22,6 @@ baseline({
     const mismatch = new MismatchFile('target.yaml', target, 'source.yaml', source, { largeFileThreshold: 5, largeFileAmbientLines: 2 })
 
     fs.writeFileSync(path.join(c.resultFolder, 'result.yaml'), mismatch.formattedDiff)
-    // console.info(c.caseName)
-    // console.info(mismatch.formattedDiff)
     return c.match('result.yaml')
   })
 })

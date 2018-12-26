@@ -1,10 +1,7 @@
-import jsdiff from 'diff'
-import { Tersify } from 'tersify'
-
-import { DiffFormatOptions, createDiff, formatDiff } from './diff'
-import { log } from './log'
-
-export * from './MismatchFile'
+import jsdiff from 'diff';
+import { Tersify } from 'tersify';
+import { createDiff, DiffFormatOptions, formatDiff } from './diff';
+import { log } from './log';
 
 export class NoCaseFound extends Error {
   constructor(public dir: string) {
@@ -48,5 +45,18 @@ export class Mismatch extends Error {
     super(`Mismatch detected: \n${mismatches.map(m => m.tersify()).join('\n')} `)
 
     Object.setPrototypeOf(this, new.target.prototype)
+  }
+}
+
+export class MismatchFile {
+  diff: jsdiff.IDiffResult[]
+  formattedDiff: string
+  constructor(public actualPath: string, public actual: string, public expectedPath: string, public expected: string, options: DiffFormatOptions) {
+    const diff = createDiff(actual, expected)
+    this.diff = diff.diff
+    this.formattedDiff = formatDiff(diff, options)
+  }
+  tersify() {
+    return `File '${this.actualPath}' does not match with '${this.expectedPath}'.\n\n${this.formattedDiff}`
   }
 }
