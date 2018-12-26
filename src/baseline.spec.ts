@@ -297,13 +297,12 @@ test(`copyToBaseline.skip() to not doing anything. This allows consumer to keep 
   assert(!fs.existsSync('fixtures/no-save/baselines/case-1/file1.txt'))
 })
 
-test('existing files in result folder are removed after match() call', () => {
+test('result folder is empty when handler is invoked (only when the case is folder based)', () => {
   mkdirp.sync('fixtures/dirty-result-folder/results/case-1')
   fs.writeFileSync('fixtures/dirty-result-folder/results/case-1/dirty.txt', 'dirty')
 
   return new Promise(a => {
     baseline('fixtures/dirty-result-folder', async ({ resultFolder, match }) => {
-      await match()
       const actual = fs.readdirSync(resultFolder)
       assert(actual.length === 0)
       a()

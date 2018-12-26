@@ -5,7 +5,7 @@ import { unpartial } from 'unpartial';
 import { CopyToBaseline, createCopyToBaselineFunction } from './copyToBaseline';
 import { DiffFormatOptions } from './diff';
 import { NoCaseFound } from './errors';
-import { ensureFolderExist, isFolder, isHidden } from './fsUtils';
+import { ensureFolderExist, isFolder, isHidden, ensureFolderEmpty } from './fsUtils';
 import { log } from './log';
 import { createMatchFunction, createMatchFunctionForFile, match } from './match';
 
@@ -116,6 +116,7 @@ export const baseline = Object.assign(
       const isDir = isFolder(casePath)
       if (isDir) {
         const context = createContextForDirectory(caseName, casesFolder, baselinesFolder, resultsFolder, options)
+        ensureFolderEmpty(context.resultFolder)
         handler(context)
       }
       else {
