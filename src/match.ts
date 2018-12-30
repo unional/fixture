@@ -64,22 +64,22 @@ function compare(baselinePath: string, resultPath: string, options: DiffFormatOp
       res.diffSet.forEach((d: any) => {
         if (d.type1 === 'missing') {
           if (d.type2 === 'file') {
-            const filePath = joinPathAsRelative(d.path2, d.name2)
+            const filePath = path.join(d.path2, d.name2)
             const result = fs.readFileSync(filePath, 'utf-8')
             mismatches.push(new ExtraResultFile(filePath, result, options))
           }
         }
         else if (d.type2 === 'missing') {
-          const missingPath = joinPathAsRelative((d.path1 as string).replace(baselinePath, resultPath), d.name1)
+          const missingPath = path.join((d.path1 as string).replace(baselinePath, resultPath), d.name1)
 
           if (d.type1 === 'file') {
-            const baseline = fs.readFileSync(joinPathAsRelative(d.path1, d.name1), 'utf-8')
+            const baseline = fs.readFileSync(path.join(d.path1, d.name1), 'utf-8')
             mismatches.push(new MissingResultFile(missingPath, baseline, options))
           }
         }
         else {
-          const filename1 = joinPathAsRelative(d.path1, d.name1)
-          const filename2 = joinPathAsRelative(d.path2, d.name2)
+          const filename1 = path.join(d.path1, d.name1)
+          const filename2 = path.join(d.path2, d.name2)
           const file1 = fs.readFileSync(filename1, 'utf-8')
           const file2 = fs.readFileSync(filename2, 'utf-8')
           if (file1 !== file2) {
@@ -107,7 +107,7 @@ async function getMissingBaselineMismatch(missingFilePath: string, resultPath: s
     const mismatches = await new Promise<Tersify[]>(a => {
       glob('**', { cwd: resultPath, nodir: true }, (_err, files) => {
         a(files.map(file => {
-          const filePath = joinPathAsRelative(resultPath, file)
+          const filePath = path.join(resultPath, file)
           const fileContent = fs.readFileSync(filePath, 'utf-8')
           return new ExtraResultFile(filePath, fileContent, options)
         }))
@@ -127,8 +127,4 @@ async function getMissingResultMismatch(missingFilePath: string, baselinePath: s
   // it is ensured by `baseline()`.
   const fileContent = fs.readFileSync(baselinePath, 'utf-8')
   return new Mismatch([new MissingResultFile(missingFilePath, fileContent, options)])
-}
-
-function joinPathAsRelative(...paths: string[]) {
-  return path.relative(process.cwd(), path.join(...paths))
 }
