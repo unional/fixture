@@ -71,7 +71,7 @@
     "@types/glob": "^7.1.1",
     "@types/mkdirp": "^0.5.2",
     "@unional/devpkg-node": "^1.1.2",
-    "assertron": "^5.2.3",
+    "assertron": "^6.1.0",
     "aurelia-logging-memory": "^0.3.2",
     "path-equal": "^1.1.0"
   }
