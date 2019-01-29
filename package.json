@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@types/cp-file": "^4.2.0",
-    "@types/diff": "^3.5.2",
+    "@types/diff": "^4.0.0",
     "@types/glob": "^7.1.1",
     "@types/mkdirp": "^0.5.2",
     "@unional/devpkg-node": "^1.1.2",
