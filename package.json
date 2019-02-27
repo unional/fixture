@@ -62,7 +62,7 @@
     "minimatch": "^3.0.4",
     "mkdirp": "^0.5.1",
     "pad-left": "^2.1.0",
-    "tersify": "^1.2.6",
+    "tersify": "^2.0.0",
     "unpartial": "^0.4.1"
   },
   "devDependencies": {
