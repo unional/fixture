@@ -1,5 +1,5 @@
 import jsdiff from 'diff';
-import { Tersify } from 'tersify';
+import { Tersible } from 'tersify';
 import { createDiff, DiffFormatOptions, formatDiff } from './diff';
 import { log } from './log';
 
@@ -41,7 +41,7 @@ export class ExtraResultFile {
 }
 
 export class Mismatch extends Error {
-  constructor(public mismatches: Array<Tersify>) {
+  constructor(public mismatches: Array<Tersible>) {
     super(`Mismatch detected: \n${mismatches.map(m => m.tersify()).join('\n')} `)
 
     Object.setPrototypeOf(this, new.target.prototype)

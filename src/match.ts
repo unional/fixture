@@ -2,11 +2,11 @@ import dirCompare from 'dir-compare';
 import fs from 'fs';
 import glob from 'glob';
 import path from 'path';
-import { Tersify } from 'tersify';
 import { DiffFormatOptions } from './diff';
 import { ExtraResultFile, Mismatch, MismatchFile, MissingResultFile } from './errors';
 import { isFolder } from './fsUtils';
 import { log } from './log';
+import { Tersible } from 'tersify';
 
 export type match = (caseName?: string) => Promise<any>
 
@@ -60,7 +60,7 @@ function compare(baselinePath: string, resultPath: string, options: DiffFormatOp
   return dirCompare.compare(baselinePath, resultPath)
     .then((res: any) => {
       log.debug(`comparing ${baselinePath} and ${resultPath} took ${new Date().getTime() - time} (ms)`)
-      let mismatches: Tersify[] = []
+      let mismatches: Tersible[] = []
       res.diffSet.forEach((d: any) => {
         if (d.type1 === 'missing') {
           if (d.type2 === 'file') {
@@ -104,7 +104,7 @@ function compare(baselinePath: string, resultPath: string, options: DiffFormatOp
 
 async function getMissingBaselineMismatch(missingFilePath: string, resultPath: string, options: DiffFormatOptions) {
   if (isFolder(resultPath)) {
-    const mismatches = await new Promise<Tersify[]>(a => {
+    const mismatches = await new Promise<Tersible[]>(a => {
       glob('**', { cwd: resultPath, nodir: true }, (_err, files) => {
         a(files.map(file => {
           const filePath = path.join(resultPath, file)
