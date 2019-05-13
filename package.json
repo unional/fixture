@@ -37,7 +37,7 @@
     "@unional/logging": "^1.0.5",
     "aurelia-logging-color": "^1.0.5",
     "chalk": "^2.4.2",
-    "cp-file": "^6.2.0",
+    "cp-file": "^7.0.0",
     "diff-match-patch": "^1.0.4",
     "diff-match-patch-line-and-word": "^0.1.2",
     "dir-compare": "^1.7.2",
@@ -50,8 +50,8 @@
     "unpartial": "^0.6.2"
   },
   "devDependencies": {
-    "@types/cp-file": "^4.2.0",
-    "@types/diff": "^3.5.3",
+    "@types/cp-file": "^6.1.2",
+    "@types/diff": "^4.0.2",
     "@types/glob": "^7.1.1",
     "@types/mkdirp": "^0.5.2",
     "@types/rimraf": "^2.0.2",
