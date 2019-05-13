@@ -1,6 +1,6 @@
-import jsdiff from 'diff';
 import { Tersible } from 'tersify';
 import { createDiff, DiffFormatOptions, formatDiff } from './diff';
+import { DiffResult } from './DiffMatch';
 import { log } from './log';
 
 export class NoCaseFound extends Error {
@@ -11,7 +11,7 @@ export class NoCaseFound extends Error {
   }
 }
 export class MissingResultFile {
-  diff: jsdiff.IDiffResult[]
+  diff: DiffResult[]
   formattedDiff: string
   constructor(public filePath: string, baseline: string, options: DiffFormatOptions) {
     const diff = createDiff('', baseline)
@@ -24,7 +24,7 @@ export class MissingResultFile {
 }
 
 export class ExtraResultFile {
-  diff: jsdiff.IDiffResult[]
+  diff: DiffResult[]
   formattedDiff: string
   constructor(public filePath: string, result: string, options: DiffFormatOptions) {
     const time = new Date().getTime()
@@ -49,7 +49,7 @@ export class Mismatch extends Error {
 }
 
 export class MismatchFile {
-  diff: jsdiff.IDiffResult[]
+  diff: DiffResult[]
   formattedDiff: string
   constructor(public actualPath: string, public actual: string, public expectedPath: string, public expected: string, options: DiffFormatOptions) {
     const diff = createDiff(actual, expected)

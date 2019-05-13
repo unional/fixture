@@ -47,7 +47,7 @@
     "pad-left": "^2.1.0",
     "rimraf": "^2.6.3",
     "tersify": "^3.0.2",
-    "unpartial": "^0.6.2"
+    "unpartial": "^0.6.3"
   },
   "devDependencies": {
     "@types/cp-file": "^6.1.2",
