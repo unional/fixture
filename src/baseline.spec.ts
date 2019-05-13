@@ -67,9 +67,11 @@ test('fixture.skip() will do nothing', () => {
 })
 
 test('provided match() pass with matching files in folder', () => {
-  baseline('fixtures/dir-match-case', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
-    fs.writeFileSync(path.join(resultFolder, caseName), 'expected')
-    return match()
+  return new Promise(a => {
+    baseline('fixtures/dir-match-case', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+      fs.writeFileSync(path.join(resultFolder, caseName), 'expected')
+      a(match())
+    })
   })
 })
 
@@ -96,12 +98,14 @@ test('provided match() rejects with files in folder not match by content', () =>
 
 // TODO: Support Wildcard matching
 test.skip('provided match() pass with matching files in folder', () => {
-  baseline('fixtures/dir-match-wildcard', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
-    const context = fs.readFileSync(path.join(caseFolder, 'input.txt'), 'utf-8')
-    fs.writeFileSync(path.join(resultFolder, 'f1.txt'), context)
-    fs.writeFileSync(path.join(resultFolder, 'f2.txt'), context)
-    fs.writeFileSync(path.join(resultFolder, 'other.js'), 'should not match')
-    return match('*.txt')
+  return new Promise(a => {
+    baseline('fixtures/dir-match-wildcard', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+      const context = fs.readFileSync(path.join(caseFolder, 'input.txt'), 'utf-8')
+      fs.writeFileSync(path.join(resultFolder, 'f1.txt'), context)
+      fs.writeFileSync(path.join(resultFolder, 'f2.txt'), context)
+      fs.writeFileSync(path.join(resultFolder, 'other.js'), 'should not match')
+      a(match('*.txt'))
+    })
   })
 })
 
@@ -293,14 +297,16 @@ test(`copyToBaseline.skip() to not doing anything. This allows consumer to keep 
   assert(!fs.existsSync('fixtures/no-save/baselines/case-1/file1.txt'))
 })
 
-test('existing files in result folder are removed after match() call', () => {
+test('result folder is empty when handler is invoked (only when the case is folder based)', () => {
   mkdirp.sync('fixtures/dirty-result-folder/results/case-1')
   fs.writeFileSync('fixtures/dirty-result-folder/results/case-1/dirty.txt', 'dirty')
 
-  baseline('fixtures/dirty-result-folder', async ({ resultFolder, match }) => {
-    await match()
-    const actual = fs.readdirSync(resultFolder)
-    assert(actual.length === 0)
+  return new Promise(a => {
+    baseline('fixtures/dirty-result-folder', async ({ resultFolder, match }) => {
+      const actual = fs.readdirSync(resultFolder)
+      assert(actual.length === 0)
+      a()
+    })
   })
 })
 
