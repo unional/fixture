@@ -40,7 +40,7 @@
     "cp-file": "^7.0.0",
     "diff-match-patch": "^1.0.4",
     "diff-match-patch-line-and-word": "^0.1.2",
-    "dir-compare": "^1.7.2",
+    "dir-compare": "^2.2.0",
     "glob": "^7.1.4",
     "minimatch": "^3.0.4",
     "mkdirp": "^0.5.1",
