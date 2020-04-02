@@ -36,7 +36,7 @@
     "@types/diff-match-patch": "^1.0.32",
     "@unional/logging": "^1.0.5",
     "aurelia-logging-color": "^1.0.5",
-    "chalk": "^2.4.2",
+    "chalk": "^4.0.0",
     "cp-file": "^7.0.0",
     "diff-match-patch": "^1.0.4",
     "diff-match-patch-line-and-word": "^0.1.2",
