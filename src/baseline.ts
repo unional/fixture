@@ -127,7 +127,7 @@ export const baseline = Object.assign(
   },
   {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    skip(basePathOrOptions: string | Partial<BaselineOptions>, handler: BaselineHandler): Promise<void> | void { }
+    skip(basePathOrOptions: string | Partial<BaselineOptions>, handler: BaselineHandler): void { }
   }
 )
 
