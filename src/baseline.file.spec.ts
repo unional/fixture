@@ -27,13 +27,13 @@ test('invoke callback for each file', () => {
 test(`'results' folder is created for file cases`, () => {
   ensureFolderNotExist('fixtures/no-file-results/results')
 
-  baseline('fixtures/no-file-results', ({ caseName }) => {
+  baseline('fixtures/no-file-results', () => {
     t(fs.existsSync('fixtures/no-file-results/results'))
   })
 })
 
 test('provided match(file) compares the file in results and baselines', () => {
-  baseline('fixtures/file-match-case', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+  baseline('fixtures/file-match-case', ({ resultFolder, match }) => {
     fs.writeFileSync(path.join(resultFolder, 'result.txt'), 'expected')
     t.doesNotThrow(() => match('result.txt'))
   })
@@ -41,7 +41,7 @@ test('provided match(file) compares the file in results and baselines', () => {
 
 test('provided match(file) compares the file in results and baselines and throw', () => {
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/file-not-match-case', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+    baseline('fixtures/file-not-match-case', ({ resultFolder, match }) => {
       fs.writeFileSync(path.join(resultFolder, 'result.txt'), 'actual')
       a(match('result.txt'))
     })

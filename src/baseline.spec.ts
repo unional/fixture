@@ -55,20 +55,20 @@ test(`'results/<case>' folder is created for dir cases`, () => {
 test(`'baselines' folder is created for file cases`, () => {
   ensureFolderNotExist('fixtures/no-baselines/baselines')
 
-  baseline('fixtures/no-baselines', ({ caseName }) => {
+  baseline('fixtures/no-baselines', () => {
     assert(fs.existsSync('fixtures/no-baselines/baselines'))
   })
 })
 
 test('fixture.skip() will do nothing', () => {
-  baseline.skip('fixtures/not-exists', () => {
+  void baseline.skip('fixtures/not-exists', () => {
     throw new Error('should not reach')
   })
 })
 
 test('provided match() pass with matching files in folder', () => {
   return new Promise(a => {
-    baseline('fixtures/dir-match-case', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+    baseline('fixtures/dir-match-case', ({ caseName, resultFolder, match }) => {
       fs.writeFileSync(path.join(resultFolder, caseName), 'expected')
       a(match())
     })
@@ -77,7 +77,7 @@ test('provided match() pass with matching files in folder', () => {
 
 test('provided match() rejects with files in folder not match by content', () => {
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-not-match-case', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+    baseline('fixtures/dir-not-match-case', ({ caseName, resultFolder, match }) => {
       fs.writeFileSync(path.join(resultFolder, caseName), 'actual')
       a(match())
     })
@@ -99,7 +99,7 @@ test('provided match() rejects with files in folder not match by content', () =>
 // TODO: Support Wildcard matching
 test.skip('provided match() pass with matching files in folder', () => {
   return new Promise(a => {
-    baseline('fixtures/dir-match-wildcard', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+    baseline('fixtures/dir-match-wildcard', ({ caseFolder, resultFolder, match }) => {
       const context = fs.readFileSync(path.join(caseFolder, 'input.txt'), 'utf-8')
       fs.writeFileSync(path.join(resultFolder, 'f1.txt'), context)
       fs.writeFileSync(path.join(resultFolder, 'f2.txt'), context)
@@ -113,7 +113,7 @@ test('provided match() rejects when missing baseline folder', () => {
   ensureFolderNotExist('fixtures/dir-miss-baseline-folder/baselines/case-1')
 
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-miss-baseline-folder', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+    baseline('fixtures/dir-miss-baseline-folder', ({ resultFolder, match }) => {
       fs.writeFileSync(path.join(resultFolder, 'output.txt'), 'actual')
       a(match())
     })
@@ -131,7 +131,7 @@ test('provided match() rejects when missing baseline folder', () => {
 test('provided match() rejects when missing baseline folder and sub-folder', () => {
   ensureFolderNotExist('fixtures/dir-miss-baseline-folder-deep/baselines/case-1')
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-miss-baseline-folder-deep', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+    baseline('fixtures/dir-miss-baseline-folder-deep', ({ resultFolder, match }) => {
       ensureFolderExist('fixtures/dir-miss-baseline-folder-deep/results/case-1/sub-folder')
       fs.writeFileSync(path.join(resultFolder, 'sub-folder/output.txt'), 'actual line 1\nactual line 2')
       a(match())
@@ -151,7 +151,7 @@ test('provided match() rejects when missing baseline file', () => {
   ensureFolderExist('fixtures/dir-miss-baseline-file/baselines/case-1')
 
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-miss-baseline-file', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+    baseline('fixtures/dir-miss-baseline-file', ({ resultFolder, match }) => {
       fs.writeFileSync(path.join(resultFolder, 'result.txt'), 'actual')
       a(match('result.txt'))
     })
@@ -172,7 +172,7 @@ test('provided match() rejects when missing baseline folder with sub-folder', ()
 
   ensureFolderNotExist('fixtures/dir-miss-baseline-folder-no-sub/baselines/case-1/sub-folder')
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-miss-baseline-folder-no-sub', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+    baseline('fixtures/dir-miss-baseline-folder-no-sub', ({ resultFolder, match }) => {
       ensureFolderExist('fixtures/dir-miss-baseline-folder-no-sub/results/case-1/sub-folder')
       fs.writeFileSync(path.join(resultFolder, 'sub-folder/output.txt'), 'actual line 1\nactual line 2')
       a(match())
@@ -190,7 +190,7 @@ test('provided match() rejects when missing baseline folder with sub-folder', ()
 
 test('provided match() rejectts when missing result file', () => {
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-miss-result-file', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+    baseline('fixtures/dir-miss-result-file', ({ match }) => {
       a(match('output.txt'))
     })
   }), err => {
@@ -207,7 +207,7 @@ test('provided match() rejectts when missing result file', () => {
 
 test('provided match() rejects when missing result file in subfolder', () => {
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-miss-result-file-deep', ({ caseName, caseFolder, resultFolder, baselineFolder, match }) => {
+    baseline('fixtures/dir-miss-result-file-deep', ({ match }) => {
       a(match())
     })
   }), err => {
@@ -260,7 +260,7 @@ test(`copyToBaseline('*') saves result to baseline for dir case`, async () => {
   ensureFolderNotExist('fixtures/save-dir/baselines')
 
   await new Promise(a => {
-    baseline('fixtures/save-dir', ({ caseName, resultFolder, copyToBaseline }) => {
+    baseline('fixtures/save-dir', ({ resultFolder, copyToBaseline }) => {
       fs.writeFileSync(path.join(resultFolder, 'file1.txt'), 'expected')
       a(copyToBaseline('*'))
     })
@@ -274,7 +274,7 @@ test(`copyToBaseline() is the same as copyToBaseline('*')`, async () => {
   ensureFolderNotExist('fixtures/save-dir2/baselines')
 
   await new Promise(a => {
-    baseline('fixtures/save-dir2', ({ caseName, resultFolder, copyToBaseline }) => {
+    baseline('fixtures/save-dir2', ({ resultFolder, copyToBaseline }) => {
       fs.writeFileSync(path.join(resultFolder, 'file1.txt'), 'expected')
       a(copyToBaseline())
     })
@@ -288,7 +288,7 @@ test(`copyToBaseline.skip() to not doing anything. This allows consumer to keep 
   ensureFolderNotExist('fixtures/no-save/baselines')
 
   await new Promise(a => {
-    baseline('fixtures/no-save', ({ caseName, resultFolder, copyToBaseline }) => {
+    baseline('fixtures/no-save', ({ resultFolder, copyToBaseline }) => {
       fs.writeFileSync(path.join(resultFolder, 'file1.txt'), 'expected')
       a(copyToBaseline.skip('*'))
     })
@@ -301,8 +301,8 @@ test('result folder is empty when handler is invoked (only when the case is fold
   mkdirp.sync('fixtures/dirty-result-folder/results/case-1')
   fs.writeFileSync('fixtures/dirty-result-folder/results/case-1/dirty.txt', 'dirty')
 
-  return new Promise(a => {
-    baseline('fixtures/dirty-result-folder', async ({ resultFolder, match }) => {
+  return new Promise<void>(a => {
+    baseline('fixtures/dirty-result-folder', ({ resultFolder }) => {
       const actual = fs.readdirSync(resultFolder)
       assert(actual.length === 0)
       a()

@@ -1,1 +1,0 @@
-declare module 'dir-compare';

@@ -1,7 +1,7 @@
-import { Tersible } from 'tersify';
-import { createDiff, DiffFormatOptions, formatDiff } from './diff';
-import { DiffResult } from './DiffMatch';
-import { log } from './log';
+import { Tersible } from 'tersify'
+import { createDiff, DiffFormatOptions, formatDiff } from './diff'
+import { DiffResult } from './DiffMatch'
+import { log } from './log'
 
 export class NoCaseFound extends Error {
   constructor(public dir: string) {
@@ -41,7 +41,7 @@ export class ExtraResultFile {
 }
 
 export class Mismatch extends Error {
-  constructor(public mismatches: Array<Tersible>) {
+  constructor(public mismatches: Array<Tersible<Record<string, any>>>) {
     super(`Mismatch detected: \n${mismatches.map(m => m.tersify()).join('\n')} `)
 
     Object.setPrototypeOf(this, new.target.prototype)

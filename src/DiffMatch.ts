@@ -2,10 +2,10 @@ import { diff_match_patch } from 'diff-match-patch'
 import 'diff-match-patch-line-and-word'
 
 export interface DiffResult {
-  value: string;
-  count?: number;
-  added?: boolean;
-  removed?: boolean;
+  value: string,
+  count?: number,
+  added?: boolean,
+  removed?: boolean
 }
 
 export class DiffMatch extends diff_match_patch {

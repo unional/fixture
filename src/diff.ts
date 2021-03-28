@@ -73,8 +73,8 @@ function prependLegend(lines: string[]) {
   return lines
 }
 function formatManyLinesDiff(diff: DiffResult[], totalLineCount: number, numOfAmbientLines: number) {
-  let padding = String(totalLineCount).length
-  let diffLines = getTrimmedLineDiffs(diff, numOfAmbientLines)
+  const padding = String(totalLineCount).length
+  const diffLines = getTrimmedLineDiffs(diff, numOfAmbientLines)
   return diffLines.map(part => {
     if (part.added) {
       return chalk.red(`${padLeft('', padding)}  + ${part.value}`)
@@ -112,8 +112,8 @@ function getLines(value: string) {
  */
 function getTrimmedLineDiffs(diff: DiffResult[], numOfAmbientLines: number) {
   let index = 0
-  let allLines: DiffResult[] = []
-  let anchors: number[] = []
+  const allLines: DiffResult[] = []
+  const anchors: number[] = []
   diff.forEach(part => {
     const lines = getLines(part.value)
     if (part.added) {

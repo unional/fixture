@@ -1,10 +1,10 @@
-import fs from 'fs';
-import mkdirp from 'mkdirp';
-import path from 'path';
+import fs from 'fs'
+import mkdirp from 'mkdirp'
+import path from 'path'
 import rimraf from 'rimraf'
 
 export function isHidden(subject: string) {
-  return (/(^|\/)\.[^\/\.]/g).test(subject)
+  return (/(^|\/)\.[^/.]/g).test(subject)
 }
 
 export function isFolder(subject: string) {

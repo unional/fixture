@@ -15,6 +15,7 @@ const cases = {
 baseline({
   basePath: 'fixtures/mismatch-file'
 }, c => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   test((cases as any)[c.caseName] || c.caseName, () => {
     const source = fs.readFileSync(path.join(c.caseFolder, 'source.yaml'), 'utf-8')
     const target = fs.readFileSync(path.join(c.caseFolder, 'target.yaml'), 'utf-8')

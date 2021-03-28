@@ -1,6 +1,5 @@
 import t from 'assert'
 import fs from 'fs'
-
 import { ExtraResultFile } from '.'
 
 test('diff 10k line file should take < 1 seconds', () => {
@@ -10,6 +9,6 @@ test('diff 10k line file should take < 1 seconds', () => {
   const time = new Date().getTime()
   const extra = new ExtraResultFile('fixtures/diff-large/large.yaml', content, { largeFileAmbientLines: 5, largeFileThreshold: 100 })
   t(extra)
-  const elasped = new Date().getTime() - time
-  expect(elasped).toBeLessThanOrEqual(1000)
+  const elapsed = new Date().getTime() - time
+  expect(elapsed).toBeLessThanOrEqual(1000)
 })
