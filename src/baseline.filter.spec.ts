@@ -15,7 +15,8 @@ test('filter cases using RegExp', () => {
   const o = new AssertOrder()
   baseline({
     basePath: 'fixtures/file-cases',
-    filter: /file1/
+    filter: /file1/,
+    suppressFilterWarnings: true
   }, ({ caseName }) => {
     assert.strictEqual(caseName, 'file1.txt')
     o.once(1)
@@ -28,7 +29,8 @@ test('filter cases using wildcards', () => {
   const o = new AssertOrder()
   baseline({
     basePath: 'fixtures/file-cases',
-    filter: '*1.*'
+    filter: '*1.*',
+    suppressFilterWarnings: true
   }, ({ caseName }) => {
     assert.strictEqual(caseName, 'file1.txt')
     o.once(1)
@@ -41,7 +43,8 @@ test('filter with negate keeps others', () => {
   const o = new AssertOrder()
   baseline({
     basePath: 'fixtures/file-cases',
-    filter: '!file1.txt'
+    filter: '!file1.txt',
+    suppressFilterWarnings: true
   }, ({ caseName }) => {
     assert.strictEqual(caseName, 'file2.txt')
     o.once(1)
