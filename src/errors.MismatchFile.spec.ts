@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 import fs from 'fs'
 import path from 'path'
 
@@ -16,6 +17,7 @@ baseline({
   basePath: 'fixtures/mismatch-file'
 }, c => {
   test(cases[c.caseName] || c.caseName, () => {
+    process.env.FORCE_COLOR = '1'
     const source = fs.readFileSync(path.join(c.caseFolder, 'source.yaml'), 'utf-8')
     const target = fs.readFileSync(path.join(c.caseFolder, 'target.yaml'), 'utf-8')
 
