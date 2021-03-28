@@ -74,6 +74,7 @@
     "@types/mkdirp": "^0.5.2",
     "@types/rimraf": "^3.0.0",
     "assertron": "^7.1.3",
+    "commitlint-circle": "^1.0.0",
     "dependency-check": "^4.1.0",
     "eslint": "^7.21.0",
     "eslint-plugin-harmony": "^5.0.2",
