@@ -58,13 +58,7 @@ export class MismatchFile {
   }
   tersify() {
     return `File '${this.actualPath}' does not match with '${this.expectedPath}'.\n\n${this.formattedDiff}
-    actual:
-    ${this.actual}
-
-    expected:
-    ${this.expected}
-
     diff:
-    ${this.diff.toString()}`
+    ${this.diff.map(d => JSON.stringify(d)).join('\n\n')}`
   }
 }
