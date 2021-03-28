@@ -23,7 +23,7 @@
   "scripts": {
     "build": "npm run build-es2015",
     "build-es2015": "tsc -p tsconfig.base.json",
-    "clean": "rimraf lib",
+    "clean": "rimraf lib fixtures/*/results",
     "coverage": "jest --coverage",
     "dc": "npm run dependency-check",
     "dependency-check": "dependency-check . --unused --no-dev -i tersify -i @types/diff-match-patch -i standard-log-color && dependency-check . --missing --no-dev",
