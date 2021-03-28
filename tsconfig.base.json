@@ -10,7 +10,7 @@
     "newLine": "LF",
     "noUnusedLocals": true,
     "noUnusedParameters": false,
-    "outDir": "dist-es2015",
+    "outDir": "lib",
     "removeComments": false,
     "sourceMap": true,
     "strict": true,

@@ -43,8 +43,9 @@ node_modules
 typings
 
 # project folders
+.progress
 dist
 dist-es5
 dist-es2015
 fixtures/**/results
-.progress
+lib
