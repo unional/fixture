@@ -1,8 +1,7 @@
-import chalk from 'chalk'
 import fs from 'fs'
 import path from 'path'
+import { baseline, MismatchFile } from '.'
 
-import { MismatchFile, baseline } from '.'
 
 const cases: Record<string, string> = {
   'single-line': 'single line file will diff by words',
