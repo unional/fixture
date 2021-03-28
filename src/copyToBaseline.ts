@@ -8,7 +8,7 @@ export interface CopyToBaseline {
 }
 export function createCopyToBaselineFunction(baselineFolder: string, resultFolder: string) {
   return Object.assign(
-    function copyToBaseline(wildcardOrRegExp: string = '*') {
+    function copyToBaseline(wildcardOrRegExp = '*') {
       return new Promise<string[]>(a => {
         glob(wildcardOrRegExp, { cwd: resultFolder }, (_err, files) => {
           a(files)

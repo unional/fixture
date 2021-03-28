@@ -6,7 +6,7 @@
   "buildOnSave": false,
   "compileOnSave": false,
   "include": [
-    "custom-typings",
+    "typings",
     "src"
   ]
 }

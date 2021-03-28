@@ -1,34 +1,34 @@
-import fs from 'fs';
-import minimatch from 'minimatch';
-import path from 'path';
-import { unpartial } from 'unpartial';
-import { CopyToBaseline, createCopyToBaselineFunction } from './copyToBaseline';
-import { DiffFormatOptions } from './diff';
-import { NoCaseFound } from './errors';
-import { ensureFolderExist, isFolder, isHidden, ensureFolderEmpty } from './fsUtils';
-import { log } from './log';
-import { createMatchFunction, createMatchFunctionForFile, match } from './match';
+import fs from 'fs'
+import minimatch from 'minimatch'
+import path from 'path'
+import { unpartial } from 'unpartial'
+import { CopyToBaseline, createCopyToBaselineFunction } from './copyToBaseline'
+import { DiffFormatOptions } from './diff'
+import { NoCaseFound } from './errors'
+import { ensureFolderEmpty, ensureFolderExist, isFolder, isHidden } from './fsUtils'
+import { log } from './log'
+import { createMatchFunction, createMatchFunctionForFile, match } from './match'
 
 export interface BaselineOptions extends DiffFormatOptions {
   /**
    * Path to the fixture root.
    */
-  basePath: string
+  basePath: string,
   /**
    * Name of the cases folder.
    * Defaults to 'cases'.
    */
-  casesFolder: string
+  casesFolder: string,
   /**
    * Name of the results folder.
    * Defaults to 'results'.
    */
-  resultsFolder: string
+  resultsFolder: string,
   /**
    * Name of the baselines folder.
    * Defaults to 'baselines'.
    */
-  baselinesFolder: string
+  baselinesFolder: string,
   /**
    * Filter cases to run.
    */
@@ -96,7 +96,7 @@ export const baseline = Object.assign(
 
     const shouldInclude = getShouldIncludePredicate(options.filter)
 
-    let cases = fs.readdirSync(casesFolder).filter(path => {
+    const cases = fs.readdirSync(casesFolder).filter(path => {
       if (isHidden(path)) return false
 
       if (shouldInclude(path)) return true
@@ -124,9 +124,12 @@ export const baseline = Object.assign(
         handler(context)
       }
     })
-  }, {
+  },
+  {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     skip(basePathOrOptions: string | Partial<BaselineOptions>, handler: BaselineHandler): Promise<void> | void { }
-  })
+  }
+)
 
 const defaultOptions = {
   casesFolder: 'cases',
@@ -146,7 +149,7 @@ function getShouldIncludePredicate(filter: string | RegExp | undefined) {
     return (path: string) => filter.test(path)
   if (typeof filter === 'string')
     return (path: string) => minimatch(path, filter)
-  return (path: string) => true
+  return (_path: string) => true
 }
 
 function createContextForDirectory(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: DiffFormatOptions): BaselineHandlerContext {

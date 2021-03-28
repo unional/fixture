@@ -1,4 +1,15 @@
-const common = require('@unional/devpkg-node/simple/config/jest.common')
-module.exports = Object.assign(common, {
-  'testEnvironment': 'node'
-})
+module.exports = {
+  collectCoverageFrom: ['<rootDir>/src/**/*.[jt]s', '!<rootDir>/src/bin.[jt]s'],
+  reporters: [
+    'default',
+    'jest-progress-tracker',
+    ['jest-audio-reporter', { volume: 0.3 }]
+  ],
+  watchPlugins: [
+    'jest-watch-suspend',
+    'jest-watch-typeahead/filename',
+    'jest-watch-typeahead/testname',
+    ['jest-watch-toggle-config', { setting: 'verbose' }],
+    ['jest-watch-toggle-config', { setting: 'collectCoverage' }]
+  ]
+}

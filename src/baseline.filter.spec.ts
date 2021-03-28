@@ -1,17 +1,14 @@
-import { clearAppenders, setLevel, logLevel, addAppender } from '@unional/logging'
-import { MemoryAppender } from 'aurelia-logging-memory'
+import { config, createMemoryLogReporter, logLevels } from 'standard-log'
 import assert from 'assert'
 import { AssertOrder } from 'assertron'
 
 import { baseline } from '.'
 
-beforeEach(() => {
-  setLevel(logLevel.none)
-})
-
-afterEach(() => {
-  clearAppenders()
-  setLevel(logLevel.none)
+beforeAll(() => {
+  config({
+    logLevel: logLevels.none,
+    mode: 'test'
+  })
 })
 
 test('filter cases using RegExp', () => {
@@ -54,9 +51,12 @@ test('filter with negate keeps others', () => {
 
 
 test('log filtered case', () => {
-  setLevel(logLevel.warn)
-  const mem = new MemoryAppender()
-  addAppender(mem)
+  const mem = createMemoryLogReporter()
+  config({
+    logLevel: logLevels.warn,
+    reporters: [mem],
+    mode: 'test'
+  })
 
   const o = new AssertOrder()
   baseline({
@@ -73,9 +73,12 @@ test('log filtered case', () => {
 
 
 test('suppressFilterWarning option will skip log filtered case', () => {
-  setLevel(logLevel.warn)
-  const mem = new MemoryAppender()
-  addAppender(mem)
+  const mem = createMemoryLogReporter()
+  config({
+    logLevel: logLevels.warn,
+    reporters: [mem],
+    mode: 'test'
+  })
 
   const o = new AssertOrder()
   baseline({
