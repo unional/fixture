@@ -56,7 +56,7 @@ baseline('fixtures', (context) => {
     filter: '*.pass',
     // By default warning messages will be displayed when some test cases are filtered.
     // Use this to suppress those warnings.
-    suppressFilterWarnings: true
+    suppressFilterWarnings: true,
     // If the file has more lines than this threshold,
     // then the file will be diff with line numbers,
     // and the unchanged lines will be trimmed off.
