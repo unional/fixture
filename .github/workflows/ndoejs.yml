@@ -110,7 +110,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: download lib folder
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: lib
       # - name: download libm folder
