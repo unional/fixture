@@ -81,7 +81,7 @@ jobs:
           FORCE_COLOR: 2
       - name: codecov
         if: matrix.node-version == 14 && matrix.os == 'ubuntu-latest'
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: codacy
