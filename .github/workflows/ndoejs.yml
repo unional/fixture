@@ -34,7 +34,7 @@ jobs:
       - run: yarn build
       - run: yarn dependency-check
       - name: upload lib folder
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: lib
           path: lib
