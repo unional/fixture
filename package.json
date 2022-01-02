@@ -68,7 +68,7 @@
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "@types/cp-file": "^6.1.2",
-    "@types/diff": "^4.0.2",
+    "@types/diff": "^5.0.0",
     "@types/glob": "^7.1.1",
     "@types/jest": "^26.0.20",
     "@types/mkdirp": "^0.5.2",
