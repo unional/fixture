@@ -44,7 +44,7 @@
     "diff-match-patch": "^1.0.4",
     "diff-match-patch-line-and-word": "^0.1.2",
     "dir-compare": "^1.7.2",
-    "glob": "^7.1.4",
+    "glob": "^7.2.0",
     "minimatch": "^3.0.4",
     "mkdirp": "^0.5.1",
     "pad-left": "^2.1.0",
