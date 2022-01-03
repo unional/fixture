@@ -50,7 +50,7 @@
     "pad-left": "^2.1.0",
     "rimraf": "^3.0.0",
     "standard-log": "^5.2.2",
-    "standard-log-color": "^2.2.2",
+    "standard-log-color": "^2.3.0",
     "tersify": "^3.0.2",
     "unpartial": "^0.6.3"
   },

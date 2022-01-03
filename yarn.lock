@@ -9206,10 +9206,10 @@ stack-utils@^2.0.2:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-standard-log-color@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-2.2.2.tgz#22ffc76c6530ac638a55f6759e2931d747bfa6f7"
-  integrity sha512-LZI9SYyA3LQacwBPqZihujBnwMMA+sn8mR+5JJW9qe/sK8uoUWOjBLD9KDBr4Fk0Ic3MFo+QUmbtWBwbz9aYWQ==
+standard-log-color@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-2.3.0.tgz#473191235643ce062890f5aa1310953bd0a69936"
+  integrity sha512-tddYmM+5uYbnheYZaeug+yUOghxE6P5Ahe2XtLclmMdLaqU3ZRMcLMDeI611nI6AT+iUPAdPldg5HhRk6lGMhA==
   dependencies:
     color-map "^1.1.0"
     tslib "^2.0.3"
