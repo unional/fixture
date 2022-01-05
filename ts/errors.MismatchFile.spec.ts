@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import uncolor from 'uncolor'
 import { baseline, MismatchFile } from '.'
 
 
@@ -26,7 +27,9 @@ baseline({
       source,
       { largeFileThreshold: 5, largeFileAmbientLines: 2 })
 
-    fs.writeFileSync(path.join(c.resultFolder, 'result.yaml'), mismatch.formattedDiff)
+    // during CI, `chalk` does not add color, causing tests to fail.
+    // uncolor the result so that the test passes.
+    fs.writeFileSync(path.join(c.resultFolder, 'result.yaml'), uncolor(mismatch.formattedDiff))
     return c.match('result.yaml')
   })
 })

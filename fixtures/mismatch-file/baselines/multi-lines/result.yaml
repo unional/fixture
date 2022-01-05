@@ -1,5 +1,5 @@
-[32m- Baseline[39m
-[31m+ Result[39m
+- Baseline
++ Result
   beep
-[32m- boop[39m
-[31m+ boob blah[39m
+- boop
++ boob blah

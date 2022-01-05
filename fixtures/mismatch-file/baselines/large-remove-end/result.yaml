@@ -1,6 +1,6 @@
-[32m- Baseline[39m
-[31m+ Result[39m
+- Baseline
++ Result
 6:   medicine: tube
 7:   explore: false
-[32m8: - character: course[39m
-[32m9: - evidence: 1714087644.518929[39m
+8: - character: course
+9: - evidence: 1714087644.518929
