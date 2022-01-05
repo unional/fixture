@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@types/diff-match-patch": "^1.0.32",
-    "chalk": "^4.0.0",
+    "chalk": "^5.0.0",
     "cp-file": "^9.1.0",
     "diff-match-patch": "^1.0.4",
     "diff-match-patch-line-and-word": "^0.1.3",
