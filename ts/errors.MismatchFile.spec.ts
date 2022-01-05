@@ -29,7 +29,10 @@ baseline({
 
     // during CI, `chalk` does not add color, causing tests to fail.
     // uncolor the result so that the test passes.
-    fs.writeFileSync(path.join(c.resultFolder, 'result.yaml'), uncolor(mismatch.formattedDiff))
+
+    const diff = uncolor(mismatch.formattedDiff)
+    console.info(JSON.stringify(diff))
+    fs.writeFileSync(path.join(c.resultFolder, 'result.yaml'), diff)
     return c.match('result.yaml')
   })
 })
