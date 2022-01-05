@@ -1,6 +1,6 @@
-[32m- Baseline[39m
-[31m+ Result[39m
-[32m1: - melted: nearest[39m
-[32m2: - seeing: section[39m
+- Baseline
++ Result
+1: - melted: nearest
+2: - seeing: section
 3:   sang: current
 4:   without: true

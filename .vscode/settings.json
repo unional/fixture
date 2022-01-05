@@ -9,10 +9,13 @@
     }
   ],
   "cSpell.words": [
-    "Tersible",
     "macos",
     "multilines",
     "nodir",
-    "testname"
+    "Tersible",
+    "tersify",
+    "testname",
+    "uncolor",
+    "unpartial"
   ]
 }

@@ -1,12 +1,7 @@
 {
-  "extends": "./tsconfig.base.json",
-  "atom": {
-    "rewriteTsconfig": false
-  },
-  "buildOnSave": false,
-  "compileOnSave": false,
+  "extends": "./tsconfig.esm.json",
   "include": [
-    "typings",
-    "src"
+    "ts",
+    "typings"
   ]
 }

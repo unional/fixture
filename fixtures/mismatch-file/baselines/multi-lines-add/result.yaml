@@ -1,6 +1,6 @@
-[32m- Baseline[39m
-[31m+ Result[39m
+- Baseline
++ Result
   a
     b
-[31m+   c[39m
-[31m+   d[39m
++   c
++   d

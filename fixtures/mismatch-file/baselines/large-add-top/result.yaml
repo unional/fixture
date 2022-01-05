@@ -1,6 +1,6 @@
-[32m- Baseline[39m
-[31m+ Result[39m
-[31m    + added:[39m
-[31m    +   part: foo[39m
+- Baseline
++ Result
+    + added:
+    +   part: foo
  1:   melted: nearest
  2:   seeing: section

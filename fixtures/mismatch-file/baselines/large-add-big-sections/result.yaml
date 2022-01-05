@@ -1,19 +1,19 @@
-[32m- Baseline[39m
-[31m+ Result[39m
+- Baseline
++ Result
  7:       political:
  8:         - probably
-[31m    +       -[39m
-[31m    +         settle:[39m
-[31m    +           giving: 1678192668[39m
-[31m    +           earth: -570007275[39m
-[31m    +           caught: false[39m
-[31m    +           when: -866271467[39m
-[31m    +           transportation: false[39m
-[31m    +           firm: describe[39m
-[31m    +           main: ranch[39m
-[31m    +           pattern: driver[39m
-[31m    +       - false[39m
-[31m    +       - doctor[39m
-[31m    +       - tail[39m
+    +       -
+    +         settle:
+    +           giving: 1678192668
+    +           earth: -570007275
+    +           caught: false
+    +           when: -866271467
+    +           transportation: false
+    +           firm: describe
+    +           main: ranch
+    +           pattern: driver
+    +       - false
+    +       - doctor
+    +       - tail
  9:         - aid
 10:         - using

@@ -1,15 +1,15 @@
-[32m- Baseline[39m
-[31m+ Result[39m
+- Baseline
++ Result
  4:     date:
  5:       needs: 110646821.30436087
-[32m 6: -     country: true[39m
-[31m    +     country: false[39m
+ 6: -     country: true
+    +     country: false
  7:       political:
  8:         - probably
-    [36m......[39m
+    ......
 23:         - using
 24:       upward: false
-[32m25: -     rough: false[39m
-[31m    +     rough: true[39m
+25: -     rough: false
+    +     rough: true
 26:     hearing: 34585926
 27:     in: true
