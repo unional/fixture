@@ -41,8 +41,10 @@ node_modules
 
 # project folders
 .progress
+cjs
 dist
 dist-es5
 dist-es2015
+esm
 fixtures/**/results
 lib

@@ -5,21 +5,19 @@
     "lib": [
       "es2015"
     ],
-    "module": "commonjs",
     "moduleResolution": "node",
     "newLine": "LF",
     "noUnusedLocals": true,
     "noUnusedParameters": false,
-    "outDir": "lib",
     "removeComments": false,
     "sourceMap": true,
     "strict": true,
-    "target": "es2015"
+    "useDefineForClassFields": true
   },
   "include": [
     "typings"
   ],
   "files": [
-    "src/index.ts"
+    "ts/index.ts"
   ]
 }

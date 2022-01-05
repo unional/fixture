@@ -1,12 +1,13 @@
-import dirCompare from 'dir-compare'
+import { compare as dirCompare } from 'dir-compare'
 import fs from 'fs'
 import glob from 'glob'
 import path from 'path'
+import type { Tersible } from 'tersify'
+import { isSystemError } from 'type-plus'
 import { DiffFormatOptions } from './diff'
 import { ExtraResultFile, Mismatch, MismatchFile, MissingResultFile } from './errors'
 import { isFolder } from './fsUtils'
 import { log } from './log'
-import { Tersible } from 'tersify'
 
 export type match = (caseName?: string) => Promise<any>
 
@@ -59,7 +60,7 @@ async function compare(baselinePath: string, resultPath: string, options: DiffFo
   const time = new Date().getTime()
 
   try {
-    const res = await dirCompare.compare(baselinePath, resultPath)
+    const res = await dirCompare(baselinePath, resultPath)
     log.debug(`comparing ${baselinePath} and ${resultPath} took ${new Date().getTime() - time} (ms)`)
     const mismatches: Tersible[] = []
     res.diffSet.forEach(d => {
@@ -90,10 +91,8 @@ async function compare(baselinePath: string, resultPath: string, options: DiffFo
     })
     if (mismatches.length > 0) throw new Mismatch(mismatches)
   }
-  catch (err) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (err.code === 'ENOENT') {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  catch (err: unknown) {
+    if (isSystemError('ENOENT', err)) {
       if ((path.isAbsolute(err.path) && err.path === path.resolve(baselinePath)) || err.path === baselinePath)
         throw await getMissingBaselineMismatch(baselinePath, resultPath, options)
       else
