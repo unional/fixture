@@ -5991,17 +5991,17 @@ standard-log-color@^4.0.0:
     tslib "^2.2.0"
     unpartial "^0.6.3"
 
-standard-log@^6.2.5:
-  version "6.2.5"
-  resolved "https://registry.yarnpkg.com/standard-log/-/standard-log-6.2.5.tgz#04b921639e8c133147884ba16f3ea58fce5d079e"
-  integrity sha512-tWd4MJPsT8IQ3qQxagpybUn8YB7lxzw2jsfj4DhS95rQAgmr0H2siO0+F8OOgh/mn1pNzcvMv8Z5aBwLcuIVwA==
+standard-log@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/standard-log/-/standard-log-7.0.0.tgz#d5699240c6cb5b9c80e392ebe5a56a47833e4a94"
+  integrity sha512-ANS21xsTDZYybrgVnhEUxyB3Ns1m0uzizUK62F4yN3/FgR1w3tn3ufkJH4Y32m8HIk2jCt39l6BTf3ZJcJ2OYg==
   dependencies:
     global-store "1.0.0-beta.19"
     is-node "^1.0.2"
     iso-error "^4.1.0"
     ms "^2.1.3"
     tslib "^2.3.1"
-    type-plus "^3.14.0"
+    type-plus "^4.0.0"
     upper-case "^2.0.2"
 
 string-length@^4.0.1:
