@@ -5982,10 +5982,10 @@ stack-utils@^2.0.3:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-standard-log-color@^3.2.4:
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-3.2.4.tgz#82ac4e3de6da92970bf9c3bf0b056cd6a479568b"
-  integrity sha512-xMxncKisTTiNfK+MoqaWT8BzNZvelXpva2GpO5nO6WBYIXukwk3EgWGma1tzGiCIzeD9Dr3RTa3L3MdyFfjGpA==
+standard-log-color@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-4.0.0.tgz#b45f5d2f93b222338dee3240755c0785845eab59"
+  integrity sha512-qJiVTqjlPEEG102HC+soTXur/opfTM6UUGewbQFFXQOpelEAMpN3m7wiE9JNlSdyKMtKN8hgvUTkxWR/EbtrJA==
   dependencies:
     color-map "^1.1.0"
     tslib "^2.2.0"

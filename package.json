@@ -56,7 +56,7 @@
     "pad-left": "^2.1.0",
     "rimraf": "^3.0.0",
     "standard-log": "^6.2.5",
-    "standard-log-color": "^3.2.4",
+    "standard-log-color": "^4.0.0",
     "tersify": "^3.8.0",
     "type-plus": "^4.0.0",
     "unpartial": "^0.6.4"
