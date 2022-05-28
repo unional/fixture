@@ -59,7 +59,7 @@
     "standard-log-color": "^4.0.0",
     "tersify": "^3.8.0",
     "type-plus": "^4.0.0",
-    "unpartial": "^0.6.4"
+    "unpartial": "^0.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
