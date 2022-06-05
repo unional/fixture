@@ -1,3 +1,10 @@
+## [1.8.5](https://github.com/unional/fixture/compare/v1.8.4...v1.8.5) (2022-06-05)
+
+
+### Bug Fixes
+
+* downgrade chalk ([41c89f2](https://github.com/unional/fixture/commit/41c89f2d84ee843ef4ae64a2b46965d56bc4927c))
+
 ## [1.8.4](https://github.com/unional/fixture/compare/v1.8.3...v1.8.4) (2022-06-05)
 
 
