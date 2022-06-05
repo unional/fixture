@@ -1,3 +1,28 @@
+# [2.0.0](https://github.com/unional/fixture/compare/v1.8.5...v2.0.0) (2022-06-05)
+
+
+* feat!: upgrade chalk ([33be932](https://github.com/unional/fixture/commit/33be932904b39c05dde0d07146b2ae203fcda97c))
+
+
+### BREAKING CHANGES
+
+* upgrade chalk
+
+`chalk@5` is published as ESM, and that breaks `jest`.
+
+Need to add this to `jest.config.js`:
+
+```
+{
+  moduleNameMapper: {
+    '#(.*)': '<rootDir>/node_modules/$1'
+  },
+  transformIgnorePatterns: [
+    'node_modules/(?!(chalk)/)'
+  ]
+}
+```
+
 ## [1.8.5](https://github.com/unional/fixture/compare/v1.8.4...v1.8.5) (2022-06-05)
 
 
