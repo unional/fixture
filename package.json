@@ -21,7 +21,7 @@
   },
   "types": "./esm/index.d.ts",
   "files": [
-    "cjs",
+    "esm",
     "ts",
     "!ts/**/*.spec.ts"
   ],
@@ -33,7 +33,6 @@
     "coverage": "jest --coverage",
     "depcheck": "depcheck",
     "lint": "eslint --ext=ts,js .",
-    "prepublishOnly": "yarn bundle",
     "postinstall": "husky install",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
