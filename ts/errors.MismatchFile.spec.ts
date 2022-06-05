@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import uncolor from 'uncolor'
-import { baseline, MismatchFile } from '.'
+import { baseline, MismatchFile } from './index.js'
 
 
 const cases: Record<string, string> = {

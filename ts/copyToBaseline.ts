@@ -1,6 +1,6 @@
-import cpFile from 'cp-file';
-import glob from 'glob';
-import path from 'path';
+import cpFile from 'cp-file'
+import glob from 'glob'
+import path from 'path'
 
 export interface CopyToBaseline {
   (wildcardOrRegExp?: string): Promise<void>,

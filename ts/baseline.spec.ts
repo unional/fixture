@@ -6,8 +6,8 @@ import path from 'path'
 import { pathEqual } from 'path-equal'
 import rimraf from 'rimraf'
 
-import { baseline, NoCaseFound, Mismatch, MismatchFile, ExtraResultFile, MissingResultFile } from '.'
-import { ensureFolderExist } from './fsUtils'
+import { baseline, NoCaseFound, Mismatch, MismatchFile, ExtraResultFile, MissingResultFile } from './index.js'
+import { ensureFolderExist } from './fsUtils.js'
 
 test('load from not exist folder throws NoCaseFound', () => {
   assert.throws(() => baseline('fixtures/not-exist', () => {

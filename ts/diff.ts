@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import padLeft from 'pad-left'
-import { DiffMatch, DiffResult } from './DiffMatch'
+import { DiffMatch, DiffResult } from './DiffMatch.js'
 
 export interface DiffFormatOptions {
   /**

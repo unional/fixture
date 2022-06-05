@@ -1,0 +1,8 @@
+ignores:
+  - '@commitlint/*'
+  - '@semantic-release/*'
+  - standard-log-color
+  - '@types/jest'
+  - jest-*
+  - semantic-release
+  - ts-jest
