@@ -12,13 +12,13 @@
 
 Need to add this to `jest.config.js`:
 
-```
+```jsonc
 {
   moduleNameMapper: {
-    '#(.*)': '<rootDir>/node_modules/$1'
+    '#(.*)': '<rootDir>/node_modules/$1' // needed for `chalk` getting `#ansi-styles`
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(chalk)/)'
+    'node_modules/(?!(@unional\\fixture|chalk)/)'
   ]
 }
 ```
