@@ -17,16 +17,19 @@
   },
   "type": "module",
   "exports": {
-    "import": "./esm/index.js"
+    "import": "./esm/index.js",
+    "require": "./cjs/index.js"
   },
+  "main": "./cjs/index.js",
   "types": "./esm/index.d.ts",
   "files": [
+    "cjs",
     "esm",
     "ts",
     "!ts/**/*.spec.ts"
   ],
   "scripts": {
-    "build": "run-p build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
     "clean": "rimraf cjs esm lib fixtures/*/results || true",
