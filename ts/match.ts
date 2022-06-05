@@ -4,10 +4,10 @@ import glob from 'glob'
 import path from 'path'
 import type { Tersible } from 'tersify'
 import { isSystemError } from 'type-plus'
-import { DiffFormatOptions } from './diff'
-import { ExtraResultFile, Mismatch, MismatchFile, MissingResultFile } from './errors'
-import { isFolder } from './fsUtils'
-import { log } from './log'
+import { DiffFormatOptions } from './diff.js'
+import { ExtraResultFile, Mismatch, MismatchFile, MissingResultFile } from './errors.js'
+import { isFolder } from './fsUtils.js'
+import { log } from './log.js'
 
 export type match = (caseName?: string) => Promise<any>
 

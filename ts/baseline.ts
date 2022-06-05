@@ -2,12 +2,12 @@ import fs from 'fs'
 import minimatch from 'minimatch'
 import path from 'path'
 import { unpartial } from 'unpartial'
-import { CopyToBaseline, createCopyToBaselineFunction } from './copyToBaseline'
-import { DiffFormatOptions } from './diff'
-import { NoCaseFound } from './errors'
-import { ensureFolderEmpty, ensureFolderExist, isFolder, isHidden } from './fsUtils'
-import { log } from './log'
-import { createMatchFunction, createMatchFunctionForFile, match } from './match'
+import { CopyToBaseline, createCopyToBaselineFunction } from './copyToBaseline.js'
+import { DiffFormatOptions } from './diff.js'
+import { NoCaseFound } from './errors.js'
+import { ensureFolderEmpty, ensureFolderExist, isFolder, isHidden } from './fsUtils.js'
+import { log } from './log.js'
+import { createMatchFunction, createMatchFunctionForFile, match } from './match.js'
 
 export interface BaselineOptions extends DiffFormatOptions {
   /**

@@ -5,7 +5,7 @@ import path from 'path'
 import { pathEqual } from 'path-equal'
 import rimraf from 'rimraf'
 
-import { baseline, Mismatch, MismatchFile } from '.'
+import { baseline, Mismatch, MismatchFile } from './index.js'
 
 test('invoke callback for each file', () => {
   const caseNames: string[] = []

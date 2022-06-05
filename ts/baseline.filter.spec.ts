@@ -2,7 +2,7 @@ import { config, createMemoryLogReporter, logLevels } from 'standard-log'
 import assert from 'assert'
 import { AssertOrder } from 'assertron'
 
-import { baseline } from '.'
+import { baseline } from './index.js'
 
 beforeAll(() => {
   config({

@@ -1,7 +1,7 @@
 import { Tersible } from 'tersify'
-import { createDiff, DiffFormatOptions, formatDiff } from './diff'
-import { DiffResult } from './DiffMatch'
-import { log } from './log'
+import { createDiff, DiffFormatOptions, formatDiff } from './diff.js'
+import { DiffResult } from './DiffMatch.js'
+import { log } from './log.js'
 
 export class NoCaseFound extends Error {
   constructor(public dir: string) {

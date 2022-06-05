@@ -1,6 +1,6 @@
 import t from 'assert'
 import fs from 'fs'
-import { ExtraResultFile } from '.'
+import { ExtraResultFile } from './index.js'
 
 test('diff 10k line file should take < 1 seconds', () => {
   const filePath = 'fixtures/diff-large/large.yaml'
