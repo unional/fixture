@@ -1,3 +1,11 @@
+## [2.0.1](https://github.com/unional/fixture/compare/v2.0.0...v2.0.1) (2022-06-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency standard-log to v8 ([2a2afbf](https://github.com/unional/fixture/commit/2a2afbf2492e21d4c33fa8db8099c1f6b32e71bf))
+* **deps:** upgrade standard-log-color ([0ea01a7](https://github.com/unional/fixture/commit/0ea01a723ed8b44bee7906137166cbccdcda9b52))
+
 # [2.0.0](https://github.com/unional/fixture/compare/v1.8.5...v2.0.0) (2022-06-05)
 
 
