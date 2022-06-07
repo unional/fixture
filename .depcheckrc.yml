@@ -3,6 +3,7 @@ ignores:
   - '@semantic-release/*'
   - '@types/jest'
   - babel-jest
+  - global-store
   - jest-*
   - semantic-release
   - standard-log-color
