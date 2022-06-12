@@ -6906,10 +6906,10 @@ stack-utils@^2.0.3:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-standard-log-color@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-5.0.0.tgz#d1de00c25907ffb1e1a9da00a9b387c4f356b43b"
-  integrity sha512-pd/OkPLPJdl4bgZDXoi70IdSBx/q8VT6PfX3N1pakMKgkv7/S7xctxGeB8gM950KK0H+dfUKNnaRXKBxdxD3Qg==
+standard-log-color@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-7.0.0.tgz#6994f16ef9585a759d24695c466cc17b1bde9a06"
+  integrity sha512-i+srLZ6GdjerDjPuo3vh7FuzwoRQ31sfXJ/z3A/p/NfNbsxjNSBJrULt7M/lmIRkFxFJzixjyYq2xmVYCKN50g==
   dependencies:
     color-map "^1.1.4"
     unpartial "^0.7.4"
