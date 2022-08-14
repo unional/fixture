@@ -76,7 +76,7 @@
     "@types/node": "^17.0.39",
     "@types/rimraf": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
-    "assertron": "^9.2.3",
+    "assertron": "^10.0.0",
     "babel-jest": "^28.1.0",
     "depcheck": "^1.4.3",
     "eslint": "8.22.0",
