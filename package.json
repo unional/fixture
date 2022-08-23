@@ -55,11 +55,10 @@
     "mkdirp": "^1.0.4",
     "pad-left": "^2.1.0",
     "rimraf": "^3.0.2",
-    "standard-log": "^8.0.0",
-    "standard-log-color": "^5.0.0",
-    "tersify": "^3.10.0",
-    "type-plus": "^4.9.1",
-    "unpartial": "^0.7.4"
+    "standard-log": "^9.1.7",
+    "standard-log-color": "^7.0.2",
+    "tersify": "^3.10.2",
+    "type-plus": "^4.11.1"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.18.2",

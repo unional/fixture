@@ -1,7 +1,7 @@
 import { Tersible } from 'tersify'
+import { context } from './context.js'
 import { createDiff, DiffFormatOptions, formatDiff } from './diff.js'
 import { DiffResult } from './DiffMatch.js'
-import { log } from './log.js'
 
 export class NoCaseFound extends Error {
   constructor(public dir: string) {
@@ -30,10 +30,10 @@ export class ExtraResultFile {
     const time = new Date().getTime()
     const diff = createDiff(result, '')
     const createDiffTime = new Date().getTime()
-    log.debug(`create diff for ${filePath} took ${createDiffTime - time} ms`)
+    context.log.debug(`create diff for ${filePath} took ${createDiffTime - time} ms`)
     this.diff = diff.diff
     this.formattedDiff = formatDiff(diff, options)
-    log.debug(`format diff for ${filePath} took ${new Date().getTime() - createDiffTime} ms`)
+    context.log.debug(`format diff for ${filePath} took ${new Date().getTime() - createDiffTime} ms`)
   }
   tersify() {
     return `Extra result file '${this.filePath}'.\n\n${this.formattedDiff}`
