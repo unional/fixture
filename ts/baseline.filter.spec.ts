@@ -1,14 +1,15 @@
-import { config, createMemoryLogReporter, logLevels } from 'standard-log'
 import assert from 'assert'
 import { AssertOrder } from 'assertron'
+import { createStandardLogForTest, StandardLogForTest } from 'standard-log'
 
+import { context } from './context.js'
 import { baseline } from './index.js'
 
-beforeAll(() => {
-  config({
-    logLevel: logLevels.none,
-    mode: 'test'
-  })
+let sl: StandardLogForTest
+
+beforeEach(() => {
+  sl = createStandardLogForTest()
+  context.log = sl.getLogger('standard-log')
 })
 
 test('filter cases using RegExp', () => {
@@ -54,13 +55,6 @@ test('filter with negate keeps others', () => {
 
 
 test('log filtered case', () => {
-  const mem = createMemoryLogReporter()
-  config({
-    logLevel: logLevels.warn,
-    reporters: [mem],
-    mode: 'test'
-  })
-
   const o = new AssertOrder()
   baseline({
     basePath: 'fixtures/file-cases',
@@ -70,19 +64,12 @@ test('log filtered case', () => {
     o.once(1)
   })
 
-  assert.strictEqual(mem.logs.length, 1)
+  assert.strictEqual(sl.reporter.logs.length, 1)
   o.end()
 })
 
 
 test('suppressFilterWarning option will skip log filtered case', () => {
-  const mem = createMemoryLogReporter()
-  config({
-    logLevel: logLevels.warn,
-    reporters: [mem],
-    mode: 'test'
-  })
-
   const o = new AssertOrder()
   baseline({
     basePath: 'fixtures/file-cases',
@@ -93,6 +80,6 @@ test('suppressFilterWarning option will skip log filtered case', () => {
     o.once(1)
   })
 
-  assert.strictEqual(mem.logs.length, 0)
+  assert.strictEqual(sl.reporter.logs.length, 0)
   o.end()
 })

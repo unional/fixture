@@ -4,10 +4,10 @@ import glob from 'glob'
 import path from 'path'
 import type { Tersible } from 'tersify'
 import { isSystemError } from 'type-plus'
+import { context } from './context.js'
 import { DiffFormatOptions } from './diff.js'
 import { ExtraResultFile, Mismatch, MismatchFile, MissingResultFile } from './errors.js'
 import { isFolder } from './fsUtils.js'
-import { log } from './log.js'
 
 export type match = (caseName?: string) => Promise<any>
 
@@ -61,7 +61,7 @@ async function compare(baselinePath: string, resultPath: string, options: DiffFo
 
   try {
     const res = await dirCompare(baselinePath, resultPath)
-    log.debug(`comparing ${baselinePath} and ${resultPath} took ${new Date().getTime() - time} (ms)`)
+    context.log.debug(`comparing ${baselinePath} and ${resultPath} took ${new Date().getTime() - time} (ms)`)
     const mismatches: Tersible[] = []
     res.diffSet.forEach(d => {
       if (d.type1 === 'missing') {

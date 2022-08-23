@@ -1,12 +1,12 @@
 import fs from 'fs'
 import minimatch from 'minimatch'
 import path from 'path'
-import { unpartial } from 'unpartial'
+import { required } from 'type-plus'
+import { context } from './context.js'
 import { CopyToBaseline, createCopyToBaselineFunction } from './copyToBaseline.js'
 import { DiffFormatOptions } from './diff.js'
 import { NoCaseFound } from './errors.js'
 import { ensureFolderEmpty, ensureFolderExist, isFolder, isHidden } from './fsUtils.js'
-import { log } from './log.js'
 import { createMatchFunction, createMatchFunctionForFile, match } from './match.js'
 
 export interface BaselineOptions extends DiffFormatOptions {
@@ -102,7 +102,7 @@ export const baseline = Object.assign(
       if (shouldInclude(path)) return true
 
       if (!options.suppressFilterWarnings)
-        log.warn(`case '${path}' in '${options.basePath}' is filtered and not executed`)
+        context.log.warn(`case '${path}' in '${options.basePath}' is filtered and not executed`)
       return false
     })
 
@@ -141,7 +141,7 @@ const defaultOptions = {
 } as BaselineOptions
 
 function getOptions(givenOptions: string | Partial<BaselineOptions>) {
-  return unpartial(defaultOptions, typeof givenOptions === 'string' ? { basePath: givenOptions } : givenOptions)
+  return required(defaultOptions, typeof givenOptions === 'string' ? { basePath: givenOptions } : givenOptions)
 }
 
 function getShouldIncludePredicate(filter: string | RegExp | undefined) {
