@@ -7,7 +7,7 @@ import { CopyToBaseline, createCopyToBaselineFunction } from './copyToBaseline.j
 import { DiffFormatOptions } from './diff.js'
 import { NoCaseFound } from './errors.js'
 import { ensureFolderEmpty, ensureFolderExist, isFolder, isHidden } from './fsUtils.js'
-import { createMatchFunction, createMatchFunctionForFile, match } from './match.js'
+import { createMatchFunction, createMatchFunctionForFile } from './match.js'
 
 export interface BaselineOptions extends DiffFormatOptions {
   /**
@@ -47,30 +47,26 @@ export interface BaselineHandlerContext {
   caseName: string,
   /**
    * Folder containing the case.
-   * If the case is a file, this is the 'cases' folder.
-   * If the case is a folder, this is the case folder.
+   * By default, this is the `cases` folder.
    */
   caseFolder: string,
   /**
    * Folder containing the baseline.
    * This is mostly for reference purpose.
    * You don't normally need to use this.
-   *
-   * If the case is a file, this is the 'baselines' folder.
-   * If the case is a folder, this is the baseline folder.
    */
   baselineFolder: string,
   /**
    * Folder containing the result.
    * Use this to write your output file(s).
-   * If the case is a file, this is the 'results' folder.
-   * If the case is a folder, this is the result folder.
    */
   resultFolder: string,
   /**
    * Assert the result and baseline matches.
+   * @param target Optional. Target to match against. Default to `caseName`.
    */
-  match: match,
+  match(target?: string): Promise<any>,
+
   /**
    * Helper function to copy the result to baseline.
    */
