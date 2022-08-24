@@ -6,26 +6,8 @@ import path from 'path'
 import { pathEqual } from 'path-equal'
 import rimraf from 'rimraf'
 
-import { baseline, NoCaseFound, Mismatch, MismatchFile, ExtraResultFile, MissingResultFile } from './index.js'
 import { ensureFolderExist } from './fsUtils.js'
-
-test('load from not exist folder throws NoCaseFound', () => {
-  assert.throws(() => baseline('fixtures/not-exist', () => {
-    throw new Error('should not called')
-  }), (err: Error) => err instanceof NoCaseFound && pathEqual(err.dir, 'fixtures/not-exist'))
-})
-
-test('load from folder without "cases" subfolder throws NoCaseFound', () => {
-  assert.throws(() => baseline('fixtures/no-cases', () => {
-    throw new Error('should not called')
-  }), (err: Error) => err instanceof NoCaseFound && pathEqual(err.dir, 'fixtures/no-cases/cases'))
-})
-
-test('load from empty folder throws NoCaseFound', () => {
-  assert.throws(() => baseline('fixtures/empty', () => {
-    throw new Error('should not called')
-  }), (err: Error) => err instanceof NoCaseFound && pathEqual(err.dir, 'fixtures/empty/cases'))
-})
+import { baseline, ExtraResultFile, Mismatch, MismatchFile, MissingResultFile } from './index.js'
 
 test('invoke callback for each folder', () => {
   const caseNames: string[] = []
