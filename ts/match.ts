@@ -9,8 +9,6 @@ import { DiffFormatOptions } from './diff.js'
 import { ExtraResultFile, Mismatch, MismatchFile, MissingResultFile } from './errors.js'
 import { isFolder } from './fsUtils.js'
 
-export type match = (caseName?: string) => Promise<any>
-
 export function createMatchFunctionForFile(
   baselineFolder: string,
   resultFolder: string,
