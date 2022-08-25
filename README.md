@@ -12,35 +12,50 @@
 
 Provides fixture for tests.
 
+## Install
+
+```sh
+# npm
+npm install -D @unional/fixture
+
+# yarn
+yarn add -D @unional/fixture
+
+# pnpm
+pnpm install -D @unional/fixture
+
+# rush
+rush add -p @unional/fixture --dev
+```
+
 ## Usage
 
 ```ts
 import { baseline } from '@unional/fixture'
+import path from 'path'
 
 // basic usage
-baseline('fixtures', (context) => {
+baseline('fixtures', ({ caseName, caseType, casePath, resultPath, match, copyToBaseline }) => {
   // `test()` comes from your favorite test runner.
   // e.g. `ava`, `jest`, `mocha`
-  test(context.caseName, async () => {
-    // use caseFolder + caseName to get input file
-    fs.readFileSync(path.join(context.caseFolder, caseName), 'utf-8')
+  test(caseName, async () => {
+    // this example assumes `caseType === 'file'`,
+    // so the `casePath` points to the input file directly.
+    fs.readFileSync(casePath, 'utf-8')
 
-    // use resultFolder to write output file
-    fs.writeFileSync(path.join(context.resultFolder, 'output.txt', '<some data>'))
+    // `resultPath` points to a folder where you can save your result(s)
+    fs.writeFileSync(path.join(resultPath, 'output.txt', '<some data>'))
 
-    // compare result and baseline:
-    // If test case is a file,
-    //   the file with the same namd in the result and baseline folder will be compared.
-    // If test case is a folder,
-    //   the whole folder and its subfolder in the result and baseline folder will be compared.
-    await context.match()
+    // compare result and baseline folder
+    await match()
 
     // match compares specific file in result folder and baseline folder
-    await context.match('output.txt')
+    await match('output.txt')
 
     // if you are happy with the change,
-    // use this to copy the artifacts from result folder to baseline folder
-    await context.copyToBaseline('*.txt')
+    // use this to copy the artifacts from result folder to baseline folder,
+    // or you can do that manually from your IDE.
+    await copyToBaseline('*.txt')
   })
 
   // advance usage
