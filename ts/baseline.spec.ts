@@ -130,8 +130,6 @@ test('provided match() rejects when missing baseline folder and sub-folder', () 
 })
 
 test('provided match() rejects when missing baseline file', () => {
-  ensureFolderExist('fixtures/dir-miss-baseline-file/baselines/case-1')
-
   return assertron.throws(new Promise(a => {
     baseline('fixtures/dir-miss-baseline-file', ({ resultPath, match }) => {
       fs.writeFileSync(path.join(resultPath, 'result.txt'), 'actual')
