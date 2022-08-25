@@ -303,9 +303,9 @@ function pathsEqual(actuals: string[], expects: string[]) {
 
 test('default diff display threshold is 200', () => {
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/diff-display-threshold', ({ casePath, resultPath, match }) => {
+    baseline('fixtures/diff-display-threshold', ({ caseName, casePath, resultPath, match }) => {
       const content = fs.readFileSync(casePath, 'utf-8')
-      fs.writeFileSync(resultPath, content)
+      fs.writeFileSync(path.join(resultPath, caseName), content)
       a(match())
     })
   }), err => {
