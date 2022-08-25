@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/unional/fixture/compare/v3.0.0...v3.0.1) (2022-08-25)
+
+
+### Bug Fixes
+
+* update README ([9ba6776](https://github.com/unional/fixture/commit/9ba6776ee029181cf2bf2de8f549b389e2b67543))
+
 # [3.0.0](https://github.com/unional/fixture/compare/v2.0.2...v3.0.0) (2022-08-25)
 
 
