@@ -65,8 +65,8 @@ test('file baseline tests should match file with same caseName if caseName is no
       basePath: 'fixtures/file-match-itself',
       filter: 'good.txt',
       suppressFilterWarnings: true
-    }, ({ match, resultPath: resultPath }) => {
-      fs.writeFileSync(resultPath, 'expected')
+    }, ({ caseName, match, resultPath }) => {
+      fs.writeFileSync(path.join(resultPath, caseName), 'expected')
       a(match())
     })
   })
