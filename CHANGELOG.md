@@ -1,3 +1,34 @@
+# [3.0.0](https://github.com/unional/fixture/compare/v2.0.2...v3.0.0) (2022-08-25)
+
+
+### Bug Fixes
+
+* improve code comments ([9cea98b](https://github.com/unional/fixture/commit/9cea98bfa47e49801821fd9e49728bcee7fc5ae9))
+
+
+### Features
+
+* adjust folders to paths ([92cce46](https://github.com/unional/fixture/commit/92cce4638411abe11b19fbd6533cca117a368cf1))
+
+
+### BREAKING CHANGES
+
+* context behavir changed
+
+The handler context now contains `case|baseline|resultPath` instead of folder.
+
+The behavior for file-case and folder-case now are are same.
+
+`casePath` points to the actual case file or folder.
+`baseline|resultPath` always points to a folder  with case name.
+Even if it is a file-case,
+a folder with that name (including file extension) will be created.
+
+This allows user to simply check `caseType` to see if it is a file or folder case and read the right thing,
+based on their assumption of the structure.
+
+This allows the `baseline()` to be used in a fixture folder with mixed file and folder cases.
+
 ## [2.0.2](https://github.com/unional/fixture/compare/v2.0.1...v2.0.2) (2022-08-23)
 
 
