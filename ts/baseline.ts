@@ -150,7 +150,6 @@ function createContextForDirectory(caseName: string, casesFolder: string, baseli
   const baselinePath = path.join(baselinesFolder, caseName)
   const resultPath = path.join(resultsFolder, caseName)
 
-  ensureFolderExist(baselinePath)
   ensureFolderExist(resultPath)
 
   const match = createMatchFunction(baselinePath, resultPath, options)
