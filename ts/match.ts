@@ -1,6 +1,5 @@
 import { compare as dirCompare } from 'dir-compare'
 import fs from 'fs'
-import glob from 'glob'
 import path from 'path'
 import type { Tersible } from 'tersify'
 import { isSystemError } from 'type-plus'
@@ -8,18 +7,6 @@ import { context } from './context.js'
 import { DiffFormatOptions } from './diff.js'
 import { ExtraResultFile, Mismatch, MismatchFile, MissingResultFile } from './errors.js'
 import { isFolder } from './fsUtils.js'
-
-export function createMatchFunctionForFile(
-  baselineFolder: string,
-  resultFolder: string,
-  caseName: string,
-  options: DiffFormatOptions) {
-  return function match(target = caseName): Promise<any> {
-    const resultPath = path.join(resultFolder, target)
-    const baselinePath = path.join(baselineFolder, target)
-    return compare(baselinePath, resultPath, options)
-  }
-}
 
 export function createMatchFunction(baselinePath: string, resultPath: string, options: DiffFormatOptions) {
   const filesBeforeTest = readFileOrDirectory(resultPath)
@@ -108,21 +95,8 @@ async function compare(baselinePath: string, resultPath: string, options: DiffFo
 }
 
 function getMissingBaselineMismatch(missingFilePath: string, resultPath: string, options: DiffFormatOptions) {
-  if (isFolder(resultPath)) {
-    return new Promise<Tersible[]>(a => {
-      glob('**', { cwd: resultPath, nodir: true }, (_err, files) => {
-        a(files.map(file => {
-          const filePath = path.join(resultPath, file)
-          const fileContent = fs.readFileSync(filePath, 'utf-8')
-          return new ExtraResultFile(filePath, fileContent, options)
-        }))
-      })
-    }).then(mismatches => new Mismatch(mismatches))
-  }
-  else {
-    const fileContent = fs.readFileSync(resultPath, 'utf-8')
-    return Promise.resolve(new Mismatch([new ExtraResultFile(resultPath, fileContent, options)]))
-  }
+  const fileContent = fs.readFileSync(resultPath, 'utf-8')
+  return Promise.resolve(new Mismatch([new ExtraResultFile(resultPath, fileContent, options)]))
 }
 
 function getMissingResultMismatch(missingFilePath: string, baselinePath: string, options: DiffFormatOptions) {
