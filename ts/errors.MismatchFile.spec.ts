@@ -17,8 +17,8 @@ baseline({
   basePath: 'fixtures/mismatch-file'
 }, c => {
   test(cases[c.caseName] || c.caseName, () => {
-    const source = fs.readFileSync(path.join(c.caseFolder, 'source.yaml'), 'utf-8')
-    const target = fs.readFileSync(path.join(c.caseFolder, 'target.yaml'), 'utf-8')
+    const source = fs.readFileSync(path.join(c.casePath, 'source.yaml'), 'utf-8')
+    const target = fs.readFileSync(path.join(c.casePath, 'target.yaml'), 'utf-8')
 
     const mismatch = new MismatchFile(
       'target.yaml',
@@ -30,7 +30,7 @@ baseline({
     // during CI, `chalk` does not add color, causing tests to fail.
     // uncolor the result so that the test passes.
     const diff = uncolor(mismatch.formattedDiff).replace(/\r\n/g, '\n')
-    fs.writeFileSync(path.join(c.resultFolder, 'result.yaml'), diff)
+    fs.writeFileSync(path.join(c.resultPath, 'result.yaml'), diff)
     return c.match('result.yaml')
   })
 })
