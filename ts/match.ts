@@ -14,38 +14,44 @@ export function createMatchFunctionForFile(
   resultFolder: string,
   caseName: string,
   options: DiffFormatOptions) {
-  return function match(fileName: string = caseName): Promise<any> {
-    const resultPath = path.join(resultFolder, fileName)
-    const baselinePath = path.join(baselineFolder, fileName)
+  return function match(target = caseName): Promise<any> {
+    const resultPath = path.join(resultFolder, target)
+    const baselinePath = path.join(baselineFolder, target)
     return compare(baselinePath, resultPath, options)
   }
 }
 
-export function createMatchFunction(baselineFolder: string, resultFolder: string, options: DiffFormatOptions) {
-  const filesBeforeTest = readDirectory(resultFolder)
-  return function match(filename = ''): Promise<any> {
-    const filesAfterTest = readDirectory(resultFolder)
-    removeUnchangedFiles(filesBeforeTest, filesAfterTest)
-
-    const resultPath = path.join(resultFolder, filename)
-    const baselinePath = path.join(baselineFolder, filename)
-    return compare(baselinePath, resultPath, options)
-  }
-}
-
-function readDirectory(folder: string) {
-  const files: { filePath: string, ctime: number }[] = []
-  fs.readdirSync(folder).forEach(entry => {
-    const entryPath = path.join(folder, entry)
-    const stat = fs.statSync(entryPath)
-    // istanbul ignore next
-    if (stat.isSymbolicLink()) return
-    if (stat.isFile()) files.push({ filePath: entryPath, ctime: stat.ctimeMs })
-    if (stat.isDirectory()) {
-      files.push(...readDirectory(entryPath))
+export function createMatchFunction(baselinePath: string, resultPath: string, options: DiffFormatOptions) {
+  const filesBeforeTest = readFileOrDirectory(resultPath)
+  return function match(target = ''): Promise<any> {
+    if (isFolder(resultPath)) {
+      const filesAfterTest = readFileOrDirectory(resultPath)
+      removeUnchangedFiles(filesBeforeTest, filesAfterTest)
     }
-  })
+
+    return compare(
+      path.join(baselinePath, target),
+      path.join(resultPath, target),
+      options
+    )
+  }
+}
+
+function readFileOrDirectory(target: string) {
+  const files: { filePath: string, ctime: number }[] = []
+  fillFileOrDirectory(files, target)
   return files
+}
+function fillFileOrDirectory(files: { filePath: string, ctime: number }[], entryPath: string) {
+  const stat = fs.statSync(entryPath)
+  // istanbul ignore next
+  if (stat.isSymbolicLink()) return
+  if (stat.isFile()) files.push({ filePath: entryPath, ctime: stat.ctimeMs })
+  if (stat.isDirectory()) {
+    fs.readdirSync(entryPath).forEach(entry =>
+      fillFileOrDirectory(files, path.join(entryPath, entry))
+    )
+  }
 }
 function removeUnchangedFiles(before: { filePath: string, ctime: number }[], after: { filePath: string, ctime: number }[]) {
   after.forEach(v => {

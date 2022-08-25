@@ -6,7 +6,7 @@ import path from 'path'
 import { pathEqual } from 'path-equal'
 import rimraf from 'rimraf'
 
-import { ensureFolderExist } from './fsUtils.js'
+import { ensureFolderExist, isFolder } from './fsUtils.js'
 import { baseline, ExtraResultFile, Mismatch, MismatchFile, MissingResultFile } from './index.js'
 
 test('invoke callback for each folder', () => {
@@ -14,11 +14,11 @@ test('invoke callback for each folder', () => {
   const caseFolders: string[] = []
   const resultFolders: string[] = []
   const baselineFolders: string[] = []
-  baseline('fixtures/dir-cases', ({ caseName, caseFolder, resultFolder, baselineFolder }) => {
+  baseline('fixtures/dir-cases', ({ caseName, casePath, resultPath, baselinePath }) => {
     caseNames.push(caseName)
-    caseFolders.push(caseFolder)
-    resultFolders.push(resultFolder)
-    baselineFolders.push(baselineFolder)
+    caseFolders.push(casePath)
+    resultFolders.push(resultPath)
+    baselineFolders.push(baselinePath)
   })
   assert.deepStrictEqual(caseNames, ['case1', 'case2'])
   pathsEqual(caseFolders, ['fixtures/dir-cases/cases/case1', 'fixtures/dir-cases/cases/case2'])
@@ -29,8 +29,8 @@ test('invoke callback for each folder', () => {
 test(`'results/<case>' folder is created for dir cases`, () => {
   ensureFolderNotExist('fixtures/no-dir-results/results')
 
-  baseline('fixtures/no-dir-results', ({ resultFolder }) => {
-    assert(fs.existsSync(resultFolder))
+  baseline('fixtures/no-dir-results', ({ resultPath }) => {
+    assert(fs.existsSync(resultPath))
   })
 })
 
@@ -50,8 +50,8 @@ test('fixture.skip() will do nothing', () => {
 
 test('provided match() pass with matching files in folder', () => {
   return new Promise(a => {
-    baseline('fixtures/dir-match-case', ({ caseName, resultFolder, match }) => {
-      fs.writeFileSync(path.join(resultFolder, caseName), 'expected')
+    baseline('fixtures/dir-match-case', ({ caseName, resultPath, match }) => {
+      fs.writeFileSync(path.join(resultPath, caseName), 'expected')
       a(match())
     })
   })
@@ -59,8 +59,8 @@ test('provided match() pass with matching files in folder', () => {
 
 test('provided match() rejects with files in folder not match by content', () => {
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-not-match-case', ({ caseName, resultFolder, match }) => {
-      fs.writeFileSync(path.join(resultFolder, caseName), 'actual')
+    baseline('fixtures/dir-not-match-case', ({ caseName, resultPath, match }) => {
+      fs.writeFileSync(path.join(resultPath, caseName), 'actual')
       a(match())
     })
   }), err => {
@@ -81,11 +81,11 @@ test('provided match() rejects with files in folder not match by content', () =>
 // TODO: Support Wildcard matching
 test.skip('provided match() pass with matching files in folder', () => {
   return new Promise(a => {
-    baseline('fixtures/dir-match-wildcard', ({ caseFolder, resultFolder, match }) => {
+    baseline('fixtures/dir-match-wildcard', ({ casePath: caseFolder, resultPath, match }) => {
       const context = fs.readFileSync(path.join(caseFolder, 'input.txt'), 'utf-8')
-      fs.writeFileSync(path.join(resultFolder, 'f1.txt'), context)
-      fs.writeFileSync(path.join(resultFolder, 'f2.txt'), context)
-      fs.writeFileSync(path.join(resultFolder, 'other.js'), 'should not match')
+      fs.writeFileSync(path.join(resultPath, 'f1.txt'), context)
+      fs.writeFileSync(path.join(resultPath, 'f2.txt'), context)
+      fs.writeFileSync(path.join(resultPath, 'other.js'), 'should not match')
       a(match('*.txt'))
     })
   })
@@ -95,8 +95,8 @@ test('provided match() rejects when missing baseline folder', () => {
   ensureFolderNotExist('fixtures/dir-miss-baseline-folder/baselines/case-1')
 
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-miss-baseline-folder', ({ resultFolder, match }) => {
-      fs.writeFileSync(path.join(resultFolder, 'output.txt'), 'actual')
+    baseline('fixtures/dir-miss-baseline-folder', ({ resultPath, match }) => {
+      fs.writeFileSync(path.join(resultPath, 'output.txt'), 'actual')
       a(match())
     })
   }), err => {
@@ -113,9 +113,9 @@ test('provided match() rejects when missing baseline folder', () => {
 test('provided match() rejects when missing baseline folder and sub-folder', () => {
   ensureFolderNotExist('fixtures/dir-miss-baseline-folder-deep/baselines/case-1')
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-miss-baseline-folder-deep', ({ resultFolder, match }) => {
+    baseline('fixtures/dir-miss-baseline-folder-deep', ({ resultPath, match }) => {
       ensureFolderExist('fixtures/dir-miss-baseline-folder-deep/results/case-1/sub-folder')
-      fs.writeFileSync(path.join(resultFolder, 'sub-folder/output.txt'), 'actual line 1\nactual line 2')
+      fs.writeFileSync(path.join(resultPath, 'sub-folder/output.txt'), 'actual line 1\nactual line 2')
       a(match())
     })
   }), err => {
@@ -133,8 +133,8 @@ test('provided match() rejects when missing baseline file', () => {
   ensureFolderExist('fixtures/dir-miss-baseline-file/baselines/case-1')
 
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-miss-baseline-file', ({ resultFolder, match }) => {
-      fs.writeFileSync(path.join(resultFolder, 'result.txt'), 'actual')
+    baseline('fixtures/dir-miss-baseline-file', ({ resultPath, match }) => {
+      fs.writeFileSync(path.join(resultPath, 'result.txt'), 'actual')
       a(match('result.txt'))
     })
   }), err => {
@@ -154,9 +154,9 @@ test('provided match() rejects when missing baseline folder with sub-folder', ()
 
   ensureFolderNotExist('fixtures/dir-miss-baseline-folder-no-sub/baselines/case-1/sub-folder')
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/dir-miss-baseline-folder-no-sub', ({ resultFolder, match }) => {
+    baseline('fixtures/dir-miss-baseline-folder-no-sub', ({ resultPath, match }) => {
       ensureFolderExist('fixtures/dir-miss-baseline-folder-no-sub/results/case-1/sub-folder')
-      fs.writeFileSync(path.join(resultFolder, 'sub-folder/output.txt'), 'actual line 1\nactual line 2')
+      fs.writeFileSync(path.join(resultPath, 'sub-folder/output.txt'), 'actual line 1\nactual line 2')
       a(match())
     })
   }), err => {
@@ -228,8 +228,8 @@ test(`Provided copyToBaseline() saves result to baseline for file case`, async (
   ensureFolderNotExist('fixtures/save-file/baselines')
 
   await new Promise(a => {
-    baseline('fixtures/save-file', ({ caseName, resultFolder, copyToBaseline }) => {
-      fs.writeFileSync(path.join(resultFolder, caseName), 'expected')
+    baseline('fixtures/save-file', ({ caseName, resultPath, copyToBaseline }) => {
+      fs.writeFileSync(path.join(resultPath, caseName), 'expected')
       a(copyToBaseline(caseName))
     })
   })
@@ -242,8 +242,8 @@ test(`copyToBaseline('*') saves result to baseline for dir case`, async () => {
   ensureFolderNotExist('fixtures/save-dir/baselines')
 
   await new Promise(a => {
-    baseline('fixtures/save-dir', ({ resultFolder, copyToBaseline }) => {
-      fs.writeFileSync(path.join(resultFolder, 'file1.txt'), 'expected')
+    baseline('fixtures/save-dir', ({ resultPath, copyToBaseline }) => {
+      fs.writeFileSync(path.join(resultPath, 'file1.txt'), 'expected')
       a(copyToBaseline('*'))
     })
   })
@@ -256,8 +256,8 @@ test(`copyToBaseline() is the same as copyToBaseline('*')`, async () => {
   ensureFolderNotExist('fixtures/save-dir2/baselines')
 
   await new Promise(a => {
-    baseline('fixtures/save-dir2', ({ resultFolder, copyToBaseline }) => {
-      fs.writeFileSync(path.join(resultFolder, 'file1.txt'), 'expected')
+    baseline('fixtures/save-dir2', ({ resultPath, copyToBaseline }) => {
+      fs.writeFileSync(path.join(resultPath, 'file1.txt'), 'expected')
       a(copyToBaseline())
     })
   })
@@ -270,8 +270,8 @@ test(`copyToBaseline.skip() to not doing anything. This allows consumer to keep 
   ensureFolderNotExist('fixtures/no-save/baselines')
 
   await new Promise(a => {
-    baseline('fixtures/no-save', ({ resultFolder, copyToBaseline }) => {
-      fs.writeFileSync(path.join(resultFolder, 'file1.txt'), 'expected')
+    baseline('fixtures/no-save', ({ resultPath, copyToBaseline }) => {
+      fs.writeFileSync(path.join(resultPath, 'file1.txt'), 'expected')
       a(copyToBaseline.skip('*'))
     })
   })
@@ -284,8 +284,8 @@ test('result folder is empty when handler is invoked (only when the case is fold
   fs.writeFileSync('fixtures/dirty-result-folder/results/case-1/dirty.txt', 'dirty')
 
   return new Promise<void>(a => {
-    baseline('fixtures/dirty-result-folder', ({ resultFolder }) => {
-      const actual = fs.readdirSync(resultFolder)
+    baseline('fixtures/dirty-result-folder', ({ resultPath }) => {
+      const actual = fs.readdirSync(resultPath)
       assert(actual.length === 0)
       a()
     })
@@ -303,9 +303,9 @@ function pathsEqual(actuals: string[], expects: string[]) {
 
 test('default diff display threshold is 200', () => {
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/diff-display-threshold', ({ caseName, caseFolder, resultFolder, match }) => {
-      const content = fs.readFileSync(path.join(caseFolder, caseName), 'utf-8')
-      fs.writeFileSync(path.join(resultFolder, caseName), content)
+    baseline('fixtures/diff-display-threshold', ({ casePath, resultPath, match }) => {
+      const content = fs.readFileSync(casePath, 'utf-8')
+      fs.writeFileSync(resultPath, content)
       a(match())
     })
   }), err => {
@@ -314,4 +314,23 @@ test('default diff display threshold is 200', () => {
 
     return err.message.indexOf('more lines') > 0
   })
+})
+
+it('supports mixed case', () => {
+  const caseNames: string[] = []
+  const caseFolders: string[] = []
+  const resultFolders: string[] = []
+  const baselineFolders: string[] = []
+  baseline('fixtures/mix-cases', ({ caseName, casePath, resultPath, baselinePath }) => {
+    caseNames.push(caseName)
+    caseFolders.push(casePath)
+    resultFolders.push(resultPath)
+    baselineFolders.push(baselinePath)
+    assert(isFolder(resultPath))
+    assert(isFolder(baselinePath))
+  })
+  assert.deepStrictEqual(caseNames, ['case-1.txt', 'case-2'])
+  pathsEqual(caseFolders, ['fixtures/mix-cases/cases/case-1.txt', 'fixtures/mix-cases/cases/case-2'])
+  pathsEqual(resultFolders, ['fixtures/mix-cases/results/case-1.txt', 'fixtures/mix-cases/results/case-2'])
+  pathsEqual(baselineFolders, ['fixtures/mix-cases/baselines/case-1.txt', 'fixtures/mix-cases/baselines/case-2'])
 })

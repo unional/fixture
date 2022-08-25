@@ -12,16 +12,16 @@ test('invoke callback for each file', () => {
   const caseFolders: string[] = []
   const resultFolders: string[] = []
   const baselineFolders: string[] = []
-  baseline('fixtures/file-cases', ({ caseName, caseFolder, resultFolder, baselineFolder }) => {
+  baseline('fixtures/file-cases', ({ caseName, casePath, resultPath, baselinePath }) => {
     caseNames.push(caseName)
-    caseFolders.push(caseFolder)
-    resultFolders.push(resultFolder)
-    baselineFolders.push(baselineFolder)
+    caseFolders.push(casePath)
+    resultFolders.push(resultPath)
+    baselineFolders.push(baselinePath)
   })
   t.deepStrictEqual(caseNames, ['file1.txt', 'file2.txt'])
-  pathsEqual(caseFolders, ['fixtures/file-cases/cases', 'fixtures/file-cases/cases'])
-  pathsEqual(resultFolders, ['fixtures/file-cases/results', 'fixtures/file-cases/results'])
-  pathsEqual(baselineFolders, ['fixtures/file-cases/baselines', 'fixtures/file-cases/baselines'])
+  pathsEqual(caseFolders, ['fixtures/file-cases/cases/file1.txt', 'fixtures/file-cases/cases/file2.txt'])
+  pathsEqual(resultFolders, ['fixtures/file-cases/results/file1.txt', 'fixtures/file-cases/results/file2.txt'])
+  pathsEqual(baselineFolders, ['fixtures/file-cases/baselines/file1.txt', 'fixtures/file-cases/baselines/file2.txt'])
 })
 
 test(`'results' folder is created for file cases`, () => {
@@ -33,16 +33,16 @@ test(`'results' folder is created for file cases`, () => {
 })
 
 test('provided match(file) compares the file in results and baselines', () => {
-  baseline('fixtures/file-match-case', ({ resultFolder, match }) => {
-    fs.writeFileSync(path.join(resultFolder, 'result.txt'), 'expected')
+  baseline('fixtures/file-match-case', ({ resultPath: resultPath, match }) => {
+    fs.writeFileSync(path.join(resultPath, 'result.txt'), 'expected')
     t.doesNotThrow(() => match('result.txt'))
   })
 })
 
 test('provided match(file) compares the file in results and baselines and throw', () => {
   return assertron.throws(new Promise(a => {
-    baseline('fixtures/file-not-match-case', ({ resultFolder, match }) => {
-      fs.writeFileSync(path.join(resultFolder, 'result.txt'), 'actual')
+    baseline('fixtures/file-not-match-case', ({ resultPath: resultPath, match }) => {
+      fs.writeFileSync(path.join(resultPath, 'result.txt'), 'actual')
       a(match('result.txt'))
     })
   }), err => {
@@ -52,9 +52,9 @@ test('provided match(file) compares the file in results and baselines and throw'
     const mismatch = err.mismatches[0]
 
     return mismatch instanceof MismatchFile &&
-      pathEqual(mismatch.actualPath, 'fixtures/file-not-match-case/results/result.txt') &&
+      pathEqual(mismatch.actualPath, 'fixtures/file-not-match-case/results/file1.txt/result.txt') &&
       mismatch.actual === 'actual' &&
-      pathEqual(mismatch.expectedPath, 'fixtures/file-not-match-case/baselines/result.txt') &&
+      pathEqual(mismatch.expectedPath, 'fixtures/file-not-match-case/baselines/file1.txt/result.txt') &&
       mismatch.expected === 'expected'
   })
 })
@@ -65,8 +65,8 @@ test('file baseline tests should match file with same caseName if caseName is no
       basePath: 'fixtures/file-match-itself',
       filter: 'good.txt',
       suppressFilterWarnings: true
-    }, ({ match, caseName, resultFolder }) => {
-      fs.writeFileSync(path.join(resultFolder, caseName), 'expected')
+    }, ({ match, resultPath: resultPath }) => {
+      fs.writeFileSync(resultPath, 'expected')
       a(match())
     })
   })

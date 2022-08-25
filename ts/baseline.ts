@@ -7,7 +7,7 @@ import { CopyToBaseline, createCopyToBaselineFunction } from './copyToBaseline.j
 import { DiffFormatOptions } from './diff.js'
 import { NoCaseFound } from './errors.js'
 import { ensureFolderEmpty, ensureFolderExist, isFolder, isHidden } from './fsUtils.js'
-import { createMatchFunction, createMatchFunctionForFile } from './match.js'
+import { createMatchFunction } from './match.js'
 
 export interface BaselineOptions extends DiffFormatOptions {
   /**
@@ -45,22 +45,27 @@ export interface BaselineHandlerContext {
    * This is the name of the file or the folder.
    */
   caseName: string,
+
   /**
-   * Folder containing the case.
-   * By default, this is the `cases` folder.
+   * Indicates if the case is a file-case or a folder-case.
    */
-  caseFolder: string,
+  caseType: 'file' | 'folder',
   /**
-   * Folder containing the baseline.
+   * File or folder path of the case.
+   */
+  casePath: string,
+  /**
+   * Path of the baseline folder.
+   * Even if the case is a file, this will create points to a folder with the same name
    * This is mostly for reference purpose.
    * You don't normally need to use this.
    */
-  baselineFolder: string,
+  baselinePath: string,
   /**
-   * Folder containing the result.
-   * Use this to write your output file(s).
+   * Path of the result folder.
+   * Even if the case is a file, this will create points to a folder with the same name
    */
-  resultFolder: string,
+  resultPath: string,
   /**
    * Assert the result and baseline matches.
    * @param target Optional. Target to match against. Default to `caseName`.
@@ -108,17 +113,9 @@ export const baseline = Object.assign(
     ensureFolderExist(baselinesFolder)
 
     cases.forEach(caseName => {
-      const casePath = path.join(casesFolder, caseName)
-      const isDir = isFolder(casePath)
-      if (isDir) {
-        const context = createContextForDirectory(caseName, casesFolder, baselinesFolder, resultsFolder, options)
-        ensureFolderEmpty(context.resultFolder)
-        handler(context)
-      }
-      else {
-        const context = createContextForFile(caseName, casesFolder, baselinesFolder, resultsFolder, options)
-        handler(context)
-      }
+      const context = createContextForDirectory(caseName, casesFolder, baselinesFolder, resultsFolder, options)
+      ensureFolderEmpty(context.resultPath)
+      handler(context)
     })
   },
   {
@@ -149,34 +146,21 @@ function getShouldIncludePredicate(filter: string | RegExp | undefined) {
 }
 
 function createContextForDirectory(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: DiffFormatOptions): BaselineHandlerContext {
-  const caseFolder = path.join(casesFolder, caseName)
-  const baselineFolder = path.join(baselinesFolder, caseName)
-  const resultFolder = path.join(resultsFolder, caseName)
+  const casePath = path.join(casesFolder, caseName)
+  const baselinePath = path.join(baselinesFolder, caseName)
+  const resultPath = path.join(resultsFolder, caseName)
 
-  ensureFolderExist(resultFolder)
-  const match = createMatchFunction(baselineFolder, resultFolder, options)
-  const copyToBaseline = createCopyToBaselineFunction(baselineFolder, resultFolder)
+  ensureFolderExist(baselinePath)
+  ensureFolderExist(resultPath)
+
+  const match = createMatchFunction(baselinePath, resultPath, options)
+  const copyToBaseline = createCopyToBaselineFunction(baselinePath, resultPath)
   return {
     caseName,
-    caseFolder,
-    baselineFolder,
-    resultFolder,
-    match,
-    copyToBaseline
-  }
-}
-
-function createContextForFile(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: DiffFormatOptions): BaselineHandlerContext {
-  const caseFolder = casesFolder
-  const baselineFolder = baselinesFolder
-  const resultFolder = resultsFolder
-  const match = createMatchFunctionForFile(baselineFolder, resultFolder, caseName, options)
-  const copyToBaseline = createCopyToBaselineFunction(baselineFolder, resultFolder)
-  return {
-    caseName,
-    caseFolder,
-    baselineFolder,
-    resultFolder,
+    caseType: isFolder(casePath) ? 'folder' : 'file',
+    casePath,
+    baselinePath,
+    resultPath,
     match,
     copyToBaseline
   }
