@@ -11,6 +11,7 @@
 [![Visual Studio Code][vscode-image]][vscode-url]
 
 Provides fixture for tests.
+You can use it for any test runner such as `jest`, `ava`, `mocha`, `tap`, etc.
 
 ## Install
 
@@ -30,9 +31,11 @@ rush add -p @unional/fixture --dev
 
 ## Usage
 
+`baseline()` is the heart of `@unional/fixture`.
+You can use it to read a folder containing multiple test cases and use them in your test runner.
+
 ```ts
 import { baseline } from '@unional/fixture'
-import path from 'path'
 
 // basic usage
 baseline('fixtures', ({ caseName, caseType, casePath, resultPath, match, copyToBaseline }) => {
@@ -90,6 +93,32 @@ baseline('fixtures', ({ caseName, caseType, casePath, resultPath, match, copyToB
   })
 })
 
+```
+
+### Command Testing
+
+In addition to `baseline()`,
+`@unional/fixture` provides `execCommand()` and `writeCommandResult()` to run command line test within the fixture.
+
+If the test case is a file, it will be read as text and execute the content.
+If the test case is a folder, it expects there is a `command` file and does the same.
+
+More file types and features will be added in the future.
+
+Here is a common way to use them:
+
+```ts
+import { baseline, execCommand, writeCommandResult } from '@unional/fixture'
+
+  baseline('fixtures/command', ({ caseType, caseName, casePath, resultPath, match }) => {
+    it(caseName, async () => {
+      writeCommandResult(
+        resultPath,
+        await execCommand({ casePath, caseType })
+      )
+      return match()
+    })
+  })
 ```
 
 ## Contribute
