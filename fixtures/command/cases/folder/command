@@ -1,1 +1,1 @@
-node -e "const path = require('path'); console.log(`basename: ${path.basename(process.cwd())}`)"
+node -e "const path = require(`path`); console.log(`basename: ${path.basename(process.cwd())}`)"
