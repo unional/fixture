@@ -1,10 +1,7 @@
-import cp from 'child_process'
+import * as execa from 'execa'
 import fs from 'fs'
 import path from 'path'
-import { promisify } from 'util'
 import type { BaselineHandlerContext } from './index.js'
-
-const exec = promisify(cp.exec)
 
 export interface execCommandResult {
   stdout: string,
@@ -14,8 +11,9 @@ export interface execCommandResult {
 
 export async function execCommand({ casePath, caseType }: Pick<BaselineHandlerContext, 'casePath' | 'caseType'>): Promise<execCommandResult> {
   const { command, cwd } = prepareCommandInfo({ caseType, casePath })
-  return exec(command, { cwd }).then(
-    ({ stdout, stderr }) => ({ stdout, stderr, error: undefined }),
+
+  return execa.execa(command, { cwd }).then(
+    ({ stderr, stdout }) => ({ stdout, stderr, error: undefined }),
     (error) => ({ stdout: '', stderr: '', error })
   )
 }
