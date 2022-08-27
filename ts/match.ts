@@ -86,8 +86,11 @@ async function compare(match: any, baselinePath: string, resultPath: string, opt
     if (mismatches.length > 0) throw new Mismatch(mismatches, { ssf: match })
   }
   catch (err: unknown) {
+    if (err instanceof Mismatch) throw err
     if (isSystemError('ENOENT', err)) {
-      if ((path.isAbsolute(err.path) && err.path === path.resolve(baselinePath)) || err.path === baselinePath)
+      if ((path.isAbsolute(err.path) &&
+        (err.path === path.resolve(baselinePath) || err.path === path.resolve(path.dirname(baselinePath))))
+        || err.path === baselinePath)
         throw await getMissingBaselineMismatch(match, baselinePath, resultPath, options)
       else
         throw await getMissingResultMismatch(match, resultPath, baselinePath, options)
