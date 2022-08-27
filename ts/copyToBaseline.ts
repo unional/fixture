@@ -1,4 +1,4 @@
-import cpFile from 'cp-file'
+import { copyFile } from 'cp-file'
 import glob from 'glob'
 import path from 'path'
 
@@ -14,7 +14,7 @@ export function createCopyToBaselineFunction(baselineFolder: string, resultFolde
           a(files)
         })
       }).then(files => {
-        return Promise.all(files.map(f => cpFile(
+        return Promise.all(files.map(f => copyFile(
           path.join(resultFolder, f),
           path.join(baselineFolder, f)
         ))).then(() => {
