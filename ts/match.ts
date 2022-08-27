@@ -45,6 +45,7 @@ function fillFileOrDirectory(files: { filePath: string, ctime: number }[], entry
 function removeUnchangedFiles(before: { filePath: string, ctime: number }[], after: { filePath: string, ctime: number }[]) {
   after.forEach(v => {
     if (before.some(entry => entry.filePath === v.filePath && entry.ctime === v.ctime)) {
+      // istanbul ignore next
       fs.unlinkSync(v.filePath)
     }
   })
