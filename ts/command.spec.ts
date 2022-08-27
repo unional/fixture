@@ -23,12 +23,12 @@ describe('execCommand()', () => {
 
     pathEqual(stdout, casePath)
   })
-  it('returns error on failed command', async () => {
-    const { error } = await execCommand({
+  it('throw error on failed command', async () => {
+    const error = await a.throws(execCommand({
       caseType: 'folder',
-      caseName: 'error',
-      casePath: 'fixtures/command/cases/error'
-    })
+      caseName: 'command-error',
+      casePath: 'fixtures/command-error'
+    }))
 
     expect(error).toBeDefined()
   })
