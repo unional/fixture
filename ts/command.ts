@@ -1,11 +1,11 @@
 import { execa } from 'execa'
 import fs from 'fs'
 import yaml from 'js-yaml'
+import { platform } from 'os'
 import path from 'path'
 import { required } from 'type-plus'
 import type { BaselineHandlerContext } from './baseline.js'
 import { NotCommandCase } from './errors.js'
-import { platform } from 'os'
 
 export namespace execCommand {
   export interface Result {
