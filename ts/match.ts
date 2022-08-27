@@ -18,6 +18,7 @@ export function createMatchFunction(baselinePath: string, resultPath: string, op
     }
 
     return compare(
+      match,
       path.join(baselinePath, target),
       path.join(resultPath, target),
       options
@@ -48,7 +49,7 @@ function removeUnchangedFiles(before: { filePath: string, ctime: number }[], aft
     }
   })
 }
-async function compare(baselinePath: string, resultPath: string, options: DiffFormatOptions) {
+async function compare(match: any, baselinePath: string, resultPath: string, options: DiffFormatOptions) {
   const time = new Date().getTime()
 
   try {
@@ -81,21 +82,21 @@ async function compare(baselinePath: string, resultPath: string, options: DiffFo
         }
       }
     })
-    if (mismatches.length > 0) throw new Mismatch(mismatches)
+    if (mismatches.length > 0) throw new Mismatch(mismatches, { ssf: match })
   }
   catch (err: unknown) {
     if (isSystemError('ENOENT', err)) {
       if ((path.isAbsolute(err.path) && err.path === path.resolve(baselinePath)) || err.path === baselinePath)
-        throw await getMissingBaselineMismatch(baselinePath, resultPath, options)
+        throw await getMissingBaselineMismatch(match, baselinePath, resultPath, options)
       else
-        throw await getMissingResultMismatch(resultPath, baselinePath, options)
+        throw await getMissingResultMismatch(match, resultPath, baselinePath, options)
     }
     // istanbul ignore next
     throw err
   }
 }
 
-function getMissingBaselineMismatch(missingFilePath: string, resultPath: string, options: DiffFormatOptions) {
+function getMissingBaselineMismatch(match: any, missingFilePath: string, resultPath: string, options: DiffFormatOptions) {
   if (isFolder(resultPath)) {
     return new Promise<Tersible[]>(a => {
       glob('**', { cwd: resultPath, nodir: true }, (_err, files) => {
@@ -105,19 +106,19 @@ function getMissingBaselineMismatch(missingFilePath: string, resultPath: string,
           return new ExtraResultFile(filePath, fileContent, options)
         }))
       })
-    }).then(mismatches => new Mismatch(mismatches))
+    }).then(mismatches => new Mismatch(mismatches, { ssf: match }))
   }
   else {
     const fileContent = fs.readFileSync(resultPath, 'utf-8')
-    return Promise.resolve(new Mismatch([new ExtraResultFile(resultPath, fileContent, options)]))
+    return Promise.resolve(new Mismatch([new ExtraResultFile(resultPath, fileContent, options)], { ssf: match }))
   }
 }
 
-function getMissingResultMismatch(missingFilePath: string, baselinePath: string, options: DiffFormatOptions) {
+function getMissingResultMismatch(match: any, missingFilePath: string, baselinePath: string, options: DiffFormatOptions) {
   // result folder will never be missing.
   // it is ensured by `baseline()`.
   return new Promise(a => {
     const fileContent = fs.readFileSync(baselinePath, 'utf-8')
-    a(new Mismatch([new MissingResultFile(missingFilePath, fileContent, options)]))
+    a(new Mismatch([new MissingResultFile(missingFilePath, fileContent, options)], { ssf: match }))
   })
 }

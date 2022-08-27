@@ -1,15 +1,21 @@
+import { IsoError } from 'iso-error'
 import { Tersible } from 'tersify'
 import { context } from './context.js'
 import { createDiff, DiffFormatOptions, formatDiff } from './diff.js'
 import { DiffResult } from './DiffMatch.js'
 
-export class NoCaseFound extends Error {
-  constructor(public dir: string) {
-    super(`No test cases found in '${dir}'`)
-
-    Object.setPrototypeOf(this, new.target.prototype)
+export class NoCaseFound extends IsoError {
+  constructor(public dir: string, options?: IsoError.Options) {
+    super(`No test cases found in '${dir}'`, options)
   }
 }
+
+export class NotCommandCase extends IsoError {
+  constructor(public caseName: string, options?: IsoError.Options) {
+    super(`The case '${caseName}' is not a supported command case`, options)
+  }
+}
+
 export class MissingResultFile {
   diff: DiffResult[]
   formattedDiff: string
@@ -40,9 +46,9 @@ export class ExtraResultFile {
   }
 }
 
-export class Mismatch extends Error {
-  constructor(public mismatches: Array<Tersible<Record<string, any>>>) {
-    super(`Mismatch detected: \n${mismatches.map(m => m.tersify()).join('\n')} `)
+export class Mismatch extends IsoError {
+  constructor(public mismatches: Array<Tersible<Record<string, any>>>, options?: IsoError.Options) {
+    super(`Mismatch detected: \n${mismatches.map(m => m.tersify()).join('\n')} `, options)
 
     Object.setPrototypeOf(this, new.target.prototype)
   }

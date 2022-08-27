@@ -113,7 +113,7 @@ export const baseline = Object.assign(
     ensureFolderExist(baselinesFolder)
 
     cases.forEach(caseName => {
-      const context = createContextForDirectory(caseName, casesFolder, baselinesFolder, resultsFolder, options)
+      const context = createContext(caseName, casesFolder, baselinesFolder, resultsFolder, options)
       ensureFolderEmpty(context.resultPath)
       handler(context)
     })
@@ -145,7 +145,7 @@ function getShouldIncludePredicate(filter: string | RegExp | undefined) {
   return (_path: string) => true
 }
 
-function createContextForDirectory(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: DiffFormatOptions): BaselineHandlerContext {
+function createContext(caseName: string, casesFolder: string, baselinesFolder: string, resultsFolder: string, options: DiffFormatOptions): BaselineHandlerContext {
   const casePath = path.join(casesFolder, caseName)
   const baselinePath = path.join(baselinesFolder, caseName)
   const resultPath = path.join(resultsFolder, caseName)
