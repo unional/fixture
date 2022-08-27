@@ -17,7 +17,6 @@ export default {
     '<rootDir>/ts',
   ],
   testMatch: ['**/?(*.)+(spec|test|integrate|accept|system|unit).[jt]s?(x)'],
-  transformIgnorePatterns: ['node_modules/(?!(chalk|execa|cp-file|p-event|p-timeout|strip-final-newline|npm-run-path|path-key|onetime|mimic-fn|human-signals|is-stream)/)'],
   transform: {
     '^.+\\.(js|jsx|mjs)$': 'babel-jest',
   },

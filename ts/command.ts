@@ -40,6 +40,7 @@ function readCommandInfo({ caseName, caseType, casePath }: Pick<BaselineHandlerC
   return { command, args: adjustArgs(args) }
 }
 
+// istanbul ignore next
 function adjustArgs(args: string[]) {
   if (platform() === 'win32') return args.map(adjustArg)
   return args

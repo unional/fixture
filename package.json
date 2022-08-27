@@ -33,15 +33,15 @@
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
     "clean": "rimraf cjs esm lib fixtures/*/results || true",
-    "coverage": "jest --coverage",
+    "coverage": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "depcheck": "depcheck",
     "lint": "eslint --ext=ts,js .",
     "postinstall": "husky install",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
-    "test": "jest",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "verify": "npm-run-all clean -p build depcheck lint coverage",
-    "watch": "jest --watch"
+    "watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch"
   },
   "dependencies": {
     "@types/diff-match-patch": "^1.0.32",
@@ -81,6 +81,7 @@
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "assertron": "^10.0.0",
     "babel-jest": "^29.0.1",
+    "cross-env": "^7.0.3",
     "depcheck": "^1.4.3",
     "eslint": "8.23.0",
     "eslint-plugin-harmony": "^7.1.0",
