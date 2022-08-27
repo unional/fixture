@@ -1,3 +1,21 @@
+# [3.1.0](https://github.com/unional/fixture/compare/v3.0.1...v3.1.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* adjust escape sequence ([4556b35](https://github.com/unional/fixture/commit/4556b3588c3beda728c6a1e6ab8cdfec4ee2cf31))
+* another way to escape ([6de3428](https://github.com/unional/fixture/commit/6de34288e1a1ae1b4e41c86c568897cea1466cdc))
+* do not create baseline folder ([6ab9111](https://github.com/unional/fixture/commit/6ab911176b5e36bb55d9e10d55908d3285399b3f))
+* error case ([2485cff](https://github.com/unional/fixture/commit/2485cff420014ebe5877d9ffdfd9e25490f8af6e))
+* try using execa ([ac3aab1](https://github.com/unional/fixture/commit/ac3aab1f435f72e07ac43fadf58f59edd0a8b782))
+* update cp-file ([4953ee1](https://github.com/unional/fixture/commit/4953ee14d0db53f0afaa1d93e43a2f37c6ebab9c))
+
+
+### Features
+
+* add command support ([f8c612f](https://github.com/unional/fixture/commit/f8c612fc3ab3958efd41863ffe85744a3b32fa5c)), closes [#142](https://github.com/unional/fixture/issues/142)
+* support windows ([3a95bf0](https://github.com/unional/fixture/commit/3a95bf04e08081bfc8689286598020a674d4b489))
+
 ## [3.0.1](https://github.com/unional/fixture/compare/v3.0.0...v3.0.1) (2022-08-25)
 
 
