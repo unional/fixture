@@ -37,7 +37,6 @@ function readCommandInfo({ caseName, caseType, casePath }: Pick<BaselineHandlerC
     fileinfo.filetype === 'json' ? JSON.parse(content) : yaml.load(content)
   )
 
-  // TODO: win32 process args
   return { command, args: adjustArgs(args) }
 }
 
