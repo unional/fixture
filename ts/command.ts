@@ -50,9 +50,7 @@ function adjustArg(arg: string) {
   if (arg.startsWith("'")) {
     const a = arg.slice(1, -1)
 
-    // This is conflicting with CodeQL incomplete-sanitization
-    // eslint-disable-next-line
-    return `"${a.replace(/"/g, '\\\"')}"`
+    return `"${a.replace(/"/g, '\\"')}"`
   }
   return arg
 }
