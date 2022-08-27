@@ -1,4 +1,4 @@
-import * as execa from 'execa'
+import { execa } from 'execa'
 import fs from 'fs'
 import yaml from 'js-yaml'
 import path from 'path'
@@ -7,15 +7,17 @@ import type { BaselineHandlerContext } from './baseline.js'
 import { NotCommandCase } from './errors.js'
 import { platform } from 'os'
 
-export interface execCommandResult {
-  stdout: string,
-  stderr: string
+export namespace execCommand {
+  export interface Result {
+    stdout: string,
+    stderr: string
+  }
 }
 
-export async function execCommand({ caseType, caseName, casePath }: Pick<BaselineHandlerContext, 'casePath' | 'caseName' | 'caseType'>): Promise<execCommandResult> {
+export async function execCommand({ caseType, caseName, casePath }: Pick<BaselineHandlerContext, 'casePath' | 'caseName' | 'caseType'>): Promise<execCommand.Result> {
   const { commandInfo, cwd } = prepareCommandInfo({ caseType, caseName, casePath })
 
-  return execa.execa(commandInfo.command, commandInfo.args, { cwd, cleanup: true, shell: true })
+  return execa(commandInfo.command, commandInfo.args, { cwd, cleanup: true, shell: true })
     .then(({ stderr, stdout }) => ({ stderr, stdout }))
 }
 
@@ -42,8 +44,7 @@ function readCommandInfo({ caseName, caseType, casePath }: Pick<BaselineHandlerC
 
 // istanbul ignore next
 function adjustArgs(args: string[]) {
-  if (platform() === 'win32') return args.map(adjustArg)
-  return args
+  return platform() === 'win32' ? args.map(adjustArg) : args
 }
 
 function adjustArg(arg: string) {
@@ -73,7 +74,7 @@ function findCommandFileInfoForFolder(casePath: string) {
   if (fs.existsSync(filepath)) return { filepath, filetype: 'yaml' }
 }
 
-export function writeCommandResult(resultPath: string, { stdout, stderr }: execCommandResult) {
+export function writeCommandResult(resultPath: string, { stdout, stderr }: execCommand.Result) {
   if (stdout) fs.writeFileSync(path.join(resultPath, 'stdout'), stdout)
   if (stderr) fs.writeFileSync(path.join(resultPath, 'stderr'), stderr)
 }
