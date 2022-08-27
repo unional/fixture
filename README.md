@@ -110,15 +110,15 @@ Here is a common way to use them:
 ```ts
 import { baseline, execCommand, writeCommandResult } from '@unional/fixture'
 
-  baseline('fixtures/command', ({ caseType, caseName, casePath, resultPath, match }) => {
-    it(caseName, async () => {
-      writeCommandResult(
-        resultPath,
-        await execCommand({ casePath, caseType })
-      )
-      return match()
-    })
+baseline('fixtures/command', ({ caseType, caseName, casePath, resultPath, match }) => {
+  it(caseName, async () => {
+    writeCommandResult(
+      resultPath,
+      await execCommand({ caseType, caseName, casePath })
+    )
+    return match()
   })
+})
 ```
 
 ## Contribute

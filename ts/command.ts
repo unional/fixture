@@ -47,12 +47,7 @@ function adjustArgs(args: string[]) {
 }
 
 function adjustArg(arg: string) {
-  if (arg.startsWith("'")) {
-    const a = arg.slice(1, -1)
-
-    return `"${a.replace(/"/g, '""')}"`
-  }
-  return arg
+  return arg.startsWith("'") ? `"${arg.slice(1, -1).replace(/"/g, '""')}"` : arg
 }
 
 function findCommandFileInfo({ caseType, casePath }: Pick<BaselineHandlerContext, 'caseType' | 'casePath'>) {
