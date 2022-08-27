@@ -1,3 +1,10 @@
+## [3.1.2](https://github.com/unional/fixture/compare/v3.1.1...v3.1.2) (2022-08-27)
+
+
+### Bug Fixes
+
+* misc adjustments ([3d72152](https://github.com/unional/fixture/commit/3d72152673bd3e5963300afc5a97712c41f504a2))
+
 ## [3.1.1](https://github.com/unional/fixture/compare/v3.1.0...v3.1.1) (2022-08-27)
 
 
