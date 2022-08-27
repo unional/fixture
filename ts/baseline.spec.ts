@@ -325,7 +325,6 @@ it('supports mixed case', () => {
     resultFolders.push(resultPath)
     baselineFolders.push(baselinePath)
     assert(isFolder(resultPath))
-    assert(isFolder(baselinePath))
   })
   assert.deepStrictEqual(caseNames, ['case-1.txt', 'case-2'])
   pathsEqual(caseFolders, ['fixtures/mix-cases/cases/case-1.txt', 'fixtures/mix-cases/cases/case-2'])
