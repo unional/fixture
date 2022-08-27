@@ -1,1 +1,0 @@
-node -e "const path = require(`path`); console.error(`basename: ${path.basename(process.cwd())}`)"
