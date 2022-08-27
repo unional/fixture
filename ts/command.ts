@@ -50,7 +50,7 @@ function adjustArg(arg: string) {
   if (arg.startsWith("'")) {
     const a = arg.slice(1, -1)
 
-    return `"${a.replace(/"/g, '\\"')}"`
+    return `"${a.replace(/"/g, '""')}"`
   }
   return arg
 }
