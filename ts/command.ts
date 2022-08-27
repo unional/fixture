@@ -2,22 +2,21 @@ import * as execa from 'execa'
 import fs from 'fs'
 import yaml from 'js-yaml'
 import path from 'path'
+import { required } from 'type-plus'
 import type { BaselineHandlerContext } from './baseline.js'
 import { NotCommandCase } from './errors.js'
+import { platform } from 'os'
 
 export interface execCommandResult {
   stdout: string,
-  stderr: string,
-  error?: Error
+  stderr: string
 }
 
 export async function execCommand({ caseType, caseName, casePath }: Pick<BaselineHandlerContext, 'casePath' | 'caseName' | 'caseType'>): Promise<execCommandResult> {
   const { commandInfo, cwd } = prepareCommandInfo({ caseType, caseName, casePath })
 
-  return execa.execa(commandInfo.command, commandInfo.args, { cwd, cleanup: true, shell: true }).then(
-    ({ stderr, stdout }) => ({ stdout, stderr, error: undefined }),
-    (error) => ({ stdout: '', stderr: '', error })
-  )
+  return execa.execa(commandInfo.command, commandInfo.args, { cwd, cleanup: true, shell: true })
+    .then(({ stderr, stdout }) => ({ stderr, stdout }))
 }
 
 function prepareCommandInfo({ caseType, caseName, casePath }: Pick<BaselineHandlerContext, 'caseType' | 'caseName' | 'casePath'>) {
@@ -28,15 +27,32 @@ function prepareCommandInfo({ caseType, caseName, casePath }: Pick<BaselineHandl
 }
 
 function readCommandInfo({ caseName, caseType, casePath }: Pick<BaselineHandlerContext, 'caseType' | 'caseName' | 'casePath'>) {
-  const info = findCommandFileInfo({ caseType, casePath })
-  if (!info) {
+  const fileinfo = findCommandFileInfo({ caseType, casePath })
+  if (!fileinfo) {
     throw new NotCommandCase(caseName, { ssf: execCommand })
   }
-  const content = fs.readFileSync(info.filepath, 'utf-8')
-  const command = info.filetype === 'json' ? JSON.parse(content) : yaml.load(content)
-  // TODO: validate object format
+  const content = fs.readFileSync(fileinfo.filepath, 'utf-8')
+  const { command, args } = required(
+    { command: '', args: [] },
+    fileinfo.filetype === 'json' ? JSON.parse(content) : yaml.load(content)
+  )
+
   // TODO: win32 process args
-  return command
+  return { command, args: adjustArgs(args) }
+}
+
+function adjustArgs(args: string[]) {
+  if (platform() === 'win32') return args.map(adjustArg)
+  return args
+}
+
+function adjustArg(arg: string) {
+  if (arg.startsWith("'")) {
+    const a = arg.slice(1, -1)
+
+    return `"${a.replace(/"/g, '\\\"')}"`
+  }
+  return arg
 }
 
 function findCommandFileInfo({ caseType, casePath }: Pick<BaselineHandlerContext, 'caseType' | 'casePath'>) {
@@ -62,8 +78,7 @@ function findCommandFileInfoForFolder(casePath: string) {
   if (fs.existsSync(filepath)) return { filepath, filetype: 'yaml' }
 }
 
-export function writeCommandResult(resultPath: string, { stdout, stderr, error }: execCommandResult) {
+export function writeCommandResult(resultPath: string, { stdout, stderr }: execCommandResult) {
   if (stdout) fs.writeFileSync(path.join(resultPath, 'stdout'), stdout)
   if (stderr) fs.writeFileSync(path.join(resultPath, 'stderr'), stderr)
-  if (error) fs.writeFileSync(path.join(resultPath, 'error'), error.toString())
 }
