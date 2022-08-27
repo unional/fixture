@@ -1,0 +1,4 @@
+command: node
+args:
+  - -e
+  - "'const path = require(`path`); console.log(`basename: ${path.basename(process.cwd())}`)'"
