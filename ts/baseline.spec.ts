@@ -34,14 +34,6 @@ test(`'results/<case>' folder is created for dir cases`, () => {
   })
 })
 
-test(`'baselines' folder is created for file cases`, () => {
-  ensureFolderNotExist('fixtures/no-baselines/baselines')
-
-  baseline('fixtures/no-baselines', () => {
-    assert(fs.existsSync('fixtures/no-baselines/baselines'))
-  })
-})
-
 test('fixture.skip() will do nothing', () => {
   void baseline.skip('fixtures/not-exists', () => {
     throw new Error('should not reach')
@@ -99,15 +91,7 @@ test('provided match() rejects when missing baseline folder', () => {
       fs.writeFileSync(path.join(resultPath, 'output.txt'), 'actual')
       a(match())
     })
-  }), err => {
-    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
-      return false
-    const m1 = err.mismatches[0]
-    return m1 instanceof ExtraResultFile &&
-      pathEqual(m1.filePath, 'fixtures/dir-miss-baseline-folder/results/case-1/output.txt') &&
-      m1.diff.length === 1 &&
-      m1.diff[0].added === true
-  })
+  }), err => err instanceof ExtraResultFile && pathEqual(err.filePath, 'fixtures/dir-miss-baseline-folder/results/case-1'))
 })
 
 test('provided match() rejects when missing baseline folder and sub-folder', () => {
@@ -118,33 +102,18 @@ test('provided match() rejects when missing baseline folder and sub-folder', () 
       fs.writeFileSync(path.join(resultPath, 'sub-folder/output.txt'), 'actual line 1\nactual line 2')
       a(match())
     })
-  }), err => {
-    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
-      return false
-    const m1 = err.mismatches[0]
-    return m1 instanceof ExtraResultFile &&
-      pathEqual(m1.filePath, 'fixtures/dir-miss-baseline-folder-deep/results/case-1/sub-folder/output.txt') &&
-      m1.diff.length === 1 &&
-      m1.diff[0].added === true
-  })
+  }), err => err instanceof ExtraResultFile && pathEqual(err.filePath, 'fixtures/dir-miss-baseline-folder-deep/results/case-1'))
 })
 
 test('provided match() rejects when missing baseline file', () => {
+  ensureFolderExist('fixtures/dir-miss-baseline-file/case-1')
+
   return assertron.throws(new Promise(a => {
     baseline('fixtures/dir-miss-baseline-file', ({ resultPath, match }) => {
       fs.writeFileSync(path.join(resultPath, 'result.txt'), 'actual')
       a(match('result.txt'))
     })
-  }), err => {
-    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
-      return false
-
-    const m1 = err.mismatches[0]
-    return m1 instanceof ExtraResultFile &&
-      pathEqual(m1.filePath, 'fixtures/dir-miss-baseline-file/results/case-1/result.txt') &&
-      m1.diff.length === 1 &&
-      m1.diff[0].added === true
-  })
+  }), err => err instanceof ExtraResultFile && pathEqual(err.filePath, 'fixtures/dir-miss-baseline-file/results/case-1/result.txt'))
 })
 
 test('provided match() rejects when missing baseline folder with sub-folder', () => {
@@ -202,7 +171,7 @@ test('provided match() rejects when missing result file in subfolder', () => {
   })
 })
 
-test('customize all folder names', () => {
+it('can customize result folder', () => {
   ensureFolderNotExist('fixtures/custom/expects')
   ensureFolderNotExist('fixtures/custom/actuals')
 
@@ -210,15 +179,27 @@ test('customize all folder names', () => {
   baseline({
     basePath: 'fixtures/custom',
     casesFolder: 'scenarios',
-    baselinesFolder: 'expects',
     resultsFolder: 'actuals'
   }, ({ caseName }) => {
     o.once(1)
     assert.strictEqual(caseName, 'file1.txt')
-    assert(fs.existsSync('fixtures/custom/expects'))
     assert(fs.existsSync('fixtures/custom/actuals'))
   })
   o.end()
+})
+
+it('can customize baseline folder', () => {
+  ensureFolderNotExist('fixtures/custom-saved/actuals')
+
+  return new Promise(a => baseline({
+    basePath: 'fixtures/custom-saved',
+    casesFolder: 'scenarios',
+    baselinesFolder: 'expects',
+    resultsFolder: 'actuals'
+  }, ({ caseName, resultPath, match }) => {
+    fs.writeFileSync(path.join(resultPath, caseName), 'some value')
+    a(match())
+  }))
 })
 
 test(`Provided copyToBaseline() saves result to baseline for file case`, async () => {

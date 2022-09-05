@@ -1,6 +1,7 @@
 import { copyFile } from 'cp-file'
 import glob from 'glob'
 import path from 'path'
+import { ensureFolderExist } from './fsUtils.js'
 
 export interface CopyToBaseline {
   (wildcardOrRegExp?: string): Promise<void>,
@@ -9,6 +10,7 @@ export interface CopyToBaseline {
 export function createCopyToBaselineFunction(baselineFolder: string, resultFolder: string) {
   return Object.assign(
     function copyToBaseline(wildcardOrRegExp = '*') {
+      ensureFolderExist(baselineFolder)
       return new Promise<string[]>(a => {
         glob(wildcardOrRegExp, { cwd: resultFolder }, (_err, files) => {
           a(files)
