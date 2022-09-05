@@ -1,3 +1,10 @@
+## [3.1.4](https://github.com/unional/fixture/compare/v3.1.3...v3.1.4) (2022-09-05)
+
+
+### Bug Fixes
+
+* bundle cjs files ([6b352b8](https://github.com/unional/fixture/commit/6b352b8b3d087fabab829c908beda936373b337f))
+
 ## [3.1.3](https://github.com/unional/fixture/compare/v3.1.2...v3.1.3) (2022-09-05)
 
 
