@@ -84,7 +84,7 @@ test.skip('provided match() pass with matching files in folder', () => {
 })
 
 test('provided match() rejects when missing baseline folder', () => {
-  ensureFolderNotExist('fixtures/dir-miss-baseline-folder/baselines/case-1')
+  ensureFolderNotExist('fixtures/dir-miss-baseline-folder/baselines')
 
   return assertron.throws(new Promise(a => {
     baseline('fixtures/dir-miss-baseline-folder', ({ resultPath, match }) => {
@@ -94,26 +94,43 @@ test('provided match() rejects when missing baseline folder', () => {
   }), err => err instanceof ExtraResultFile && pathEqual(err.filePath, 'fixtures/dir-miss-baseline-folder/results/case-1'))
 })
 
-test('provided match() rejects when missing baseline folder and sub-folder', () => {
+test('provided match() rejects when missing baseline sub-folder', () => {
   ensureFolderNotExist('fixtures/dir-miss-baseline-folder-deep/baselines/case-1')
+  ensureFolderExist('fixtures/dir-miss-baseline-folder-deep/baselines/case-1')
   return assertron.throws(new Promise(a => {
     baseline('fixtures/dir-miss-baseline-folder-deep', ({ resultPath, match }) => {
       ensureFolderExist('fixtures/dir-miss-baseline-folder-deep/results/case-1/sub-folder')
       fs.writeFileSync(path.join(resultPath, 'sub-folder/output.txt'), 'actual line 1\nactual line 2')
       a(match())
     })
-  }), err => err instanceof ExtraResultFile && pathEqual(err.filePath, 'fixtures/dir-miss-baseline-folder-deep/results/case-1'))
+  }), err => {
+    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
+      return false
+    const m1 = err.mismatches[0]
+    return m1 instanceof ExtraResultFile &&
+      pathEqual(m1.filePath, 'fixtures/dir-miss-baseline-folder-deep/results/case-1/sub-folder/output.txt') &&
+      m1.diff.length === 1 &&
+      m1.diff[0].added === true
+  })
 })
 
 test('provided match() rejects when missing baseline file', () => {
-  ensureFolderExist('fixtures/dir-miss-baseline-file/case-1')
+  ensureFolderExist('fixtures/dir-miss-baseline-file/baselines/case-1')
 
   return assertron.throws(new Promise(a => {
     baseline('fixtures/dir-miss-baseline-file', ({ resultPath, match }) => {
       fs.writeFileSync(path.join(resultPath, 'result.txt'), 'actual')
       a(match('result.txt'))
     })
-  }), err => err instanceof ExtraResultFile && pathEqual(err.filePath, 'fixtures/dir-miss-baseline-file/results/case-1/result.txt'))
+  }), err => {
+    if (!(err instanceof Mismatch) || err.mismatches.length !== 1)
+      return false
+    const m1 = err.mismatches[0]
+    return m1 instanceof ExtraResultFile &&
+      pathEqual(m1.filePath, 'fixtures/dir-miss-baseline-file/results/case-1/result.txt') &&
+      m1.diff.length === 1 &&
+      m1.diff[0].added === true
+  })
 })
 
 test('provided match() rejects when missing baseline folder with sub-folder', () => {
@@ -122,7 +139,7 @@ test('provided match() rejects when missing baseline folder with sub-folder', ()
   ensureFolderNotExist('fixtures/dir-miss-baseline-folder-no-sub/baselines/case-1/sub-folder')
   return assertron.throws(new Promise(a => {
     baseline('fixtures/dir-miss-baseline-folder-no-sub', ({ resultPath, match }) => {
-      ensureFolderExist('fixtures/dir-miss-baseline-folder-no-sub/results/case-1/sub-folder')
+      ensureFolderExist(`${resultPath}/sub-folder`)
       fs.writeFileSync(path.join(resultPath, 'sub-folder/output.txt'), 'actual line 1\nactual line 2')
       a(match())
     })
