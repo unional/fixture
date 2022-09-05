@@ -17,10 +17,15 @@ export function createMatchFunction(baselinePath: string, resultPath: string, op
       removeUnchangedFiles(filesBeforeTest, filesAfterTest)
     }
 
+    const resultTarget = path.join(resultPath, target)
+    if (!fs.existsSync(baselinePath)) {
+      throw new ExtraResultFile(resultTarget, '', options)
+    }
+
     return compare(
       match,
       path.join(baselinePath, target),
-      path.join(resultPath, target),
+      resultTarget,
       options
     )
   }

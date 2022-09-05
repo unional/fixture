@@ -110,7 +110,6 @@ export const baseline = Object.assign(
     if (cases.length === 0) throw new NoCaseFound(casesFolder)
 
     ensureFolderExist(resultsFolder)
-    ensureFolderExist(baselinesFolder)
 
     cases.forEach(caseName => {
       const context = createContext(caseName, casesFolder, baselinesFolder, resultsFolder, options)
