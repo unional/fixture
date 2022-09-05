@@ -1,3 +1,10 @@
+## [3.1.3](https://github.com/unional/fixture/compare/v3.1.2...v3.1.3) (2022-09-05)
+
+
+### Bug Fixes
+
+* avoid creating baselines folder ([ee3a5c3](https://github.com/unional/fixture/commit/ee3a5c3f0b4870c8d604e6e717789c65ceb60253))
+
 ## [3.1.2](https://github.com/unional/fixture/compare/v3.1.1...v3.1.2) (2022-08-27)
 
 
