@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/unional/fixture/compare/v3.1.4...v3.2.0) (2022-09-07)
+
+
+### Features
+
+* add execCommand alt signature ([435a2d9](https://github.com/unional/fixture/commit/435a2d9a62d1fc768b71fd4d56be02adab8ad885))
+
 ## [3.1.4](https://github.com/unional/fixture/compare/v3.1.3...v3.1.4) (2022-09-05)
 
 
