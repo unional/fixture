@@ -32,6 +32,11 @@ describe('execCommand()', () => {
 
     expect(error).toBeDefined()
   })
+  it('can specify alternative command to execute at the casePath', async () => {
+    const casePath = 'fixtures/command/cases/folder'
+    const { stdout } = await execCommand({ casePath, command: 'node', args: ['-e', "'console.log(`hello`)'"] })
+    expect(stdout).toEqual('hello')
+  })
 })
 
 describe('writeCommandResult()', () => {

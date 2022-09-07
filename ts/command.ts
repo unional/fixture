@@ -3,7 +3,7 @@ import fs from 'fs'
 import yaml from 'js-yaml'
 import { platform } from 'os'
 import path from 'path'
-import { required } from 'type-plus'
+import { PartialPick, unpartial } from 'type-plus'
 import type { BaselineHandlerContext } from './baseline.js'
 import { NotCommandCase } from './errors.js'
 
@@ -12,34 +12,39 @@ export namespace execCommand {
     stdout: string,
     stderr: string
   }
-}
-
-export async function execCommand({ caseType, caseName, casePath }: Pick<BaselineHandlerContext, 'casePath' | 'caseName' | 'caseType'>): Promise<execCommand.Result> {
-  const { commandInfo, cwd } = prepareCommandInfo({ caseType, caseName, casePath })
-
-  return execa(commandInfo.command, commandInfo.args, { cwd, cleanup: true, shell: true })
-    .then(({ stderr, stdout }) => ({ stderr, stdout }))
-}
-
-function prepareCommandInfo({ caseType, caseName, casePath }: Pick<BaselineHandlerContext, 'caseType' | 'caseName' | 'casePath'>) {
-  return {
-    commandInfo: readCommandInfo({ caseType, caseName, casePath }),
-    cwd: caseType === 'file' ? path.dirname(casePath) : casePath
+  export type CommandInfo = {
+    casePath: string,
+    command: string,
+    args: string[]
   }
 }
 
+export async function execCommand(input: Pick<BaselineHandlerContext, 'casePath' | 'caseName' | 'caseType'>)
+export async function execCommand(input: PartialPick<execCommand.CommandInfo, 'args'>)
+export async function execCommand(input: any): Promise<execCommand.Result> {
+  if (input.caseType) {
+    const casePath = input.caseType === 'file' ? path.dirname(input.casePath) : input.casePath
+    const { command, args } = readCommandInfo(input)
+    return execCommandDirectly({ casePath, command, args })
+  }
+  const { casePath, command, args = [] } = input
+  return execCommandDirectly({ casePath, command, args })
+}
+
+function execCommandDirectly({ casePath, command, args }: execCommand.CommandInfo) {
+  return execa(command, adjustArgs(args), { cwd: casePath, cleanup: true, shell: true })
+    .then(({ stderr, stdout }) => ({ stderr, stdout }))
+}
 function readCommandInfo({ caseName, caseType, casePath }: Pick<BaselineHandlerContext, 'caseType' | 'caseName' | 'casePath'>) {
   const fileinfo = findCommandFileInfo({ caseType, casePath })
   if (!fileinfo) {
     throw new NotCommandCase(caseName, { ssf: execCommand })
   }
   const content = fs.readFileSync(fileinfo.filepath, 'utf-8')
-  const { command, args } = required(
+  return unpartial(
     { command: '', args: [] },
     fileinfo.filetype === 'json' ? JSON.parse(content) : yaml.load(content)
   )
-
-  return { command, args: adjustArgs(args) }
 }
 
 // istanbul ignore next
