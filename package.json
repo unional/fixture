@@ -58,7 +58,7 @@
     "mkdirp": "^1.0.4",
     "pad-left": "^2.1.0",
     "rimraf": "^3.0.2",
-    "standard-log": "^9.1.7",
+    "standard-log": "^10.0.0",
     "standard-log-color": "^7.0.2",
     "tersify": "^3.10.2",
     "type-plus": "^4.11.2"
