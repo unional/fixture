@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/unional/fixture/compare/v3.2.0...v3.2.1) (2022-09-07)
+
+
+### Bug Fixes
+
+* upgrade standard-log ([c2d875b](https://github.com/unional/fixture/commit/c2d875b87c16b642130080c145b8608f9de6300b))
+
 # [3.2.0](https://github.com/unional/fixture/compare/v3.1.4...v3.2.0) (2022-09-07)
 
 
