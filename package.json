@@ -61,7 +61,7 @@
     "standard-log": "^9.1.7",
     "standard-log-color": "^7.0.2",
     "tersify": "^3.10.2",
-    "type-plus": "^4.11.1"
+    "type-plus": "^4.11.2"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.18.6",

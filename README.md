@@ -121,6 +121,12 @@ baseline('fixtures/command', ({ caseType, caseName, casePath, resultPath, match 
 })
 ```
 
+The `execCommand()` has an alternative signature that allows you to easily run and capture `stdout` and `stderr`:
+
+```ts
+const { stdout, stderr } = await execCommand({ casePath, command, args })
+```
+
 ## Contribute
 
 ```sh
