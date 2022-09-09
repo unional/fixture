@@ -97,7 +97,7 @@
     "path-equal": "^1.2.2",
     "pinst": "^3.0.0",
     "semantic-release": "^19.0.5",
-    "ts-jest": "^28.0.8",
+    "ts-jest": "^29.0.0",
     "typescript": "^4.8.2",
     "uncolor": "^0.4.0"
   }
