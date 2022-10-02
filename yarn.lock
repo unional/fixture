@@ -7571,10 +7571,10 @@ stack-utils@^2.0.3:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-standard-log-color@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-8.0.0.tgz#ff95c05f6f28405b3bf9d67ae74ae2892280032d"
-  integrity sha512-/pfis4Xu5QJytUKw+qjBsyH/igrOOycowrEztlmGi9FhyCtgSHrRtx5JPjuRJ1Qhx2pmY7fKl1rSD1rw0E2XyQ==
+standard-log-color@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-9.0.0.tgz#0f3d4cd06c691fddc5ec41dfb8982041574fec8a"
+  integrity sha512-GO5kpJgZu4p6/0e3xgGHvl3s7sJYAI1L/VHksQyqyG130z2A092gx5v+O+5KM3UgHaj8Cmpg9dZUPXk6pm6Y3A==
   dependencies:
     color-map "^2.0.3"
     supports-color "^9.2.2"
