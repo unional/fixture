@@ -7571,14 +7571,14 @@ stack-utils@^2.0.3:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-standard-log-color@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-9.0.0.tgz#0f3d4cd06c691fddc5ec41dfb8982041574fec8a"
-  integrity sha512-GO5kpJgZu4p6/0e3xgGHvl3s7sJYAI1L/VHksQyqyG130z2A092gx5v+O+5KM3UgHaj8Cmpg9dZUPXk6pm6Y3A==
+standard-log-color@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-10.0.0.tgz#98ce280038f70ffad1d5b41082762f4d0411acaa"
+  integrity sha512-H7xltGONbasfuzVD/4jhhB0pzSEVgtIiteOpqllbyO/9SQl7hd28AUSZQgV20Vw7WbUEBIv20U6+7S108cjIvQ==
   dependencies:
     color-map "^2.0.3"
-    supports-color "^9.2.2"
-    unpartial "^1.0.2"
+    supports-color "^9.2.3"
+    unpartial "^1.0.4"
 
 standard-log@^10.0.0:
   version "10.0.0"
@@ -7740,7 +7740,7 @@ supports-color@^8.0.0:
   dependencies:
     has-flag "^4.0.0"
 
-supports-color@^9.2.2:
+supports-color@^9.2.3:
   version "9.2.3"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-9.2.3.tgz#a6e2c97fc20c80abecd69e50aebe4783ff77d45a"
   integrity sha512-aszYUX/DVK/ed5rFLb/dDinVJrQjG/vmU433wtqVSD800rYsJNWxh2R3USV90aLSU+UsyQkbNeffVLzc6B6foA==
@@ -8098,10 +8098,15 @@ unpartial@^0.7.5:
   resolved "https://registry.yarnpkg.com/unpartial/-/unpartial-0.7.5.tgz#68393e88f4e4d6ac2f622a18dfc9e495a32ab910"
   integrity sha512-02G/AkbF7MkgaEOAJmCe7P0UYzJVkMkAIU5YEJsO5QmDX7vkqyNctVi1gPm8YLVlGo5T/Qe/hYA66AuliEKBag==
 
-unpartial@^1.0.1, unpartial@^1.0.2:
+unpartial@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/unpartial/-/unpartial-1.0.2.tgz#f925a6013a70831fe6d2d5dea7300fd6ca1b3637"
   integrity sha512-BhtFRJKwDMB6xuuvz3WTYYS2Lb6uOKPTAwOyDe61+L8Gk1oSAhyOjpwhrjGgT/ilo2rPO1+7eAjLWC04iWBhRQ==
+
+unpartial@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/unpartial/-/unpartial-1.0.4.tgz#56490ed475105110cee61890a80c5da394741833"
+  integrity sha512-xY8319WOQcRDRVFWvTty2YJXKvM8XRPehqWZUd7k/BatpbuitI4Jd+2xlwjTZbZScSvT75TnUsUmy5uwFa3o0g==
 
 upper-case@^2.0.2:
   version "2.0.2"
