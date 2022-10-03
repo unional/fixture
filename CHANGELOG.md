@@ -1,3 +1,10 @@
+## [3.2.4](https://github.com/unional/fixture/compare/v3.2.3...v3.2.4) (2022-10-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency standard-log to v11 ([#159](https://github.com/unional/fixture/issues/159)) ([21b6f58](https://github.com/unional/fixture/commit/21b6f5892e20c256fa54f8aa6cbfd88ac502754c))
+
 ## [3.2.3](https://github.com/unional/fixture/compare/v3.2.2...v3.2.3) (2022-10-02)
 
 
