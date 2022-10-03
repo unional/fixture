@@ -1,3 +1,10 @@
+## [3.2.5](https://github.com/unional/fixture/compare/v3.2.4...v3.2.5) (2022-10-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency standard-log-color to v11 ([#160](https://github.com/unional/fixture/issues/160)) ([cbe0f9f](https://github.com/unional/fixture/commit/cbe0f9f47a68f5c659d126d3f2af0060d8896cb1))
+
 ## [3.2.4](https://github.com/unional/fixture/compare/v3.2.3...v3.2.4) (2022-10-03)
 
 
