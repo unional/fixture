@@ -19,8 +19,8 @@ export namespace execCommand {
   }
 }
 
-export async function execCommand(input: Pick<BaselineHandlerContext, 'casePath' | 'caseName' | 'caseType'>)
-export async function execCommand(input: PartialPick<execCommand.CommandInfo, 'args'>)
+export async function execCommand(input: Pick<BaselineHandlerContext, 'casePath' | 'caseName' | 'caseType'>): Promise<execCommand.Result>
+export async function execCommand(input: PartialPick<execCommand.CommandInfo, 'args'>): Promise<execCommand.Result>
 export async function execCommand(input: any): Promise<execCommand.Result> {
   if (input.caseType) {
     const casePath = input.caseType === 'file' ? path.dirname(input.casePath) : input.casePath

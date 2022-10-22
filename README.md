@@ -100,8 +100,8 @@ baseline('fixtures', ({ caseName, caseType, casePath, resultPath, match, copyToB
 In addition to `baseline()`,
 `@unional/fixture` provides `execCommand()` and `writeCommandResult()` to run command line test within the fixture.
 
-If the test case is a file, it will be read as text and execute the content.
-If the test case is a folder, it expects there is a `command` file and does the same.
+If the test case is a JSON or YAML, it will read and execute the command within.
+If the test case is a folder, it will look for a `command.json|yml|yaml` in the folder and does the same.
 
 More file types and features will be added in the future.
 
