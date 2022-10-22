@@ -1,3 +1,10 @@
+## [3.2.6](https://github.com/unional/fixture/compare/v3.2.5...v3.2.6) (2022-10-22)
+
+
+### Bug Fixes
+
+* add missing type ([709bd75](https://github.com/unional/fixture/commit/709bd7551eebcb3b9c6c0bb4551093f28b3bb819))
+
 ## [3.2.5](https://github.com/unional/fixture/compare/v3.2.4...v3.2.5) (2022-10-03)
 
 
