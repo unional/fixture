@@ -76,7 +76,7 @@
     "@types/jest": "^29.0.0",
     "@types/js-yaml": "^4.0.5",
     "@types/mkdirp": "^1.0.2",
-    "@types/node": "^17.0.39",
+    "@types/node": "^18.0.0",
     "@types/rimraf": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "assertron": "^10.0.0",
