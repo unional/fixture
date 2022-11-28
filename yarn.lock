@@ -4997,7 +4997,7 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
 
-iso-error@^4.3.5, iso-error@^4.3.6:
+iso-error@^4.3.5:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/iso-error/-/iso-error-4.3.6.tgz#062569f648524a19275ddb1f53a81e94159fffff"
   integrity sha512-gCGeSdffWXnJJIobk5F5JzB6k17uQiKM29M90VkPZD1WrYIQ8dFN7UqEPaaaDgg5yPNVnXBGCZ8kwz8trazYaw==
@@ -5006,6 +5006,11 @@ iso-error@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/iso-error/-/iso-error-4.4.0.tgz#2e8963bd5f561c43dc23ddab38a866ff6af1c1d7"
   integrity sha512-DRPiLihxUYhz4rMbfdzvm+l8ihd+d1QXClNa/SJk5HMrX93T5y7A7S+rwNOS+x2Tlzfc/IE0OrJhz/RyQ6s28Q==
+
+iso-error@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/iso-error/-/iso-error-5.0.0.tgz#3a15940dc9a5a36b67007b5ab66192a4dcd83740"
+  integrity sha512-+AhfqtuERYVT+weWCewUQNA0wqcL66OSfPcX5ojnrOSa/V051QFLHK3XlxTyH/fyk1k6TMfE4QDkESAnnvihOw==
 
 issue-parser@^6.0.0:
   version "6.0.0"
