@@ -1,3 +1,10 @@
+## [3.2.7](https://github.com/unional/fixture/compare/v3.2.6...v3.2.7) (2022-11-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency iso-error to v5 ([#165](https://github.com/unional/fixture/issues/165)) ([852302f](https://github.com/unional/fixture/commit/852302f6efe062992b04174160df69607860a353))
+
 ## [3.2.6](https://github.com/unional/fixture/compare/v3.2.5...v3.2.6) (2022-10-22)
 
 
