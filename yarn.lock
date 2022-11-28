@@ -2939,10 +2939,10 @@ asap@^2.0.0:
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
   integrity sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==
 
-assertron@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/assertron/-/assertron-10.0.0.tgz#9d2b59d611e8087aa140e9312f4c95cc92701146"
-  integrity sha512-u4bl3Yrj5rEtYr0FoSAyK9CUKxUv/N8dd+kts5FNkXHuFqjwJi4BxN8rMNyrS3FmCKdRv0FBwP/YNDtSNN0AnA==
+assertron@^11.0.0:
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/assertron/-/assertron-11.0.1.tgz#ceb8a2069a71bbf90fda6f75825738f1aaa4dba2"
+  integrity sha512-D1U7weslbYgIoItGhuRqasdvZtU/1dtO9cmeMhuUbcNzd6Zztp3mlNlUF/EtZBfgjSFLjgUhBxw5uabsDR/b8A==
   dependencies:
     is-promise "^4.0.0"
     iso-error "^4.3.5"
