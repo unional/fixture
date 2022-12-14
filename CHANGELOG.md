@@ -1,3 +1,10 @@
+## [3.2.8](https://github.com/unional/fixture/compare/v3.2.7...v3.2.8) (2022-12-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency type-plus to v5 ([#171](https://github.com/unional/fixture/issues/171)) ([9bdf0e0](https://github.com/unional/fixture/commit/9bdf0e01e125d0145da03d9d6715b1aadb304675))
+
 ## [3.2.7](https://github.com/unional/fixture/compare/v3.2.6...v3.2.7) (2022-11-28)
 
 
