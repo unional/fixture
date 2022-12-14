@@ -4152,11 +4152,6 @@ iso-error@^4.3.5:
   integrity sha512-gCGeSdffWXnJJIobk5F5JzB6k17uQiKM29M90VkPZD1WrYIQ8dFN7UqEPaaaDgg5yPNVnXBGCZ8kwz8trazYaw==
 
 iso-error@^5.0.0:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/iso-error/-/iso-error-5.0.2.tgz#4b3f90052c44277dfd93a21a7201c5c03ed6197d"
-  integrity sha512-Yf9e0ROw4TpMHU92s2YeV0G05cOk5/HkQiRZxYAUqfI9ls5wLIPI+5plTLOrFJIPeohMOVNdFZqiUiB55QHIqA==
-
-iso-error@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/iso-error/-/iso-error-5.0.0.tgz#3a15940dc9a5a36b67007b5ab66192a4dcd83740"
   integrity sha512-+AhfqtuERYVT+weWCewUQNA0wqcL66OSfPcX5ojnrOSa/V051QFLHK3XlxTyH/fyk1k6TMfE4QDkESAnnvihOw==
@@ -7167,6 +7162,14 @@ type-plus@^4.16.0, type-plus@^4.18.0, type-plus@^4.18.1:
   dependencies:
     tersify "^3.10.2"
     unpartial "^1.0.3"
+
+type-plus@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/type-plus/-/type-plus-5.0.0.tgz#7551429fc15970545f253dd4db106247b1df3770"
+  integrity sha512-nKp5pOQDldmR9BdEjLplLFwiXTVhOK2kReBSgVJ65URDLXCqENYzVDCONaExADIIc1CAGzvzTkB0TUgMAWR2qQ==
+  dependencies:
+    tersify "^3.11.1"
+    unpartial "^1.0.4"
 
 typescript@^4.6.4:
   version "4.7.3"
