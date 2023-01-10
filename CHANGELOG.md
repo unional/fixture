@@ -1,3 +1,10 @@
+## [3.2.9](https://github.com/unional/fixture/compare/v3.2.8...v3.2.9) (2023-01-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency iso-error to v6 ([#176](https://github.com/unional/fixture/issues/176)) ([2ee0ed1](https://github.com/unional/fixture/commit/2ee0ed15314d37a47238000d328da20be685063e))
+
 ## [3.2.8](https://github.com/unional/fixture/compare/v3.2.7...v3.2.8) (2022-12-14)
 
 
