@@ -4156,6 +4156,11 @@ iso-error@^5.0.0:
   resolved "https://registry.yarnpkg.com/iso-error/-/iso-error-5.0.0.tgz#3a15940dc9a5a36b67007b5ab66192a4dcd83740"
   integrity sha512-+AhfqtuERYVT+weWCewUQNA0wqcL66OSfPcX5ojnrOSa/V051QFLHK3XlxTyH/fyk1k6TMfE4QDkESAnnvihOw==
 
+iso-error@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/iso-error/-/iso-error-6.0.0.tgz#ecd085fb672bf876e26f795ea199edef10ea9cc5"
+  integrity sha512-5rbZLnE/HhN1I9JA0zXtDG1LHzaXXGejhP5yRRmtK50B1DKD1ppZbf848USXE1wvZNxESbyIs3lRrNVcd6F0Fg==
+
 issue-parser@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/issue-parser/-/issue-parser-6.0.0.tgz#b1edd06315d4f2044a9755daf85fdafde9b4014a"
