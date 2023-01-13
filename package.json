@@ -57,7 +57,7 @@
     "minimatch": "^5.1.1",
     "mkdirp": "^1.0.4",
     "pad-left": "^2.1.0",
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.0.0",
     "standard-log": "^11.5.0",
     "standard-log-color": "^11.5.0",
     "tersify": "^3.11.1",
