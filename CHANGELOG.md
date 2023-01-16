@@ -1,3 +1,10 @@
+## [3.2.10](https://github.com/unional/fixture/compare/v3.2.9...v3.2.10) (2023-01-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency mkdirp to v2 ([#181](https://github.com/unional/fixture/issues/181)) ([813d212](https://github.com/unional/fixture/commit/813d212649a0b47c1bcc4f36c88b80de2baa188f))
+
 ## [3.2.9](https://github.com/unional/fixture/compare/v3.2.8...v3.2.9) (2023-01-10)
 
 
