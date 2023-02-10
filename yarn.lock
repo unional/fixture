@@ -1438,16 +1438,16 @@
   dependencies:
     "@octokit/openapi-types" "^13.4.0"
 
-"@repobuddy/jest@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@repobuddy/jest/-/jest-2.2.1.tgz#dce1ada0734dad29a6470ce713dd6052dbf12e68"
-  integrity sha512-D54Rg0auxvOmQDOmMn9Q/epyU06Q8x06dfIn4nqnV1qntJXIm7sLx0KAoO2GI2hjI+KtzzgbfAa3f1jFMTpgcg==
+"@repobuddy/jest@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@repobuddy/jest/-/jest-3.0.0.tgz#9762793f5f64e83abb4f5a33248fc95dbf03af41"
+  integrity sha512-VNjT+l3dDEFSC5cAPsNEi05ik4wY1ZwCIgWbRiAb50WSiZ3CH+ctnfYSGrYQuqc31NPtiB1fSKMVjMD0qw/QUQ==
   dependencies:
     jest-resolve "^29.3.1"
     read-pkg-up "^7.0.1"
-    resolve.imports "^1.2.3"
+    resolve.imports "^2.0.0"
     satisfier "^5.4.2"
-    type-plus "^4.18.1"
+    type-plus "^5.0.0"
 
 "@rushstack/eslint-patch@^1.2.0":
   version "1.2.0"
@@ -5998,6 +5998,11 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
+pattern-key-compare@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/pattern-key-compare/-/pattern-key-compare-2.0.0.tgz#07403005f1098c4fb6379c83f718662bcabbcf8a"
+  integrity sha512-b+yp/Q0KwFotxRgemVsNQ4qyqcA/LxzyfSjqJ7maKSlYTRmaUffwfX07l7KdxkVdc89k6WYtC3SwFCEo8GhbWQ==
+
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.0.0.tgz#cb5bdc74ff3f51892236eaf79d68bc44564ab81c"
@@ -6360,10 +6365,12 @@ resolve.exports@^1.1.0:
   resolved "https://registry.yarnpkg.com/resolve.exports/-/resolve.exports-1.1.0.tgz#5ce842b94b05146c0e03076985d1d0e7e48c90c9"
   integrity sha512-J1l+Zxxp4XK3LUDZ9m60LRJF/mAe4z6a4xyabPHk7pvK5t35dACV32iIjJDFeWZFfZlO29w6SZ67knR0tHzJtQ==
 
-resolve.imports@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/resolve.imports/-/resolve.imports-1.2.3.tgz#9a2ba1f3221fc372f88de68eae476af4d8d71a13"
-  integrity sha512-/NPVFOO6c/Rwy9jARc/8v2kb8Y9+Peh+JPKPZdKyPgaAIwkbw+Yipy5X5j9nKSbw2ZW2XiNouXC4Gik/w1HTIw==
+resolve.imports@^2.0.0:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/resolve.imports/-/resolve.imports-2.0.3.tgz#36c3dca3842f50fc36d2caf6dacc35ce0518c82e"
+  integrity sha512-aQaI4EGxTXnhA9EWScjgcpuUAbm51MXGkIHQ0WOEUyFMNjb8Yp/jIKGUu6y1SXMYG3FhTqnnscFNxs2+Pjp9YQ==
+  dependencies:
+    pattern-key-compare "^2.0.0"
 
 resolve@^1.10.0, resolve@^1.18.1:
   version "1.22.0"
@@ -7153,7 +7160,7 @@ type-plus@^4.10.1:
     tersify "^3.10.2"
     unpartial "^0.7.5"
 
-type-plus@^4.16.0, type-plus@^4.18.0, type-plus@^4.18.1:
+type-plus@^4.16.0, type-plus@^4.18.0:
   version "4.18.1"
   resolved "https://registry.yarnpkg.com/type-plus/-/type-plus-4.18.1.tgz#0aeb12a1ed92f2523a9308d00c5afa35e2ffb7e1"
   integrity sha512-/Dq0K/TUedajerhr2JuXhw44V2tiAniGvyZJL23PqxjUzxrXeASWvfi01Bo8o6mudRXJL/sfBD+KZiHSzrhZ9g==
