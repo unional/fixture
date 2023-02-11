@@ -1,3 +1,10 @@
+## [3.2.12](https://github.com/unional/fixture/compare/v3.2.11...v3.2.12) (2023-02-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency execa to v7 ([#186](https://github.com/unional/fixture/issues/186)) ([9e8d62d](https://github.com/unional/fixture/commit/9e8d62d047ae147fa5ec15d02f44dc49de7df924))
+
 ## [3.2.11](https://github.com/unional/fixture/compare/v3.2.10...v3.2.11) (2023-01-16)
 
 
