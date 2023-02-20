@@ -1,3 +1,10 @@
+## [3.2.13](https://github.com/unional/fixture/compare/v3.2.12...v3.2.13) (2023-02-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency minimatch to v7 ([#187](https://github.com/unional/fixture/issues/187)) ([839dfcf](https://github.com/unional/fixture/commit/839dfcfce5d593af4aa4539626ceb468b4f6fe53))
+
 ## [3.2.12](https://github.com/unional/fixture/compare/v3.2.11...v3.2.12) (2023-02-11)
 
 
