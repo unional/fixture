@@ -54,7 +54,7 @@
     "glob": "^8.0.3",
     "iso-error": "^6.0.0",
     "js-yaml": "^4.1.0",
-    "minimatch": "^6.0.0",
+    "minimatch": "^7.0.0",
     "mkdirp": "^2.0.0",
     "pad-left": "^2.1.0",
     "rimraf": "^3.0.2",
