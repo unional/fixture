@@ -61,7 +61,7 @@
     "standard-log": "^11.5.0",
     "standard-log-color": "^11.5.0",
     "tersify": "^3.11.1",
-    "type-plus": "^5.0.0"
+    "type-plus": "^6.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
