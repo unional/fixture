@@ -7179,10 +7179,10 @@ type-plus@^4.16.0, type-plus@^4.18.0, type-plus@^4.18.1:
     tersify "^3.10.2"
     unpartial "^1.0.3"
 
-type-plus@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/type-plus/-/type-plus-5.0.0.tgz#7551429fc15970545f253dd4db106247b1df3770"
-  integrity sha512-nKp5pOQDldmR9BdEjLplLFwiXTVhOK2kReBSgVJ65URDLXCqENYzVDCONaExADIIc1CAGzvzTkB0TUgMAWR2qQ==
+type-plus@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/type-plus/-/type-plus-6.0.0.tgz#0ad1ace3dafbcba9df80418b6302fdf966ba284d"
+  integrity sha512-ezkCTr6LGC87w9LHc83XJnJFfaeEa/nPhr4yzBKv2+Pw0y4FXKHgrJ2GWM4H1nSKzcEPv4q/Sfw4MKmi8NTxbg==
   dependencies:
     tersify "^3.11.1"
     unpartial "^1.0.4"
