@@ -1,3 +1,10 @@
+## [3.2.15](https://github.com/unional/fixture/compare/v3.2.14...v3.2.15) (2023-04-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency minimatch to v8 ([#194](https://github.com/unional/fixture/issues/194)) ([794e5de](https://github.com/unional/fixture/commit/794e5de0eb0a014fb9a8093f0fb44f7245e52d3d))
+
 ## [3.2.14](https://github.com/unional/fixture/compare/v3.2.13...v3.2.14) (2023-03-17)
 
 
