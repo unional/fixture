@@ -6757,13 +6757,13 @@ stack-utils@^2.0.3:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-standard-log-color@^11.5.0:
-  version "11.5.0"
-  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-11.5.0.tgz#b9d4098c3409f76f39151a2a5c125ce807ba5748"
-  integrity sha512-kL76vAP1G8WUbARKwZaI7trBv5FUnRYvesUwO3HrHDLL9ccL0GrhyU5YrgBr7imGXrDWM/kxtAP2tkB/d+VSoQ==
+standard-log-color@^12.0.0:
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/standard-log-color/-/standard-log-color-12.0.2.tgz#8cb9889846c679dff122500bb2e16124027ae1c9"
+  integrity sha512-0QoHMYx1zrOUY3w2XKqmujdF7EFmFKVDQ9wEL8Dk4EZgVCbcIBTXY65bl2AoMGSWuZdnFwFIkuC7/k9Ibw3JeA==
   dependencies:
     color-map "^2.0.6"
-    supports-color "^8.1.1"
+    supports-color "^9.0.0"
     unpartial "^1.0.4"
 
 standard-log@^11.5.0:
@@ -6919,12 +6919,17 @@ supports-color@^7.0.0, supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-supports-color@^8.0.0, supports-color@^8.1.1:
+supports-color@^8.0.0:
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-8.1.1.tgz#cd6fc17e28500cff56c1b86c0a7fd4a54a73005c"
   integrity sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==
   dependencies:
     has-flag "^4.0.0"
+
+supports-color@^9.0.0:
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-9.3.1.tgz#34e4ad3c71c9a39dae3254ecc46c9b74e89e15a6"
+  integrity sha512-knBY82pjmnIzK3NifMo3RxEIRD9E0kIzV4BKcyTZ9+9kWgLMxd4PrsTSMoFQUabgRBbF8KOLRDCyKgNV+iK44Q==
 
 supports-hyperlinks@^2.2.0:
   version "2.2.0"
