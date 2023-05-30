@@ -1,3 +1,10 @@
+## [3.2.17](https://github.com/unional/fixture/compare/v3.2.16...v3.2.17) (2023-05-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency type-plus to v7 ([#205](https://github.com/unional/fixture/issues/205)) ([c9e6148](https://github.com/unional/fixture/commit/c9e6148817aa218f6a8985a035732feead9efa6d))
+
 ## [3.2.16](https://github.com/unional/fixture/compare/v3.2.15...v3.2.16) (2023-04-13)
 
 
