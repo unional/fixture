@@ -6,7 +6,6 @@
 [![GitHub NodeJS][github-nodejs]][github-action-url]
 [![Codecov][codecov-image]][codecov-url]
 
-[![Semantic Release][semantic-release-image]][semantic-release-url]
 
 [![Visual Studio Code][vscode-image]][vscode-url]
 
@@ -170,15 +169,13 @@ yarn build
 yarn lint
 ```
 
-[codecov-image]: https://codecov.io/gh/unional/fixture/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/unional/fixture
+[codecov-image]: https://codecov.io/gh/cyberuni/fixture/branch/main/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/cyberuni/fixture
 [downloads-image]: https://img.shields.io/npm/dm/@unional/fixture.svg?style=flat
 [downloads-url]: https://npmjs.org/package/@unional/fixture
-[github-action-url]: https://github.com/unional/fixture/actions
-[github-nodejs]: https://github.com/unional/fixture/workflows/nodejs/badge.svg
+[github-action-url]: https://github.com/cyberuni/fixture/actions
+[github-nodejs]: https://github.com/cyberuni/fixture/actions/workflows/release.yml/badge.svg
 [npm-image]: https://img.shields.io/npm/v/@unional/fixture.svg?style=flat
 [npm-url]: https://npmjs.org/package/@unional/fixture
-[semantic-release-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
-[semantic-release-url]: https://github.com/semantic-release/semantic-release
 [vscode-image]: https://img.shields.io/badge/vscode-ready-green.svg
 [vscode-url]: https://code.visualstudio.com/

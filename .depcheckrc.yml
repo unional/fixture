@@ -1,9 +1,9 @@
 ignores:
   - "@commitlint/*"
   - "@repobuddy/jest"
-  - "@semantic-release/*"
+  - "@changesets/cli"
   - "@types/jest"
   - jest-*
-  - semantic-release
+  - rimraf
   - standard-log-color
   - ts-jest
