@@ -51,11 +51,11 @@ importers:
         specifier: ^3.0.2
         version: 3.0.2
       standard-log:
-        specifier: ^11.5.0
-        version: 11.5.2
+        specifier: ^12.0.0
+        version: 12.1.2
       standard-log-color:
         specifier: ^12.0.0
-        version: 12.1.2(standard-log@11.5.2)
+        version: 12.1.2(standard-log@12.1.2)
       tersify:
         specifier: ^3.11.1
         version: 3.12.1
@@ -2571,8 +2571,8 @@ packages:
     peerDependencies:
       standard-log: '>=11.0.1'
 
-  standard-log@11.5.2:
-    resolution: {integrity: sha512-ucM5UTaAJgN6RQVoDHoP0K6dqJEeVbm1+V4HJ57PcykZNnzWgaXFTCJMffFdRqL/4k+ctIrtWEQxzczu+9XjhQ==}
+  standard-log@12.1.2:
+    resolution: {integrity: sha512-vFTFTkiZhHg8PGpp7wnOPJsQQsO2DMX1bnEAVms8LF9IdJWNGGMD+1btV5pWUkFb7p/qDHUhZqN/do+nsg0rPQ==}
 
   string-length@4.0.2:
     resolution: {integrity: sha512-+l6rNN5fYHNhZZy41RXsYptCjA2Igmq4EG7kZAYFQI1E1VTXarr6ZPXBg6eq7Y6eK4FEhY6AJlyuFIb/v/S0VQ==}
@@ -2765,9 +2765,6 @@ packages:
 
   type-plus@5.6.0:
     resolution: {integrity: sha512-LAIvZzs6mKXYHzwRfGeOuWKsE5jHndwWlLheulMl6eWDSGa1bfZCd0aLQSMgP3HZTbazx/P2UumCqtOz5AMctA==}
-
-  type-plus@6.8.1:
-    resolution: {integrity: sha512-yEv9ZE4Lw7fUGQOUYGtUoRJrC46Uta2U2HnpuvIVnwFVmzMP9oE5on7xOxsT39o0hk2lkFghZqlba9GvmW0/rw==}
 
   type-plus@7.6.2:
     resolution: {integrity: sha512-qUlXv9Y0/W56pg38m275IMD3WA03QbVoqNY16S3kmwtuA4gOT2iheyUdOp8NWrmXWpf7om98hzr7AZD/eW2jLA==}
@@ -5731,19 +5728,19 @@ snapshots:
     dependencies:
       escape-string-regexp: 2.0.0
 
-  standard-log-color@12.1.2(standard-log@11.5.2):
+  standard-log-color@12.1.2(standard-log@12.1.2):
     dependencies:
       color-map: 2.0.6
-      standard-log: 11.5.2
+      standard-log: 12.1.2
       supports-color: 8.1.1
       unpartial: 1.0.5
 
-  standard-log@11.5.2:
+  standard-log@12.1.2:
     dependencies:
       '@just-func/types': 0.5.1
       iso-error: 6.0.3
       ms: 2.1.3
-      type-plus: 6.8.1
+      type-plus: 7.6.2
       upper-case: 2.0.2
 
   string-length@4.0.2:
@@ -5910,11 +5907,6 @@ snapshots:
   type-fest@4.41.0: {}
 
   type-plus@5.6.0:
-    dependencies:
-      tersify: 3.12.1
-      unpartial: 1.0.5
-
-  type-plus@6.8.1:
     dependencies:
       tersify: 3.12.1
       unpartial: 1.0.5
