@@ -70,7 +70,7 @@
     "@changesets/cli": "^3.0.0",
     "@commitlint/cli": "^21.0.0",
     "@commitlint/config-conventional": "^21.0.0",
-    "@repobuddy/jest": "^2.2.1",
+    "@repobuddy/jest": "^5.0.0",
     "@types/glob": "^8.0.0",
     "@types/jest": "^29.2.4",
     "@types/js-yaml": "^4.0.5",
